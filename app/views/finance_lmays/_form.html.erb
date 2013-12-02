@@ -1,0 +1,33 @@
+<%= form_for(@finance_lmay) do |f| %>
+  <% if @finance_lmay.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@finance_lmay.errors.count, "error") %> prohibited this finance_lmay from being saved:</h2>
+
+      <ul>
+      <% @finance_lmay.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :incomeexpense %><br>
+    <%= f.text_field :incomeexpense %>
+  </div>
+  <div class="field">
+    <%= f.label :category %><br>
+    <%= f.text_area :category %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.text_field :amount %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
