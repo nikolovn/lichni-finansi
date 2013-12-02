@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :incomeexpense %><br>
-    <%= f.text_field :incomeexpense %>
+    <%= f.select(:incomeexpense, options_for_select(['income', 'expense'])) %>
   </div>
   <div class="field">
     <%= f.label :category %><br>
