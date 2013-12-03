@@ -14,6 +14,7 @@ class FinanceLmaysController < ApplicationController
 
   # GET /finance_lmays/new
   def new
+    show_all_categories
     @finance_lmay = FinanceLmay.new
   end
 
@@ -40,6 +41,7 @@ class FinanceLmaysController < ApplicationController
   # PATCH/PUT /finance_lmays/1
   # PATCH/PUT /finance_lmays/1.json
   def update
+    show_all_categories
     respond_to do |format|
       if @finance_lmay.update(finance_lmay_params)
         format.html { redirect_to @finance_lmay, notice: 'Finance lmay was successfully updated.' }
@@ -59,6 +61,10 @@ class FinanceLmaysController < ApplicationController
       format.html { redirect_to finance_lmays_url }
       format.json { head :no_content }
     end
+  end
+
+  def show_all_categories
+    @categories = Category.all
   end
 
   private
