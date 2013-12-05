@@ -20,6 +20,7 @@ class FinanceLmaysController < ApplicationController
 
   # GET /finance_lmays/1/edit
   def edit
+    show_all_categories
   end
 
   # POST /finance_lmays
