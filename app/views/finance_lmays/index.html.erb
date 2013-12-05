@@ -3,7 +3,7 @@
 <table>
   <thead>
     <tr>
-      <th>Incomeexpense</th>
+      <th>Income</th>
       <th>Category</th>
       <th>Description</th>
       <th>Amount</th>
@@ -14,7 +14,7 @@
   </thead>
 
   <tbody>
-    <% @finance_lmays.each do |finance_lmay| %>
+    <% @incomes.each do |finance_lmay| %>
       <tr>
         <td><%= finance_lmay.incomeexpense %></td>
         <td><%= finance_lmay.category %></td>
@@ -25,9 +25,50 @@
         <td><%= link_to 'Destroy', finance_lmay, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
+    
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Expense</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Amount</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @expences.each do |finance_lmay| %>
+      <tr>
+        <td><%= finance_lmay.incomeexpense %></td>
+        <td><%= finance_lmay.category %></td>
+        <td><%= finance_lmay.description %></td>
+        <td><%= finance_lmay.amount %></td>
+        <td><%= link_to 'Show', finance_lmay %></td>
+        <td><%= link_to 'Edit', edit_finance_lmay_path(finance_lmay) %></td>
+        <td><%= link_to 'Destroy', finance_lmay, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    
   </tbody>
 </table>
 
-<br>
+<table>
+  <thead>
+    <tr>
+      <th>Balance</th>
+    </tr>
+  </thead>
 
+  <tbody>
+      <tr>
+        <td><%= @balance %></td>
+    </tr>
+  </tbody>
+</table>
+<br>
 <%= link_to 'New Finance lmay', new_finance_lmay_path %>

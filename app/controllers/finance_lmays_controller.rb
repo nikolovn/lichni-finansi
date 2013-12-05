@@ -5,6 +5,9 @@ class FinanceLmaysController < ApplicationController
   # GET /finance_lmays.json
   def index
     @finance_lmays = FinanceLmay.all
+    @incomes = FinanceLmay.incomes
+    @expences = FinanceLmay.expenses
+    @balance = FinanceLmay.incomes.sum('amount') - FinanceLmay.expenses.sum('amount')
   end
 
   # GET /finance_lmays/1
