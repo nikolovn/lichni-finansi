@@ -1,4 +1,6 @@
 class FinanceLmaysController < ApplicationController
+  before_filter :authenticate_user!
+
   before_action :set_finance_lmay, only: [:show, :edit, :update, :destroy]
 
   # GET /finance_lmays

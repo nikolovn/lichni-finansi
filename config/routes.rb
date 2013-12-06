@@ -1,6 +1,11 @@
 Finance::Application.routes.draw do
+  root to: 'finance_lmays#index'
+
+  devise_for :users
+  devise_for :models
   resources :finance_lmays
   resources :categories
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
