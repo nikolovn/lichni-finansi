@@ -1,10 +1,12 @@
 Finance::Application.routes.draw do
+  get "graphics/index"
   root to: 'finance_lmays#index'
 
   devise_for :users
   devise_for :models
   resources :finance_lmays
   resources :categories
+  resources :graphics
 
 
   # The priority is based upon order of creation: first created -> highest priority.
