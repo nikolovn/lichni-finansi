@@ -35,7 +35,7 @@ class FinanceLmaysController < ApplicationController
 
     respond_to do |format|
       if @finance_lmay.save
-        format.html { redirect_to @finance_lmay, notice: 'Finance lmay was successfully created.' }
+        format.html { redirect_to @finance_lmay, notice: "FinanceLmay was successfully created." }
         format.json { render action: 'show', status: :created, location: @finance_lmay }
       else
         format.html { render action: 'new' }
@@ -81,6 +81,6 @@ class FinanceLmaysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def finance_lmay_params
-      params.require(:finance_lmay).permit(:incomeexpense, :category, :description, :amount)
+      params.require(:finance_lmay).permit(:incomeexpense, :category, :description, :amount, :category_id)
     end
 end

@@ -16,8 +16,8 @@
     <%= f.select(:incomeexpense, options_for_select(['income', 'expense'])) %>
   </div>
   <div class="field">
-    <%= f.label :category %><br>
-    <%= f.select(:category, options_from_collection_for_select(@categories, 'name', 'name')) %>
+    <%= f.label :category_id %><br>
+    <%= f.select(:category_id, options_from_collection_for_select(@categories, 'id', 'name')) %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
