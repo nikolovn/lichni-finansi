@@ -1,10 +1,12 @@
 <h1>Graphics</h1>
-<%=@amount %>
+<% @categories_amounts.each do |category_amount| %>
+<%=category_amount["name"] %> - <%=category_amount["sum"] %><br>
+<% end %>
 <p> <%= image_tag(Gchart.pie_3d(
       :title => 'Expense', 
       :size => '600x400',
       :data => @amount, 
-      :labels => @catego,
+      :legend => @categories,
       :bg => {:color => '76A4FB', :type => 'gradient'}, 
       :bar_colors => 'ff0000,00ff00' )) %>
 </p>
