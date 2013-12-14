@@ -4,8 +4,11 @@ class FinanceLmay < ActiveRecord::Base
   scope :expenses, -> { where(incomeexpense: 'expense') }
   scope :incomes, -> { where(incomeexpense: 'income') }
 
-  def amount_on_each_categories
-
+  def self.amount_on_each_categories
+    Category.connection.select_all(  "SELECT categories.name, SUM(finance_lmays.amount) FROM categories INNER JOIN finance_lmays ON finance_lmays.category_id = categories.id WHERE finance_lmays.incomeexpense ='expense' GROUP BY categories.name;").to_a
   end
 
+  def self.sum_amounts
+    where(incomeexpense: 'expense').sum('amount')
+  end
 end
