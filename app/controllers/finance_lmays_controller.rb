@@ -6,7 +6,14 @@ class FinanceLmaysController < ApplicationController
   # GET /finance_lmays
   # GET /finance_lmays.json
   def index
-    @finance_lmays = FinanceLmay.all
+    @category_with_transactions = {}
+    
+    @categories = Category.all
+    @categories.each do |category|
+      transaction = FinanceLmay.joins(:category).where("categories.name = '#{category.name}' and finance_lmays.incomeexpense = 'expense'").all
+      @category_with_transactions[category.name] = transaction
+    end
+    @category_with_transactions
     @incomes = FinanceLmay.incomes
     @expences = FinanceLmay.expenses
     @balance = FinanceLmay.incomes.sum('amount') - FinanceLmay.expenses.sum('amount')

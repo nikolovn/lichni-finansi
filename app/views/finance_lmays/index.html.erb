@@ -1,5 +1,5 @@
-<h1>Listing finance_lmays</h1>
-
+<h1>Transactions</h1>
+<h1>Incomes</h1>
 <table>
   <thead>
     <tr>
@@ -31,28 +31,29 @@
 <table>
   <thead>
     <tr>
-      <th>Expense</th>
-      <th>Category</th>
-      <th>Description</th>
-      <th>Amount</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <td><h1>Expense</h1>
+     <% @category_with_transactions.each do |key, transactions| %>
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#<%=key%>">
+                <%=key %>
+                </a>
+              </h4>
+            </div>
+            <div id="<%=key%>" class="panel-collapse collapse collapse">
+              <div class="panel-body">
+                 <% transactions.each do |transaction| %>
+                  <%=transaction.description %>" - "<%=transaction.amount %><br>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </td>
     </tr>
-  </thead>
-
-  <tbody>
-    <% @expences.each do |finance_lmay| %>
-      <tr>
-        <td><%= finance_lmay.incomeexpense %></td>
-        <td><%= finance_lmay.category.name %></td>
-        <td><%= finance_lmay.description %></td>
-        <td><%= finance_lmay.amount %></td>
-        <td><%= link_to 'Show', finance_lmay %></td>
-        <td><%= link_to 'Edit', edit_finance_lmay_path(finance_lmay) %></td>
-        <td><%= link_to 'Destroy', finance_lmay, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
     
   </tbody>
 </table>
@@ -60,7 +61,7 @@
 <table>
   <thead>
     <tr>
-      <th>Balance</th>
+      <th><h1>Balance</h1></th>
     </tr>
   </thead>
 
