@@ -1,0 +1,52 @@
+All applications that form Genesis Gateway Platform needs some tasks to be executed as background jobs for one reason or another. To handle this the apps are using [Resque](https://github.com/resque/resque). More information how it works can be found in the GitHub page. The Resque admin for Admin console, Merchant console and Gateway itself are mounted in the admin application and can be found under System tab.
+
+In the table below all jobs are grouped by apps and queues and a description and use case (if possible) for each is added. There are some notes for refactoring. 
+
+The same table can be found in the attached document in `xlsx` format.
+
+<table>
+    <tr>
+        <td>Application</td>
+        <td>job Queue</td>
+        <td>Job Name</td>
+        <td>Job Description</td>
+    </tr>
+    <tr>
+        <td rowspan = 7>admin_pci</td>
+        <td>-</td>
+        <td>base_job</td>
+        <td>This is a base job class which should be used as a parent for the jobs that use DB connection. The reason for this is that the connection 'gets lost' and must be resetted. This is done in perform_with_connections method in the BaseJob class. To achieve this alias_method_chain from Rails is used to invoke ActiveRecord::Base.verifi_active_connections before executing perform method.</td>
+    </tr>
+    <tr>
+        <td>-</td>
+        <td>export_job</td>
+        <td>This file defines a module which is used to encapsulate all tasks that are performing CSV exports. It is used to benchmark and log the result of some export jobs in the application.
+Its defines a single method 'perform_with_logging' which expect a ExportFile model and a block. The status of the model is updated appropiately and the block is benchmarked and execuded in a begin/rescue block.</td>
+    </tr>
+    <tr>
+        <td rowspan = 3> csv_exports </td>
+        <td> payment_transaction_csv_job </td>
+        <td>This file defines a module which is used to encapsulate all tasks that are performing CSV exports. It is used to benchmark and log the result of some export jobs in the application.
+Its defines a single method 'perform_with_logging' which expect a ExportFile model and a block. The status of the model is updated appropiately and the block is benchmarked and execuded in a begin/rescue block.</td>
+    </tr>
+    <tr>
+        <td> eighty_bytes_confirmation_job </td>
+        <td>This job is enqueued from payment_transactions_bytes_job and starts immediately. It takes the 80 bytes file id as param and tries to upload it to the remote SFTP server. If the job fails for some reason it reenqueues itself with a 5 minutes delay. This is done 5 times and after that the recursion breaks. The number of upload attempts and the stacktrace of the raised exceptions are recoreded as field in EbfFile model for further exploration. If the job succeeds to upload the file it enqueues a new job for the next whole hour - eighty_bytes_confirmation_job which handles the confirmation process.</td>
+    </tr>
+    <tr>
+        <td> chargeback_management_job </td>
+        <td>This job is enqueued from upload_ebf_file_job. It tries to download a confirmation file for the EbfFile passed as param. If this fails the job reenqueues itself with 30 minutes delay. This is done 3 times and after that the recursion breaks. The donwlowad attempts and the stactrace of the raised exception are stored in the model. If the job succeeds to download a file it parses its content using SecureGate::Parsers::EightyBytes::Parser class which converts it to hash and stores it in the model.</td>
+    </tr>
+    <tr>
+        <td rowspan = 2> merchant_pci </td>
+        <td> analytics </td>
+        <td> tc40_management_job </td>
+        <td>All *_management jobs are generating reports for statistical purposes and have similar behaviour. In the perform method first they include the following modules: ChargebackManagement, VolumeManagement, GmcmpManagement, Tc40Management, FraudManagement into these entities: Merchant, Terminal, Contract. Also tree extra scopes are added to the TransactionNote entity. After that a CachedRatio is created for Terminal, Contract, Merchant and one Global. After that the information for the ratio - volumes, counts, etc. for different periods are filled with valid information according to the exact report that is created - chargeback, GMCMP or TC40. Chargeback management is pretty self explanatory. GMCMP stands for Global Merchant Chargeback Monitoring Program and it is operated by Visa International and is intented to reduce chagebacks. TC40 is a fraud reporting for VisaNet.</td>
+    </tr>
+    <tr>
+        <td> analytics </td>
+        <td> - </td>
+        <td> export_job </td>
+        <td>This file defines a module which is used to encapsulate all tasks that are performing CSV exports. It is used to benchmark and log the result of some export jobs in the application. Its defines a single method 'perform_with_logging' which expect a ExportFile model and a block. The status of the model is updated appropiately and the block is benchmarked and execuded in a begin/rescue block.</td>
+    </tr>
+</table>

@@ -37,15 +37,22 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h4 class="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#<%=key%>">
-                <%=key %>
+                <a data-toggle="collapse" data-parent="#accordion" href="#<%=key.id%>">
+                <%=key.name %>
                 </a>
               </h4>
             </div>
-            <div id="<%=key%>" class="panel-collapse collapse collapse">
+      
+            
+            <div id="<%=key.id%>" class="panel-collapse collapse collapse">
               <div class="panel-body">
                  <% transactions.each do |transaction| %>
-                  <%=transaction.description %>" - "<%=transaction.amount %><br>
+                    <%=transaction.description %> 
+                      <%=transaction.amount %>
+                      <%= link_to 'Show', transaction %>
+  
+                      <%= link_to 'Edit', edit_finance_lmay_path(transaction) %>
+                      <%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %><br>
                 <% end %>
               </div>
             </div>

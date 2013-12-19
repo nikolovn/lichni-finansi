@@ -11,7 +11,7 @@ class FinanceLmaysController < ApplicationController
     @categories = Category.all
     @categories.each do |category|
       transaction = FinanceLmay.joins(:category).where("categories.name = '#{category.name}' and finance_lmays.incomeexpense = 'expense'").all
-      @category_with_transactions[category.name] = transaction
+      @category_with_transactions[category] = transaction
     end
     @category_with_transactions
     @incomes = FinanceLmay.incomes
@@ -27,12 +27,14 @@ class FinanceLmaysController < ApplicationController
   # GET /finance_lmays/new
   def new
     show_all_categories
+    finance_lmay_incomes
     @finance_lmay = FinanceLmay.new
   end
 
   # GET /finance_lmays/1/edit
   def edit
     show_all_categories
+    finance_lmay_incomes
   end
 
   # POST /finance_lmays
@@ -79,6 +81,10 @@ class FinanceLmaysController < ApplicationController
   def show_all_categories
     @categories = Category.all
   end
+  
+  def finance_lmay_incomes
+    @finance_lmay_incomes= FinanceLmay.incomes
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -88,6 +94,6 @@ class FinanceLmaysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def finance_lmay_params
-      params.require(:finance_lmay).permit(:incomeexpense, :category, :description, :amount, :category_id)
+      params.require(:finance_lmay).permit(:incomeexpense, :category, :description, :amount, :category_id, :income_relation_id)
     end
 end
