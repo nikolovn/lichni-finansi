@@ -19,6 +19,18 @@ gem 'twitter-bootstrap-rails', '~> 2.2.8'
 gem "less-rails"
 gem 'therubyracer'
 
+group :development, :test do
+  gem 'rspec-rails', '~> 2.13.1'
+end
+
+group :test do
+  gem 'guard-rspec', '~> 3.1.0'
+  gem 'guard-spork', '~> 1.5.1'
+  gem 'factory_girl_rails', '4.3.0'
+  gem 'database_cleaner', '~> 1.2.0'
+  gem 'capybara', '~> 2.2.1'
+end
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
