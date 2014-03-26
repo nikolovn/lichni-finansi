@@ -16,32 +16,32 @@ feature 'Enter transactions' do
 
     visit 'categories'
 
-    save_and_open_page
-
     expect(page).to have_content 'Food and drinks'
     expect(page).to have_content 'Transport and comunications'
   end
 
-  scenario 'Add fields and Enter the new transaction' do
+  scenario 'Add fields and Enter the new transaction', :focus do
     FactoryGirl.create(:category, name: 'Food and drinks')
-
-    visit 'categoies'
-
-    within('#food_and_drink') do 
-      click on 'add_transaction'
+    
+    visit 'categories'
+    binding.pry
+    within catagory_panel do 
+      save_and_open_page
+      click_on 'Add transactions'
     end
+    
 
-    within("#food_and_drink") do
-      fill_in 'count', with:2
-      fill_in 'date', with: '03-03-2014'
-      fill_in 'amount', with: '25.00'
-      fill_in 'place', with: 'Kaufland'
-      fill_in 'description', with: 'fruits'
+    # within("#food_and_drink") do
+    #   fill_in 'count', with:2
+    #   fill_in 'date', with: '03-03-2014'
+    #   fill_in 'amount', with: '25.00'
+    #   fill_in 'place', with: 'Kaufland'
+    #   fill_in 'description', with: 'fruits'
 
-      click_on 'save'
+    #   click_on 'save'
 
-      expect('page').to have_content 'Successfully added new transaction'
-    end
+    #   expect('page').to have_content 'Successfully added new transaction'
+    # end
   end
 
   scenario 'Remove fields when do not want to enter a transaction in this directory' do
@@ -64,5 +64,9 @@ feature 'Enter transactions' do
       expect(page).not_to have_field?('amount', type: text)
       expect(page).not_to have_field?('description', type: text)
     end
+  end
+
+  def catagory_panel
+    find('#food_and_drinks')
   end
 end

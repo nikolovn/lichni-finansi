@@ -1,10 +1,10 @@
 Finance::Application.routes.draw do
   get "graphics/index"
-  root to: 'finance_lmays#index'
+  root to: 'transactions#index'
 
   devise_for :users
   devise_for :models
-  resources :finance_lmays
+  resources :transactions
   resources :categories
   resources :graphics
 

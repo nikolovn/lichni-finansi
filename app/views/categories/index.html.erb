@@ -13,7 +13,7 @@
   <tbody>
     <% @categories.each do |category| %>
       <tr>
-        <td><%= category.name %></td>
+        <td><div id = "food_and_drinks" ><%= category.name %> <%= link_to 'Add transactions', new_transaction_path, :remote => true %></div></td>
       </tr>
     <% end %>
   </tbody>
