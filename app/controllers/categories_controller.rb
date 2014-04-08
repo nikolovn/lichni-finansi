@@ -7,6 +7,7 @@ class CategoriesController < ApplicationController
   # GET /categories.json
   def index
     @categories = Category.all
+    @transaction = Transaction.new
   end
 
   # GET /categories/1

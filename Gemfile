@@ -30,6 +30,7 @@ group :test do
   gem 'database_cleaner', '~> 1.2.0'
   gem 'capybara', '~> 2.2.1'
   gem 'launchy', '~> 2.4.2'
+  gem 'selenium-webdriver', '~> 2.41.0'
 end
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes

@@ -20,25 +20,18 @@ feature 'Enter transactions' do
     expect(page).to have_content 'Transport and comunications'
   end
 
-  scenario 'Add fields and Enter the new transaction', :focus do
-    FactoryGirl.create(:category, name: 'Food and drinks')
-    
+  scenario 'Add fields and Enter the new transaction', :focus , js:true , driver: :rack_test do
+    FactoryGirl.create(:category, name: 'food_and_drinks')
+    Capybara.ignore_hidden_elements = nil
+
     visit 'categories'
-    binding.pry
-    within catagory_panel do 
-      save_and_open_page
-      click_on 'Add transactions'
-    end
-    
+    click_on 'add_food_and_drinks_transactions'
+     #  fill_in 'date', with: '03-03-2014'
+       fill_in 'transaction_amount', with: '25.00'
+      # fill_in 'place', with: 'Kaufland'
+       fill_in 'transaction_description', with: 'fruits'
 
-    # within("#food_and_drink") do
-    #   fill_in 'count', with:2
-    #   fill_in 'date', with: '03-03-2014'
-    #   fill_in 'amount', with: '25.00'
-    #   fill_in 'place', with: 'Kaufland'
-    #   fill_in 'description', with: 'fruits'
-
-    #   click_on 'save'
+       click_on 'Create Transaction'
 
     #   expect('page').to have_content 'Successfully added new transaction'
     # end
