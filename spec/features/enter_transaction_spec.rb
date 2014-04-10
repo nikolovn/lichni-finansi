@@ -33,7 +33,7 @@ feature 'Enter transactions' do
 
        click_on 'Create Transaction'
 
-    #   expect('page').to have_content 'Successfully added new transaction'
+       expect(page).to have_content 'Successfully added new transaction'
     # end
   end
 

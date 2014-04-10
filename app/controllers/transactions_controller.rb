@@ -1,6 +1,7 @@
 class TransactionsController < ApplicationController
   before_filter :authenticate_user!
-  
+  skip_before_action :verify_authenticity_token
+
   def new
     @transaction = Transaction.new
   end
@@ -13,9 +14,10 @@ class TransactionsController < ApplicationController
 
 
     respond_to do |format|
-        p 'test'
+
       if @transaction.save
-        format.html { redirect_to @transaction, notice: 'Finance lmay was successfully updated.' }
+        flash[:notice] = 'Successfully added new transaction'
+        format.html { redirect_to :controller => 'categories', :action => 'index' }
         format.json { head :no_content }
       else
         format.html { render action: 'new' }
