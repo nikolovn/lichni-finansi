@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @expense_category.name %>
+<%= form_for(@expense_category) do |f| %>
+  <p> ss
+    Name: <%= f.text_field :name %>
+  <% for task in @expense_category.expense_transactions %>
+    <%= fields_for "category[transaction_attributes][]", transaction do |transaction_form| %>
+      <p>
+        Transaction: <%= transaction_form.text_field :name %>
+      </p>
+    <% end %>
+  <% end %>
+  <p><%= submit_tag "Create Project" %></p>
+<% end %>
+</p>
+  </p>
+
+
+
+
+
+

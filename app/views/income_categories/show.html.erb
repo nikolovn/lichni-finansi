@@ -2,11 +2,11 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @category.name %>
-<%= form_for(@category) do |f| %>
+  <%= @income_category.name %>
+<%= form_for(@income_category) do |f| %>
   <p> ss
     Name: <%= f.text_field :name %>
-  <% for task in @category.transactions %>
+  <% for task in @income_category.income_transactions %>
     <%= fields_for "category[transaction_attributes][]", transaction do |transaction_form| %>
       <p>
         Transaction: <%= transaction_form.text_field :name %>

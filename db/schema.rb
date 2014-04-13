@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140316124541) do
+ActiveRecord::Schema.define(version: 20141204174347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,21 @@ ActiveRecord::Schema.define(version: 20140316124541) do
     t.datetime "updated_at"
   end
 
+  create_table "expense_categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "expense_transactions", force: true do |t|
+    t.text     "description"
+    t.text     "place"
+    t.decimal  "amount"
+    t.datetime "date"
+    t.integer  "income_relation"
+    t.integer  "expense_category_id"
+  end
+
   create_table "finance_lmays", force: true do |t|
     t.string   "incomeexpense"
     t.text     "description"
@@ -30,6 +45,19 @@ ActiveRecord::Schema.define(version: 20140316124541) do
     t.datetime "updated_at"
     t.integer  "category_id"
     t.integer  "income_relation_id"
+  end
+
+  create_table "income_categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "income_transactions", force: true do |t|
+    t.text     "description"
+    t.decimal  "amount"
+    t.datetime "date"
+    t.integer  "income_category_id"
   end
 
   create_table "models", force: true do |t|

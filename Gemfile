@@ -15,9 +15,12 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 
-gem 'twitter-bootstrap-rails', '~> 2.2.8'
 gem "less-rails"
 gem 'therubyracer'
+
+gem 'bootstrap-sass', '~> 3.1.1'
+
+gem 'haml', '~> 4.0.5'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.13.1'

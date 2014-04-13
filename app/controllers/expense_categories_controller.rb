@@ -1,4 +1,4 @@
-class CategoriesController < ApplicationController
+class ExpenseCategoriesController < ApplicationController
   before_filter :authenticate_user!
 
   before_action :set_category, only: [:show, :edit, :update, :destroy]
@@ -6,8 +6,8 @@ class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.all
-    @transaction = Transaction.new
+    @expense_categories = ExpenseCategory.all
+    @expense_transaction = ExpenseTransaction.new
   end
 
   # GET /categories/1
@@ -17,7 +17,7 @@ class CategoriesController < ApplicationController
 
   # GET /categories/new
   def new
-    @category = Category.new
+    @expense_category = ExpenseCategory.new
   end
 
   # GET /categories/1/edit
@@ -27,7 +27,7 @@ class CategoriesController < ApplicationController
   # POST /categories
   # POST /categories.json
   def create
-    @category = Category.new(category_params)
+    @category = ExpenseCategory.new(expense_category_params)
 
     respond_to do |format|
       if @category.save
@@ -44,7 +44,7 @@ class CategoriesController < ApplicationController
   # PATCH/PUT /categories/1.json
   def update
     respond_to do |format|
-      if @category.update(category_params)
+      if @category.update(expense_category_params)
         format.html { redirect_to @category, notice: 'Category was successfully updated.' }
         format.json { head :no_content }
       else
@@ -67,11 +67,11 @@ class CategoriesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_category
-      @category = Category.find(params[:id])
+      @expense_category = ExpenseCategory.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def category_params
-      params.require(:category).permit(:name)
+    def expense_category_params
+      params.require(:expense_category).permit(:name)
     end
 end
