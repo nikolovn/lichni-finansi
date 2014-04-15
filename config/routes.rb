@@ -1,5 +1,4 @@
 Finance::Application.routes.draw do
-  get "graphics/index"
   root to: 'income_transactions#index'
 
   devise_for :users
@@ -8,8 +7,13 @@ Finance::Application.routes.draw do
   resources :income_categories
   resources :expense_transactions
   resources :expense_categories
+  resources :all_transactions
+  resources :statistics
   resources :graphics
-
+  
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
