@@ -3,7 +3,18 @@
     <h3 class="panel-title">Filter transactions</h3>
   </div>
   <div class="panel-body">
-    Panel content
+
+
+<%= search_form_for [@q_income_transactions], url: all_transactions_path, method: :get do |f| %>
+  <%= f.label :description_cont %>
+  <%= f.text_field :description_cont %>
+  <%= f.label 'income category' %>
+  <%= f.collection_select :income_category_id_eq, @income_categories, :id, :name, include_blank: true %><br>
+
+
+  
+  <%= f.submit %>
+<% end %>
   </div>
 </div>
 
