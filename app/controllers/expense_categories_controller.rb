@@ -7,6 +7,7 @@ class ExpenseCategoriesController < ApplicationController
   # GET /categories.json
   def index
     @expense_categories = ExpenseCategory.all
+    @income_transactions = IncomeTransaction.all
     @expense_transaction = ExpenseTransaction.new
   end
 

@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Category</th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -18,7 +18,7 @@
         <tr>
           <td><%= category.name %> 
             <div id="<%=category.name%>_transactions" style="display:none;" >
-              <%= render :partial => 'expense_transactions/form' %>
+              <%= render :partial => 'expense_transactions/form' , :locals => {:expense_category_id => category.id} %>
             </div>
             <p>
               <%= link_to_function "Add a transaction" , %Q(document.getElementById("#{category.name}_transactions").style.display = ''), id: %Q(add_#{category.name}_transactions)

@@ -22,6 +22,8 @@ gem 'bootstrap-sass', '~> 3.1.1'
 
 gem 'haml', '~> 4.0.5'
 
+gem 'ransack', '~> 1.2.2'
+
 group :development, :test do
   gem 'rspec-rails', '~> 2.13.1'
 end

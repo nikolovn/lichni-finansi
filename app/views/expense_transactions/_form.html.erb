@@ -11,21 +11,23 @@
     </div>
   <% end %>
   <div id = "income_transaction">
-    
-    <div class="field">
-      <%= f.label :expense_category_id %><br>
-    </div>
-    <div class="field">
-      <%= f.label :income_relation %><br>
-    </div>
-    
+
+     <%= f.hidden_field :expense_category_id, :value => expense_category_id, :id => 'expense_category_id'  %>
     <div class="field">
       <%= f.label :description %><br>
-      <%= f.text_area :description %>
-    </div>
-    <div class="field">
+      <%= f.text_area :description %><br>
+      <%= f.label :date %><br>
+      <%= f.text_field :date %><br>
       <%= f.label :amount %><br>
-      <%= f.text_field :amount %>
+      <%= f.text_field :amount %><br>
+      <%= f.label :income_relation %><br>
+      <%= f.collection_select :income_relation, @income_transactions, :id, :description, include_blank: true %><br>
+      <%= f.label :TYPE %><br>
+      <%= f.select :expense_type, options_for_select([['investment' ,'investment'], ['saving', 'saving'], ['expense', 'expense']]) %>
+
+
+
+    </div>
     </div>
     <div class="actions">
       <%= f.submit %>

@@ -30,6 +30,6 @@ class ExpenseTransactionsController < ApplicationController
   end
 
     def transaction_params
-      params.require(:expense_transaction).permit(:category_id, :income_relation, :description, :amount)
+      params.require(:expense_transaction).permit(:expense_category_id, :income_relation, :description, :date, :amount, :expense_type)
     end
 end

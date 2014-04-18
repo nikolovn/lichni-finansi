@@ -20,14 +20,50 @@
 
 <!-- Tab panes -->
 <div class="tab-content">
-  <div class="tab-pane active" class="tab-pane" id="income">.3..</div>
-  <div class="tab-pane" id="expense">.11..</div>
+  <div class="tab-pane active" class="tab-pane" id="income">
+    <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @income_transactions.each do |transaction| %>
+          <tr>
+            <td><%= transaction.income_category.name %></td>
+            <td><%= transaction.description %></td>
+            <td><%= transaction.amount %></td>
+            <td><%= transaction.date %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane" id="expense">
+    <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @expense_transactions.each do |transaction| %>
+          <tr>
+            <td><%= transaction.expense_category.name %></td>
+            <td><%= transaction.description %></td>
+            <td><%= transaction.amount %></td>
+            <td><%= transaction.date %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
   </div>
 </div>
-
-
-
-
-
-
