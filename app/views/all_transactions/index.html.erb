@@ -1,22 +1,71 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Filter transactions</h3>
-  </div>
-  <div class="panel-body">
-
-
-<%= search_form_for [@q_income_transactions], url: all_transactions_path, method: :get do |f| %>
-  <%= f.label :description_cont %>
-  <%= f.text_field :description_cont %>
-  <%= f.label 'income category' %>
-  <%= f.collection_select :income_category_id_eq, @income_categories, :id, :name, include_blank: true %><br>
-
 
   
-  <%= f.submit %>
-<% end %>
+
+  <div class="row equal">
+    <!--begin panel 1 -->
+    <div class="col-md-4">
+      <div style="text-align:center" class="panel panel-default">
+        <div class="panel-heading">
+          <h1 class="panel-title text-center">Filter all transactions</h1>
+        </div>
+        <!-- end panel-heading -->
+        <div class="panel-body">
+          <%= search_form_for [@q_income_transactions], url: all_transactions_path, method: :get do |f| %>
+            <%= f.label :description_cont %><br>
+            <%= f.text_field :description_cont %> 
+            <%= f.submit %>
+          <% end %>
+        </div>
+        <!-- end panel-body -->
+      </div>
+      <!-- end panel-primary -->
+    </div>
+    <!--end col-md-4 -->
+    <!-- begin panel 2 -->
+    <div class="col-md-4">
+      <div style="text-align:center" class="panel panel-default">
+        <div class="panel-heading">
+          <h1 class="panel-title">Filter income Transactions</h1>
+        </div>
+        <!-- end panel-heading -->
+        <div class="panel-body">
+          <%= search_form_for [@q_income_transactions], url: all_transactions_path, method: :get do |f| %>
+              <%= f.label 'income category' %><br>
+              <%= f.collection_select :income_category_id_eq, @income_categories, :id, :name, include_blank: true %>  
+              <%= f.submit %>
+          <% end %>
+        </div>
+        <!-- end panel-body -->
+      </div>
+      <!-- end panel-primary -->
+    </div>
+    <!-- end col-md-4 -->
+    <!--begin panel 3 -->
+    <div class="col-md-4">
+      <div style="text-align:center" class="panel panel-default">
+        <div class="panel-heading">
+          <h1 class="panel-title">Filter expense transactions</h1>
+        </div>
+        <!-- end panel-heading -->
+        <div class="panel-body">
+          <%= search_form_for [@q_expense_transactions], url: "#{all_transactions_path}#expense", method: :get do |f| %>
+              <%= f.label 'Expense category' %>
+              <%= f.collection_select :expense_category_id_eq, @expense_categories, :id, :name, include_blank: true %><br>
+              <%= f.label 'Income relation' %>
+              <%= f.collection_select :income_relation_eq, @income_transactions, :id, :description, include_blank: true %>  
+              <%= f.submit %>
+          <% end %>
+        </div>
+        <!-- end panel-body -->
+      </div>
+      <!-- end  panel-primary -->
+    </div>
+    <!-- end col-md-4 -->
   </div>
-</div>
+  <!-- end row -->
+
+
+
 
 <div class="panel panel-default">
   <div class="panel-heading">
