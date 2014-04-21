@@ -2,19 +2,19 @@
   <div class="panel panel-default">
     <div class="panel-heading">Income transactions</div>
     <div class="panel-body">
-      <table>
-        <thead>
+<table class="table table-bordered table-hover table-condensed table-striped table-responsive">        <thead>
           <tr>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>Category</th>
+            <th>Action</th>
           </tr>
         </thead>
     <% @income_categories.each do |category| %>
           
             <tr>
               <td><%= category.name %> 
-                <div id="<%=category.name%>_transactions" style="display:none;" >
+                
+              </td>
+              <td><div id="<%=category.name%>_transactions" style="display:none;" >
                   <%= render :partial => 'income_transactions/form', :locals => {:income_category_id => category.id} %>
                 </div>
                 <p>
@@ -23,8 +23,7 @@
 
                   <%= link_to_function "Remove a transaction" , %Q(document.getElementById("#{category.name}_transactions").style.display="none";), id: %Q(remove_#{category.name}_transactions)
                   %>
-                </p>
-              </td>
+                </p></td>
             </tr>
         <% end %>
       </tbody>
