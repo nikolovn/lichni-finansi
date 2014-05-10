@@ -6,7 +6,7 @@ class IncomeCategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @income_categories = IncomeCategory.all
+    @income_categories = current_user.income_category.all
     @income_transaction = IncomeTransaction.new
   end
 
@@ -27,7 +27,7 @@ class IncomeCategoriesController < ApplicationController
   # POST /categories
   # POST /categories.json
   def create
-    @income_category = IncomeCategory.new(income_category_params)
+    @income_category = current_user.income_category.build(income_category_params)
 
     respond_to do |format|
       if @income_category.save
@@ -72,6 +72,6 @@ class IncomeCategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def income_category_params
-      params.require(:income_category).permit(:name)
+      params.require(:income_category).permit(:name, :user_id)
     end
 end

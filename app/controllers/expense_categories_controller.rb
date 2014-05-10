@@ -1,13 +1,13 @@
 class ExpenseCategoriesController < ApplicationController
   before_filter :authenticate_user!
-
+  
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   # GET /categories
   # GET /categories.json
   def index
-    @expense_categories = ExpenseCategory.all
-    @income_transactions = IncomeTransaction.all
+    @expense_categories = current_user.expense_category.all
+    @income_transactions = current_user.income_transactions.all
     @expense_transaction = ExpenseTransaction.new
   end
 
@@ -28,7 +28,7 @@ class ExpenseCategoriesController < ApplicationController
   # POST /categories
   # POST /categories.json
   def create
-    @category = ExpenseCategory.new(expense_category_params)
+    @category = current_user.expense_category.build(expense_category_params)
 
     respond_to do |format|
       if @category.save

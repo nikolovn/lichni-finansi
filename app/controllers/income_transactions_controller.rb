@@ -10,7 +10,8 @@ class IncomeTransactionsController < ApplicationController
   end
 
   def create
-    @transaction = IncomeTransaction.new(transaction_params)
+    @transaction = current_user.income_transactions.build(income_transactions_params)
+
 
 
     respond_to do |format|
@@ -29,7 +30,7 @@ class IncomeTransactionsController < ApplicationController
   def show
   end
 
-    def transaction_params
+    def income_transactions_params
       params.require(:income_transaction).permit(:income_category_id, :description, :date, :amount)
     end
 end

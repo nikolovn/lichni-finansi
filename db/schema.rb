@@ -26,7 +26,10 @@ ActiveRecord::Schema.define(version: 20141804150522) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
+
+  add_index "expense_categories", ["user_id"], name: "index_expense_categories_on_user_id", using: :btree
 
   create_table "expense_transactions", force: true do |t|
     t.text     "description"
@@ -37,7 +40,10 @@ ActiveRecord::Schema.define(version: 20141804150522) do
     t.integer  "expense_category_id"
     t.text     "type"
     t.string   "expense_type"
+    t.integer  "user_id"
   end
+
+  add_index "expense_transactions", ["user_id"], name: "index_expense_transactions_on_user_id", using: :btree
 
   create_table "finance_lmays", force: true do |t|
     t.string   "incomeexpense"
@@ -53,14 +59,20 @@ ActiveRecord::Schema.define(version: 20141804150522) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
+
+  add_index "income_categories", ["user_id"], name: "index_income_categories_on_user_id", using: :btree
 
   create_table "income_transactions", force: true do |t|
     t.text     "description"
     t.decimal  "amount"
     t.datetime "date"
     t.integer  "income_category_id"
+    t.integer  "user_id"
   end
+
+  add_index "income_transactions", ["user_id"], name: "index_income_transactions_on_user_id", using: :btree
 
   create_table "models", force: true do |t|
     t.string   "email",                  default: "", null: false

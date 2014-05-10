@@ -1,22 +1,18 @@
 
   
 
-  <div class="row equal">
     <!--begin panel 1 -->
-    <div class="col-md-4">
       <div style="text-align:center" class="panel panel-default">
         <div class="panel-heading">
-          <h1 class="panel-title text-center">Filter all transactions</h1>
+          <h1 class="panel-title text-center">Filter transactions</h1>
         </div>
         <!-- end panel-heading -->
         <div class="panel-body">
           <%= search_form_for [@q_income_transactions], url: all_transactions_path, method: :get do |f| %>
-            <%= f.label :description_cont %><br>
-            <%= f.text_field :description_cont %> <br>
-            <%= f.label :date_from %><br>
-            <%= f.text_field :date_gteq %> <br>
-            <%= f.label :date_to %><br>
-            <%= f.text_field :date_lteq %>  <br> 
+            <%= f.label :date_from %>
+            <%= f.text_field :date_gteq %> 
+            <%= f.label :date_to %>
+            <%= f.text_field :date_lteq %>  
 
             <%= f.submit %>
           <% end %>
@@ -24,49 +20,14 @@
         <!-- end panel-body -->
       </div>
       <!-- end panel-primary -->
-    </div>
     <!--end col-md-4 -->
     <!-- begin panel 2 -->
-    <div class="col-md-4">
-      <div style="text-align:center" class="panel panel-default">
-        <div class="panel-heading">
-          <h1 class="panel-title">Filter income Transactions</h1>
-        </div>
-        <!-- end panel-heading -->
-        <div class="panel-body">
-          <%= search_form_for [@q_income_transactions], url: all_transactions_path, method: :get do |f| %>
-              <%= f.label 'income category' %><br>
-              <%= f.collection_select :income_category_id_eq, @income_categories, :id, :name, include_blank: true %>  
-              <%= f.submit %>
-          <% end %>
-        </div>
-        <!-- end panel-body -->
-      </div>
-      <!-- end panel-primary -->
-    </div>
+    
     <!-- end col-md-4 -->
     <!--begin panel 3 -->
-    <div class="col-md-4">
-      <div style="text-align:center" class="panel panel-default">
-        <div class="panel-heading">
-          <h1 class="panel-title">Filter expense transactions</h1>
-        </div>
-        <!-- end panel-heading -->
-        <div class="panel-body">
-          <%= search_form_for [@q_expense_transactions], url: "#{all_transactions_path}#expense", method: :get do |f| %>
-              <%= f.label 'Expense category' %>
-              <%= f.collection_select :expense_category_id_eq, @expense_categories, :id, :name, include_blank: true %><br>
-              <%= f.label 'Income relation' %>
-              <%= f.collection_select :income_relation_eq, @income_transactions, :id, :description, include_blank: true %>  
-              <%= f.submit %>
-          <% end %>
-        </div>
-        <!-- end panel-body -->
-      </div>
-      <!-- end  panel-primary -->
-    </div>
+    
     <!-- end col-md-4 -->
-  </div>
+  
   <!-- end row -->
 
 
@@ -74,61 +35,63 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">All transactions</h3>
+    <h3 class="panel-title">Statisctic</h3>
   </div>
   <div class="panel-body">
-    
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#income" data-toggle="tab">Income transactions</a></li>
-  <li><a href="#expense" data-toggle="tab">Expense trasnasctions</a></li>
-</ul>
 
-<!-- Tab panes -->
-<div class="tab-content">
-  <div class="tab-pane active" class="tab-pane" id="income">
-    <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
-      <thead>
-        <tr>
-          <th>Category</th>
-          <th>Description</th>
-          <th>Amount</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @income_transactions.each do |transaction| %>
-          <tr>
-            <td><%= transaction.income_category.name %></td>
-            <td><%= transaction.description %></td>
-            <td><%= transaction.amount %></td>
-            <td><%= transaction.date %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-  <div class="tab-pane" id="expense">
-    <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
-      <thead>
-        <tr>
-          <th>Category</th>
-          <th>Description</th>
-          <th>Amount</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @expense_transactions.each do |transaction| %>
-          <tr>
-            <td><%= transaction.expense_category.name %></td>
-            <td><%= transaction.description %></td>
-            <td><%= transaction.amount %></td>
-            <td><%= transaction.date %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+      <div class="row">
+        <div class="col-md-6">
+         <p> <%= image_tag(Gchart.pie_3d(
+          :title => 'Income category', 
+          :size => '400x200',
+          :data => [10,90], 
+          :legend => ['test','tetst', 't', '1', '2', '3', '4', '5', '6', '7' , '8' ],
+          :bg => {:color => 'FFFFF', :type => 'no-gradient'}, 
+          :bar_colors => 'ff0000,00ff00' )) %>
+    </p>
+      </div>
+<div class="col-md-6">         <p> <%= image_tag(Gchart.pie_3d(
+          :title => 'Expense category', 
+          :size => '400x200',
+          :data => [10,90], 
+          :legend => ['test','tetst', 't'],
+          :bg => {:color => 'ffffff', :type => 'gradient'}, 
+          :bar_colors => 'ff0000,00ff00' )) %>
+    </p>
+      </div>
+    </div>
+<div class="row">
+        <div class="col-md-6">
+         <p> <%= image_tag(Gchart.pie_3d(
+          :title => 'Balancd', 
+          :size => '400x200',
+          :data => [10,90], 
+          :legend => ['test','tetst', 't'],
+          :bg => {:color => 'ffffff', :type => 'gradient'}, 
+          :bar_colors => 'ff0000,00ff00' )) %>
+    </p>
+      </div>
+<div class="col-md-6">         <p> <%= image_tag(Gchart.pie_3d(
+          :title => 'Investment/saving/expense', 
+          :size => '400x200',
+          :data => [10,90], 
+          :legend => ['test','tetst', 't'],
+          :bg => {:color => 'ffffff', :type => 'gradient'}, 
+          :bar_colors => 'ff0000,00ff00' )) %>
+    </p>
+      </div>
+    </div>
+<div class="row">
+        <div class="col-md-6">
+         <p> <%= image_tag(Gchart.bar(  :size => '400x200', 
+              :title => "Expense by day",
+              :bg => 'efefef',
+              :legend => ['first data set label', 'second data set label'],
+              :bg => {:color => 'ffffff', :type => 'gradient'}, 
+              :bar_colors => 'ff0000,00ff00' ,
+              :data => [10, 1, 2, 1, 1, 2, 10, 1, 2, 4, 1, 12, 11, 1, 2, 6])) %>
+    </p>
+      </div>
 </div>
   </div>
 </div>

@@ -10,7 +10,8 @@ class ExpenseTransactionsController < ApplicationController
   end
 
   def create
-    @transaction = ExpenseTransaction.new(transaction_params)
+    @transaction = current_user.expense_transactions.build(expense_transactions_params)
+
 
 
     respond_to do |format|
@@ -29,7 +30,7 @@ class ExpenseTransactionsController < ApplicationController
   def show
   end
 
-    def transaction_params
+    def expense_transactions_params
       params.require(:expense_transaction).permit(:expense_category_id, :income_relation, :description, :date, :amount, :expense_type)
     end
 end
