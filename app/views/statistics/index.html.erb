@@ -50,11 +50,11 @@
           :bar_colors => 'ff0000,00ff00' )) %>
     </p>
       </div>
-<div class="col-md-6">         <p> <%= image_tag(Gchart.pie_3d(
+<div class="col-md-6"> <p> <%= image_tag(Gchart.pie_3d(
           :title => 'Expense category', 
           :size => '400x200',
-          :data => [10,90], 
-          :legend => ['test','tetst', 't'],
+          :data => @expense_categories_percentage, 
+          :legend => @expense_categories_name,
           :bg => {:color => 'ffffff', :type => 'gradient'}, 
           :bar_colors => 'ff0000,00ff00' )) %>
     </p>
