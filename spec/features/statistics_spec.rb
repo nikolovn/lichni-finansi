@@ -8,7 +8,7 @@ feature 'Statistics' do
   scenario 'Show graphics for current balance"' do
   end
 
-  scenario 'Show graphics for divide by savings, investment and spending'
+  scenario 'Show graphics for divide by savings, investment and spending' do
   end
 
 #--------------------------------------------------
