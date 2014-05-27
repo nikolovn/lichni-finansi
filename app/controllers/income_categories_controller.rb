@@ -6,7 +6,7 @@ class IncomeCategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @income_categories = current_user.income_category.all
+    @income_categories = IncomeCategory.where(user_id: current_user.id)
     @income_transaction = IncomeTransaction.new
   end
 

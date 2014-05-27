@@ -6,8 +6,8 @@ class ExpenseCategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @expense_categories = current_user.expense_category.all
-    @income_transactions = current_user.income_transactions.all
+    @expense_categories = ExpenseCategory.where(user_id: current_user.id)
+    @income_transactions = IncomeTransaction.where(user_id: current_user.id)
     @expense_transaction = ExpenseTransaction.new
   end
 

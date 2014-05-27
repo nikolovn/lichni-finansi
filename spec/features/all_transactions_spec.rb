@@ -6,9 +6,8 @@ feature 'Show transactions' do
   #ajax and select filed not refresh page
   scenario 'Show all transactions' do
   end
-  
-  scenario 'Sort transactions' do
-    scenario 'Sort transactions by date and show options to "view graphics"' do
+ 
+    scenario 'Sort transactions by date and show options to view graphics' do
     end
 
     scenario 'Sort transactions by category and show options to "view graphics"' do
@@ -21,8 +20,7 @@ feature 'Show transactions' do
     end
   
     scenario 'sort transactions by savings, investment and spending and show options to "view graphics"' do
-    end
-  end
+    end 
 
   
   scenario 'Edit chosen transaction' do
