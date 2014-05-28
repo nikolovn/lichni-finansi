@@ -18,11 +18,9 @@
                   <%= render :partial => 'income_transactions/form', :locals => {:income_category_id => category.id} %>
                 </div>
                 <p>
-                  <%= link_to_function "Add a transaction" , %Q(document.getElementById("#{category.name}_transactions").style.display = ''), id: %Q(add_#{category.name}_transactions)
-                  %>
+                  <a id = add_<%=category.name%>_transactions) href="#" onclick="document.getElementById('<%=category.name%>_transactions').style.display = ''">Add a transaction</a>
 
-                  <%= link_to_function "Remove a transaction" , %Q(document.getElementById("#{category.name}_transactions").style.display="none";), id: %Q(remove_#{category.name}_transactions)
-                  %>
+                  <a id = remove_<%=category.name%>_transactions) href="#" onclick="document.getElementById('<%=category.name%>_transactions').style.display = 'none'">Remove a transaction</a>
                 </p></td>
             </tr>
         <% end %>
