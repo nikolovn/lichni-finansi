@@ -3,8 +3,9 @@ class StatisticsController < ApplicationController
 
   def index
     expense_categories = current_user.expense_category.all
-    @expense_categories_name = categories_name(expense_categories)
-    @expense_categories_percentage = count_percentage(expense_categories)    
+    expense_categories_name = categories_name(expense_categories)
+    expense_categories_percentage = count_percentage(expense_categories)
+    @expense_categories_graphics = graphics(pie_3d, expense_categories_percentage, 'Expense category' expense_categories_name )
 
     @q_income_transactions = IncomeTransaction.search(params[:q])
     @income_transactions = @q_income_transactions.result(distinct: true)
@@ -17,7 +18,6 @@ class StatisticsController < ApplicationController
 
     @q_expense_categories = ExpenseCategory.search(params[:q])
     @expense_categories = @q_expense_categories.result(distinct: true)
-
   end
   
   private
@@ -40,5 +40,19 @@ class StatisticsController < ApplicationController
     categories.map do |category|
       category.name
     end
+  end
+
+  def graphics(type, data, name, legends)
+    validate_data!(type, data, name, legends)
+    image_tag(Gchart.type(
+          :title => name, 
+          :size => '400x200',
+          :data => data, 
+          :legend => legends,
+          :bg => {:color => 'FFFFF', :type => 'no-gradient'}, 
+          :bar_colors => 'ff0000,00ff00' ))
+  end
+
+  def validate_data!(type, data, name, legends)
   end
 end
