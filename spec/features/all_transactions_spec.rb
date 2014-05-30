@@ -6,27 +6,19 @@ feature 'Show transactions' do
   #ajax and select filed not refresh page
   scenario 'Show all transactions' do
   end
- 
-    scenario 'Sort transactions by date and show options to view graphics' do
-    end
-
-    scenario 'Sort transactions by category and show options to "view graphics"' do
-    end
-
-    scenario 'Sort transactions by sub-category and show options to "view graphics"' do
-    end
-
-    scenario 'sort transactions by income and show options to "view graphics"' do
-    end
   
-    scenario 'sort transactions by savings, investment and spending and show options to "view graphics"' do
-    end 
-
-  
-  scenario 'Edit chosen transaction' do
-  end
-  
-  scenario 'Remove chosen transaction' do
+  scenario 'Filter transactions by description' do
   end
 
+  scenario 'Filter transactions by date' do
+  end
+
+  scenario 'Filter transactions by income category' do
+  end
+
+  scenario 'Filter transactions by expense category' do
+  end
+
+  scenario 'Filter transactions by income relation' do
+  end
 end
