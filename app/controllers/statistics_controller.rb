@@ -5,7 +5,9 @@ class StatisticsController < ApplicationController
     expense_categories = current_user.expense_category.all
     expense_categories_name = categories_name(expense_categories)
     expense_categories_percentage = count_percentage(expense_categories)
-    @expense_categories_graphics = graphics(pie_3d, expense_categories_percentage, 'Expense category' expense_categories_name )
+    @graphics_income_category = graphics('income_category')
+    @validate_data_income_category  = validate_data!
+    @graphics_expense_category = graphics('expense_category')
 
     @q_income_transactions = IncomeTransaction.search(params[:q])
     @income_transactions = @q_income_transactions.result(distinct: true)
@@ -42,17 +44,18 @@ class StatisticsController < ApplicationController
     end
   end
 
-  def graphics(type, data, name, legends)
-    validate_data!(type, data, name, legends)
-    image_tag(Gchart.type(
+  def graphics(name)
+    validate_data!
+    Gchart.pie_3d(
           :title => name, 
           :size => '400x200',
-          :data => data, 
-          :legend => legends,
+          :data => [10,90], 
+          :legend => ['test','tetst', 't', '1', '2', '3', '4', '5', '6', '7' , '8' ],
           :bg => {:color => 'FFFFF', :type => 'no-gradient'}, 
-          :bar_colors => 'ff0000,00ff00' ))
+          :bar_colors => 'ff0000,00ff00' )
   end
 
-  def validate_data!(type, data, name, legends)
+  def validate_data!
+    'eroors'
   end
 end

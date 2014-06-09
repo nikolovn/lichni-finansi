@@ -1,7 +1,4 @@
 
-  
-
-    <!--begin panel 1 -->
       <div style="text-align:center" class="panel panel-default">
         <div class="panel-heading">
           <h1 class="panel-title text-center">Filter transactions</h1>
@@ -17,22 +14,8 @@
             <%= f.submit %>
           <% end %>
         </div>
-        <!-- end panel-body -->
       </div>
-      <!-- end panel-primary -->
-    <!--end col-md-4 -->
-    <!-- begin panel 2 -->
-    
-    <!-- end col-md-4 -->
-    <!--begin panel 3 -->
-    
-    <!-- end col-md-4 -->
-  
-  <!-- end row -->
-
-
-
-
+ 
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title">Statisctic</h3>
@@ -41,28 +24,18 @@
 
       <div class="row">
         <div class="col-md-6">
-         <p> <%= image_tag(Gchart.pie_3d(
-          :title => 'Income category', 
-          :size => '400x200',
-          :data => [10,90], 
-          :legend => ['test','tetst', 't', '1', '2', '3', '4', '5', '6', '7' , '8' ],
-          :bg => {:color => 'FFFFF', :type => 'no-gradient'}, 
-          :bar_colors => 'ff0000,00ff00' )) %>
-    </p>
+         <div class='income_category_graphics'> <%= @validate_data_income_category %><%= image_tag@graphics_income_category %>
+    </div>
       </div>
-<div class="col-md-6"> <p> <%= @expense_categories_graphics %>
+<div class="col-md-6"> <p> 
+  <%= image_tag(@graphics_expense_category) %>
+
     </p>
       </div>
     </div>
 <div class="row">
         <div class="col-md-6">
-         <p> <%= image_tag(Gchart.pie_3d(
-          :title => 'Balance', 
-          :size => '400x200',
-          :data => [10,90], 
-          :legend => ['test','tetst', 't'],
-          :bg => {:color => 'ffffff', :type => 'gradient'}, 
-          :bar_colors => 'ff0000,00ff00' )) %>
+         <p> <%= image_tag(@graphics) %> 
     </p>
       </div>
 <div class="col-md-6">         <p> <%= image_tag(Gchart.pie_3d(

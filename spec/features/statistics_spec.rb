@@ -10,22 +10,28 @@ feature 'Statistics' do
   #include AuthHelper
   #include DOMHelper
 
-  scenario 'Show graphics for income category' do
+  scenario 'Show graphics for income category', :focus do
     FactoryGirl.create(:income_category, name: 'food_and_drinks')
     FactoryGirl.create(:income_transaction)
 
     visit 'statistics'
 
-    expect(page).to have_css 'income_category_graphics'
-  end
-  
+    binding.pry
+
+    expect(page).to have_selector('src', :text => 'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,s,FFFFF&chd=s:G9&chdl=test|tetst|t|1|2|3|4|5|6|7|8&chtt=income_category&cht=p3&chs=400x200&chxr=0,10,90')
+
+    #expect(page.find('#income_category_graphics')['src']).to have_content 'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,s,FFFFF&chd=s:G9&chdl=test|tetst|t|1|2|3|4|5|6|7|8&chtt=income_category&cht=p3&chs=400x200&chxr=0,10,90'
+
+    
+   end
+
   scenario 'Show graphics for expense category' do
     FactoryGirl.create(:expense_category, name: 'food_and_drinks')
     FactoryGirl.create(:expense_transaction)
-
+  
     visit 'statistics'
 
-    expect(page).to have_css 'expense_category_graphics'
+    expect(page).to have_image 'expense_category_graphics'
   end
 
   scenario 'Show graphics for balance' do
