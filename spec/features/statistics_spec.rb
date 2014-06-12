@@ -16,13 +16,7 @@ feature 'Statistics' do
 
     visit 'statistics'
 
-    binding.pry
-
-    expect(page).to have_selector('src', :text => 'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,s,FFFFF&chd=s:G9&chdl=test|tetst|t|1|2|3|4|5|6|7|8&chtt=income_category&cht=p3&chs=400x200&chxr=0,10,90')
-
-    #expect(page.find('#income_category_graphics')['src']).to have_content 'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,s,FFFFF&chd=s:G9&chdl=test|tetst|t|1|2|3|4|5|6|7|8&chtt=income_category&cht=p3&chs=400x200&chxr=0,10,90'
-
-    
+    expect(page).to have_image income_category_graphics_image
    end
 
   scenario 'Show graphics for expense category' do
@@ -94,5 +88,11 @@ feature 'Statistics' do
     visit 'statistics'
 
     expect(page).to have_content 'no data avalaible for expense by day'
+  end
+
+  private
+
+  def income_category_graphics_image
+    'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,s,FFFFF&chd=s:G9&chdl=test|tetst|t|1|2|3|4|5|6|7|8&chtt=income_category&cht=p3&chs=400x200&chxr=0,10,90'
   end
 end
