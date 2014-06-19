@@ -8,7 +8,7 @@ class StatisticsController < ApplicationController
     @graphics_income_category = graphics('income_category')
     @graphics_expense_category = graphics('expense_category')
     
-    @graphics_balanse_category = graphics('balanse')
+    @graphics_balanse_category = graphics('balance')
     @graphics_investment_saving_expense_category = graphics('graphics_investment_saving_expense_category')
     
     @graphics_expense_by_day_category = graphics('expense_by_day')
@@ -37,16 +37,44 @@ class StatisticsController < ApplicationController
   end
 
   def graphics(category_name)
-    #validate_data!
-    Gchart.pie_3d(
-          :title => 'Investment/saving/expense', 
-          :size => '400x200',
-          :data => [10,90], 
-          :legend => ['test','tetst', 't'],
-          :bg => {:color => 'ffffff', :type => 'gradient'}, 
-          :bar_colors => 'ff0000,00ff00' )
+    if category_name == 'expense_by_day'
+      Gchart.bar(graphics_property(category_name))
+    else
+      Gchart.pie_3d(graphics_property(category_name))
+    end
   end
 
+  def graphics_property(category_name)
+   
+    {
+          :title => category_name, 
+          :size => '400x200',
+          :data => send(category_name + '_data'), 
+          :legend => ['test','tetst', 't'],
+          :bg => {:color => 'ffffff', :type => 'gradient'}, 
+          :bar_colors => 'ff0000,00ff00'
+    }
+  end
+
+  def income_category_data
+    [10,20]
+  end
+
+  def expense_category_data
+    [10,20]
+  end
+
+  def balance_data
+    [10,20]
+  end
+
+  def graphics_investment_saving_expense_category_data
+    [10,20]
+  end
+  
+  def expense_by_day_data
+    [10,20]
+  end
 
   def validate_data!
     'eroors'
