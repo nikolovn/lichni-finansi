@@ -14,7 +14,12 @@ class AllTransactionsController < ApplicationController
     @q_expense_categories = current_user.expense_category.search(params[:q])
     @expense_categories = @q_expense_categories.result(distinct: true)
 
-    
+    amount = 0
+    income_transactions_amount = @income_transactions.each {|transaction| amount+= transaction.amount} 
+    income_transactions_amount = amount
+    expense_transactions_amount = @expense_transactions.each {|transaction| amount+= transaction.amount} 
+    expense_transactions_amount = amount
+    @current_balance = income_transactions_amount - expense_transactions_amount
 
   end
 end

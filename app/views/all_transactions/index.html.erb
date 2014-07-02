@@ -81,6 +81,7 @@
 <ul class="nav nav-tabs">
   <li class="active"><a href="#income" data-toggle="tab">Income transactions</a></li>
   <li><a href="#expense" data-toggle="tab">Expense trasnasctions</a></li>
+  <li><a href="#balance" data-toggle="tab">Balance</a></li>
 </ul>
 
 <!-- Tab panes -->
@@ -127,6 +128,16 @@
           </tr>
         <% end %>
       </tbody>
+    </table>
+  </div>
+  <div class="tab-pane" class="tab-pane" id="balance">
+    <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
+      <thead>
+        <tr>
+          <th>Current balance: <%=@current_balance %> лв.</th>
+        </tr>
+      </thead>
+      
     </table>
   </div>
 </div>
