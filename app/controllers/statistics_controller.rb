@@ -17,21 +17,24 @@ class StatisticsController < ApplicationController
   private
 
   def category_data(category_type)
-    category_type.map do |category|
-      sum_amount_on_each_category(category_type)/sum_amount_on_all_category
+    transactions = 'expense_transactions' if category_type.to_s == 'ExpenseCategory' 
+    transactions = 'income_transactions' if category_type.to_s == 'IncomeCategory'
+    
+    category_type.where(user_id: current_user.id).map do |category|
+      sum_amount_on_each_category(category, transactions)/sum_amount_on_all_category(category_type, transactions)
     end
   end
 
-  def sum_amount_on_each_category(category_type)
-    category_type.expense_transactions.sum(:amount).to_f
+  def sum_amount_on_each_category(category, transacttions)
+    category.send(transacttions).sum(:amount).to_f
   end
 
-  def sum_amount_on_all_category
-    current_user.expense_transactions.sum(:amount).to_f*100
+  def sum_amount_on_all_category(category_type, transactions)
+    category_type.first.send(transactions).sum(:amount).to_f*100
   end
   
   def categories_name(category_type)
-    category_type.map do |category|
+    category_type.where(user_id: current_user.id).map do |category|
       category.name
     end
   end
@@ -50,18 +53,18 @@ class StatisticsController < ApplicationController
           :title => category_name, 
           :size => '400x200',
           :data => send(category_name + '_data'), 
-          :legend => ['test','tetst', 't'],
+          :legend => send(category_name + '_list'),
           :bg => {:color => 'ffffff', :type => 'gradient'}, 
           :bar_colors => 'ff0000,00ff00'
     }
   end
-
+#---------------------------- category data -----------#
   def income_category_data
-    [10,20]
+    category_data(IncomeCategory)
   end
 
   def expense_category_data
-    [10,20]
+    category_data(ExpenseCategory)
   end
 
   def balance_data
@@ -76,6 +79,27 @@ class StatisticsController < ApplicationController
     [10,20]
   end
 
+#---------------------------- category list -----------#
+
+  def income_category_list
+    categories_name(IncomeCategory)
+  end
+
+  def expense_category_list
+    categories_name(ExpenseCategory)
+  end
+
+  def balance_list
+    [10,20]
+  end
+
+  def graphics_investment_saving_expense_category_list
+    [10,20]
+  end
+  
+  def expense_by_day_list
+    [10,20]
+  end
   def validate_data!
     'eroors'
   end
