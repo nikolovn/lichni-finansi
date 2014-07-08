@@ -97,14 +97,20 @@
         </tr>
       </thead>
       <tbody>
+        <% sum_amount = 0 %>
         <% @income_transactions.each do |transaction| %>
           <tr>
             <td><%= transaction.income_category.name %></td>
             <td><%= transaction.description %></td>
             <td><%= transaction.amount %></td>
+            <% sum_amount += transaction.amount %>
             <td><%= transaction.date %></td>
           </tr>
         <% end %>
+          <tr>
+            <td colspan =2 >sum</td>
+            <td colspan =2 ><%= sum_amount %></td>
+          </tr>
       </tbody>
     </table>
   </div>
@@ -119,14 +125,20 @@
         </tr>
       </thead>
       <tbody>
+        <% sum_amount = 0 %>
         <% @expense_transactions.each do |transaction| %>
           <tr>
             <td><%= transaction.expense_category.name %></td>
             <td><%= transaction.description %></td>
             <td><%= transaction.amount %></td>
+            <% sum_amount += transaction.amount %>
             <td><%= transaction.date %></td>
           </tr>
-        <% end %>
+          <% end %>
+          <tr>
+            <td colspan =2 >sum</td>
+            <td colspan =2 ><%= sum_amount %></td>
+          </tr>
       </tbody>
     </table>
   </div>
