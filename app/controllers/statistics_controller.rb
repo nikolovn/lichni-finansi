@@ -7,8 +7,7 @@ class StatisticsController < ApplicationController
 
     @graphics_income_category = graphics('income_category')
     @graphics_expense_category = graphics('expense_category')
-    
-    @graphics_balanse_category = graphics('balance')
+    @graphics_balance_category = graphics('balance')
     @graphics_investment_saving_expense_category = graphics('graphics_investment_saving_expense_category')
     
     @graphics_expense_by_day_category = graphics('expense_by_day')
@@ -68,11 +67,39 @@ class StatisticsController < ApplicationController
   end
 
   def balance_data
-    [10,20]
+    income_transactions_amount = 0
+    expense_transactions_amount = 0
+    @current_user.income_transactions.each { |transaction| income_transactions_amount+= transaction.amount }
+    @current_user.expense_transactions.each { |transaction| expense_transactions_amount+= transaction.amount} 
+    all_amount = expense_transactions_amount + income_transactions_amount
+    [expense_transactions_amount/all_amount, income_transactions_amount/all_amount]
   end
 
   def graphics_investment_saving_expense_category_data
-    [10,20]
+    expense_amount = 0
+    saving_amount = 0
+    investment_amount = 0 
+    
+    @current_user.expense_transactions.each do |transaction| 
+      if transaction.expense_type == 'investment'
+        investment_amount += transaction.amount
+      end
+    end
+
+    @current_user.expense_transactions.each do |transaction| 
+      if transaction.expense_type == 'saving'
+        saving_amount += transaction.amount
+      end
+    end
+
+    @current_user.expense_transactions.each do |transaction| 
+      if transaction.expense_type == 'expense'
+        expense_amount += transaction.amount
+      end
+    end
+
+    all_amount = investment_amount + saving_amount + expense_amount
+    [expense_amount/all_amount, saving_amount/all_amount, investment_amount/all_amount,]
   end
   
   def expense_by_day_data
@@ -90,16 +117,17 @@ class StatisticsController < ApplicationController
   end
 
   def balance_list
-    [10,20]
+    ['Expense','Income']
   end
 
   def graphics_investment_saving_expense_category_list
-    [10,20]
+    ['Expense', 'Saving', 'Investment']
   end
   
   def expense_by_day_list
     [10,20]
   end
+
   def validate_data!
     'eroors'
   end
