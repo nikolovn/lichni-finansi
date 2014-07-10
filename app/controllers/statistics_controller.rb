@@ -53,8 +53,10 @@ class StatisticsController < ApplicationController
           :size => '400x200',
           :data => send(category_name + '_data'), 
           :legend => send(category_name + '_list'),
-          :bg => {:color => 'ffffff', :type => 'gradient'}, 
-          :bar_colors => 'ff0000,00ff00'
+          :bg => {:color => 'ffffff', :type => 'stripes'}, 
+          :bar_colors => 'ff0000,00ff00',
+          :axis_with_labels => ['x', 'y'], 
+          #:axis_range => [[0,100,20], [0,20,5]],
     }
   end
 #---------------------------- category data -----------#
@@ -103,7 +105,7 @@ class StatisticsController < ApplicationController
   end
   
   def expense_by_day_data
-    [10,20]
+    @current_user.expense_transactions.group('date').sum(:amount).values
   end
 
 #---------------------------- category list -----------#
@@ -125,7 +127,7 @@ class StatisticsController < ApplicationController
   end
   
   def expense_by_day_list
-    [10,20]
+    @current_user.expense_transactions.map {|transaction| transaction.date}
   end
 
   def validate_data!
