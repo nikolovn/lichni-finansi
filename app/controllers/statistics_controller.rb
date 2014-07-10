@@ -105,7 +105,7 @@ class StatisticsController < ApplicationController
   end
   
   def expense_by_day_data
-    @current_user.expense_transactions.group('date').sum(:amount).values
+    @current_user.expense_transactions.group('date').order('date ASC').sum(:amount).values
   end
 
 #---------------------------- category list -----------#
@@ -127,7 +127,7 @@ class StatisticsController < ApplicationController
   end
   
   def expense_by_day_list
-    @current_user.expense_transactions.map {|transaction| transaction.date.strftime('%d')}
+    @current_user.expense_transactions.group('date').order('date ASC').sum(:amount).keys.map {|transaction| transaction.strftime('%d')}
   end
 
   def validate_data!
