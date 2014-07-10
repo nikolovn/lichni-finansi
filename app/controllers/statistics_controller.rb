@@ -52,10 +52,10 @@ class StatisticsController < ApplicationController
           :title => category_name, 
           :size => '400x200',
           :data => send(category_name + '_data'), 
-          :legend => send(category_name + '_list'),
+          :labels => send(category_name + '_list'),
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
-          :axis_with_labels => ['x', 'y'], 
+          #:axis_with_labels => ['x', 'y'], 
           #:axis_range => [[0,100,20], [0,20,5]],
     }
   end
@@ -127,7 +127,7 @@ class StatisticsController < ApplicationController
   end
   
   def expense_by_day_list
-    @current_user.expense_transactions.map {|transaction| transaction.date}
+    @current_user.expense_transactions.map {|transaction| transaction.date.strftime('%d')}
   end
 
   def validate_data!
