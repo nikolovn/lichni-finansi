@@ -6,7 +6,7 @@ class AllTransactionsController < ApplicationController
     @income_transactions = @q_income_transactions.result(distinct: true)
 
     @q_expense_transactions = current_user.expense_transactions.search(params[:q])
-    @expense_transactions = @q_expense_transactions.result(distinct: true)
+    @expense_transactions = @q_expense_transactions.result(distinct: true).order('date ASC')
 
     @q_income_categories = current_user.income_category.search(params[:q])
     @income_categories = @q_income_categories.result(distinct: true)
