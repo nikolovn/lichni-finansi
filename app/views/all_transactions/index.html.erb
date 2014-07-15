@@ -94,22 +94,25 @@
           <th>Description</th>
           <th>Amount</th>
           <th>Date</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
         <% sum_amount = 0 %>
         <% @income_transactions.each do |transaction| %>
           <tr>
-            <td width = 25%><%= transaction.income_category.name %></td>
+            <td ><%= transaction.income_category.name %></td>
             <td width = 25%><%= best_in_place transaction, :description, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :amount, :type => :input %></td>
             <% sum_amount += transaction.amount %>
             <td width = 25%><%= best_in_place transaction, :date, :type => :input %></td>
+            <td width = 5%><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
           </tr>
         <% end %>
           <tr>
-            <td colspan =2 ><b>sum</b></td>
-            <td colspan =2 ><b><%= sum_amount %></b></td>
+            <td colspan = 3 ><b>sum</b></td>
+            <td colspan = 3 ><b><%= sum_amount %></b></td>
           </tr>
       </tbody>
     </table>
@@ -122,6 +125,7 @@
           <th>Description</th>
           <th>Amount</th>
           <th>Date</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -131,6 +135,7 @@
             <td width = 25%><%= best_in_place transaction, :description, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :amount, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :date, :type => :input %></td>
+            <td width = 5%><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
           <% end %>
           <tr>

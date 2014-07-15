@@ -40,4 +40,13 @@ class IncomeTransactionsController < ApplicationController
   def income_transactions_params
     params.require(:income_transaction).permit(:income_category_id, :description, :date, :amount)
   end
+
+  def destroy
+    IncomeTransaction.destroy(params[:id])
+
+    respond_to do |format|
+      format.html { redirect_to :controller => 'all_transactions', :action => 'index' }
+      format.json { head :no_content }
+    end
+  end
 end

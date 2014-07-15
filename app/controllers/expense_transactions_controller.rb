@@ -37,4 +37,13 @@ class ExpenseTransactionsController < ApplicationController
     def expense_transactions_params
       params.require(:expense_transaction).permit(:expense_category_id, :income_relation, :description, :date, :amount, :expense_type)
     end
+
+  def destroy
+    ExpenseTransaction.destroy(params[:id])
+
+    respond_to do |format|
+      format.html { redirect_to :controller => 'all_transactions', :action => 'index' }
+      format.json { head :no_content }
+    end
+  end
 end
