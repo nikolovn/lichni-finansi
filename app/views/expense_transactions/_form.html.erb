@@ -1,4 +1,4 @@
-<%= form_for(@expense_transaction,  :remote => true) do |f| %>
+<%= form_for(@expense_transaction) do |f| %>
   <% if @expense_transaction.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@expense_transaction.errors.count, "error") %> prohibited this expense_transaction from being saved:</h2>

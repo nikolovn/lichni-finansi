@@ -100,11 +100,11 @@
         <% sum_amount = 0 %>
         <% @income_transactions.each do |transaction| %>
           <tr>
-            <td><%= transaction.income_category.name %></td>
-            <td><%= transaction.description %></td>
-            <td><%= transaction.amount %></td>
+            <td width = 25%><%= transaction.income_category.name %></td>
+            <td width = 25%><%= best_in_place transaction, :description, :type => :input %></td>
+            <td width = 25%><%= best_in_place transaction, :amount, :type => :input %></td>
             <% sum_amount += transaction.amount %>
-            <td><%= transaction.date %></td>
+            <td width = 25%><%= best_in_place transaction, :date, :type => :input %></td>
           </tr>
         <% end %>
           <tr>
@@ -125,19 +125,17 @@
         </tr>
       </thead>
       <tbody>
-        <% sum_amount = 0 %>
         <% @expense_transactions.each do |transaction| %>
           <tr>
             <td><%= transaction.expense_category.name %></td>
-            <td><%= transaction.description %></td>
-            <td><%= transaction.amount %></td>
-            <% sum_amount += transaction.amount %>
-            <td><%= transaction.date %></td>
+            <td width = 25%><%= best_in_place transaction, :description, :type => :input %></td>
+            <td width = 25%><%= best_in_place transaction, :amount, :type => :input %></td>
+            <td width = 25%><%= best_in_place transaction, :date, :type => :input %></td>
           </tr>
           <% end %>
           <tr>
             <td colspan =2 ><b>sum</b></td>
-            <td colspan =2 ><b><%= sum_amount %></b></td>
+            <td colspan =2 ><b><%= @expense_transactions_amount %></b></td>
           </tr>
       </tbody>
     </table>

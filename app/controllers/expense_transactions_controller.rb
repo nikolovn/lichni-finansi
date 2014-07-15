@@ -12,14 +12,11 @@ class ExpenseTransactionsController < ApplicationController
   def create
     @transaction = current_user.expense_transactions.build(expense_transactions_params)
 
-
-
     respond_to do |format|
 
       if @transaction.save
         flash[:notice] = 'Successfully added new transaction'
         format.html { redirect_to :controller => 'expense_categories', :action => 'index' }
-        format.json { head :no_content }
       else
         format.html { render action: 'new' }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
@@ -29,6 +26,13 @@ class ExpenseTransactionsController < ApplicationController
 
   def show
   end
+
+  respond_to :html, :json
+    def update
+      @expense_transaction = ExpenseTransaction.find(params[:id])
+      @expense_transaction.update_attributes(expense_transactions_params)
+      respond_with @expense_transaction
+    end
 
     def expense_transactions_params
       params.require(:expense_transaction).permit(:expense_category_id, :income_relation, :description, :date, :amount, :expense_type)

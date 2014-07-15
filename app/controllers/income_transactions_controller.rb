@@ -19,7 +19,7 @@ class IncomeTransactionsController < ApplicationController
       if @transaction.save
         flash[:notice] = 'Successfully added new transaction'
         format.html { redirect_to :controller => 'income_categories', :action => 'index' }
-        format.json { head :no_content }
+        format.json { redirect_to :controller => 'income_categories', :action => 'index' }
       else
         format.html { render action: 'new' }
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
@@ -30,7 +30,14 @@ class IncomeTransactionsController < ApplicationController
   def show
   end
 
-    def income_transactions_params
-      params.require(:income_transaction).permit(:income_category_id, :description, :date, :amount)
-    end
+  respond_to :html, :json
+  def update
+    @income_transaction = IncomeTransaction.find(params[:id])
+    @income_transaction.update_attributes(income_transactions_params)
+    respond_with @income_transaction
+  end
+
+  def income_transactions_params
+    params.require(:income_transaction).permit(:income_category_id, :description, :date, :amount)
+  end
 end
