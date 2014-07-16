@@ -53,7 +53,7 @@
         </div>
         <!-- end panel-heading -->
         <div class="panel-body">
-          <%= search_form_for [@q_expense_transactions], url: all_transactions_path, method: :get do |f| %>
+          <%= search_form_for [@q_expense_transactions], url: "#{all_transactions_path}#expense", method: :get do |f| %>
               <%= f.label 'Expense category' %>
               <%= f.collection_select :expense_category_id_eq, @expense_categories, :id, :name, include_blank: true %><br>
               <%= f.label 'Income relation' %>
@@ -87,7 +87,7 @@
 
 <!-- Tab panes -->
 <div class="tab-content">
-  <div class="tab-pane active" class="tab-pane" id="income">
+  <div class="tab-pane <%=@active_income %>" class="tab-pane" id="income">
     <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
       <thead>
         <tr>
@@ -118,7 +118,7 @@
       </tbody>
     </table>
   </div>
-  <div class="tab-pane" id="expense">
+  <div class="tab-pane <%=@active_expense %> id="expense">
     <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
       <thead>
         <tr>
