@@ -1,6 +1,4 @@
 
-  
-
   <div class="row equal">
     <!--begin panel 1 -->
     <div class="col-md-4">
@@ -17,6 +15,7 @@
             <%= f.text_field :date_gteq %> <br>
             <%= f.label :date_to %><br>
             <%= f.text_field :date_lteq %>  <br> 
+            <%= f.hidden_field :tabs, value: 'income' %>
 
             <%= f.submit %>
           <% end %>
@@ -36,7 +35,8 @@
         <div class="panel-body">
           <%= search_form_for [@q_income_transactions], url: all_transactions_path, method: :get do |f| %>
               <%= f.label 'income category' %><br>
-              <%= f.collection_select :income_category_id_eq, @income_categories, :id, :name, include_blank: true %>  
+              <%= f.collection_select :income_category_id_eq, @income_categories, :id, :name, include_blank: true %>
+              <%= f.hidden_field :tabs, value: 'income' %>
               <%= f.submit %>
           <% end %>
         </div>
@@ -53,11 +53,12 @@
         </div>
         <!-- end panel-heading -->
         <div class="panel-body">
-          <%= search_form_for [@q_expense_transactions], url: "#{all_transactions_path}#expense", method: :get do |f| %>
+          <%= search_form_for [@q_expense_transactions], url: "#{all_transactions_path}", method: :get do |f| %>
               <%= f.label 'Expense category' %>
               <%= f.collection_select :expense_category_id_eq, @expense_categories, :id, :name, include_blank: true %><br>
               <%= f.label 'Income relation' %>
-              <%= f.collection_select :income_relation_eq, @income_transactions, :id, :description, include_blank: true %>  
+              <%= f.collection_select :income_relation_eq, @income_transactions, :id, :description, include_blank: true %> 
+              <%= f.hidden_field :tabs, value: 'expense' %>
               <%= f.submit %>
           <% end %>
         </div>
@@ -79,8 +80,8 @@
   <div class="panel-body">
     
 <ul class="nav nav-tabs">
-  <li class="active"><a href="#income" data-toggle="tab">Income transactions</a></li>
-  <li><a href="#expense" data-toggle="tab">Expense trasnasctions</a></li>
+  <li class="<%=@active_income %>"><a href="#income" data-toggle="tab">Income transactions</a></li>
+  <li class="<%=@active_expense %>"><a href="#expense" data-toggle="tab">Expense trasnasctions</a></li>
   <li><a href="#balance" data-toggle="tab">Balance</a></li>
 </ul>
 

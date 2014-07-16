@@ -23,5 +23,24 @@ class AllTransactionsController < ApplicationController
     @income_transactions_amount
     @expense_transactions_amount
 
+    active_income
+    active_expense
+
+  end
+
+  def active_income
+    if params['q'] != nil && params['q']['tabs'] == 'income'
+      @active_income = 'active'
+    elsif params['q'] != nil && params['q']['tabs'] != 'expense'
+      @active_income = 'active'
+    elsif params['q'] == nil
+      @active_income = 'active'
+    end
+  end
+
+  def active_expense
+    if params['q'] != nil && params['q']['tabs'] == 'expense' &&
+     @active_expense = 'active'
+    end
   end
 end
