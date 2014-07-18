@@ -40,17 +40,17 @@ class StatisticsController < ApplicationController
 
   def graphics(category_name)
     if category_name == 'expense_by_day'
-      Gchart.bar(graphics_property(category_name))
+      Gchart.bar(graphics_property(category_name, '800x200' ))
     else
-      Gchart.pie_3d(graphics_property(category_name))
+      Gchart.pie_3d(graphics_property(category_name, '400x200'))
     end
   end
 
-  def graphics_property(category_name)
+  def graphics_property(category_name, size)
    
     {
           :title => category_name, 
-          :size => '400x200',
+          :size => size,
           :data => send(category_name + '_data'), 
           :labels => send(category_name + '_list'),
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
