@@ -13,6 +13,13 @@ FactoryGirl.define do
 end
 
 FactoryGirl.define do
+  factory :expense_transaction do
+    sequence(:description) {|n| "name#{n}"}
+    user_id 1
+  end
+end
+
+FactoryGirl.define do
   factory :expense_category do
     sequence(:name) {|n| "name#{n}"}
     user_id 1

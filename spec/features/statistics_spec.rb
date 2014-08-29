@@ -10,9 +10,9 @@ feature 'Statistics' do
   #include AuthHelper
   #include DOMHelper
 
-  scenario 'Show graphics for income category', :focus do
+  scenario 'Show graphics for income category' do
     FactoryGirl.create(:income_category, name: 'food_and_drinks')
-    FactoryGirl.create(:income_transaction)
+    FactoryGirl.create(:income_transaction, income_category_id: 1, amount: 10)
 
     visit 'statistics'
 
@@ -21,78 +21,94 @@ feature 'Statistics' do
 
   scenario 'Show graphics for expense category' do
     FactoryGirl.create(:expense_category, name: 'food_and_drinks')
-    FactoryGirl.create(:expense_transaction)
+    FactoryGirl.create(:expense_transaction, expense_category_id: 1, amount: 10)
   
     visit 'statistics'
 
-    expect(page).to have_image 'expense_category_graphics'
+    expect(page).to have_image expense_category_graphics_image
   end
 
   scenario 'Show graphics for balance' do
     FactoryGirl.create(:income_category, name: 'food_and_drinks')
-    FactoryGirl.create(:income_transaction)
+    FactoryGirl.create(:income_transaction, income_category_id: 1, amount: 10)
     FactoryGirl.create(:expense_category, name: 'food_and_drinks')
-    FactoryGirl.create(:expense_transaction)
+    FactoryGirl.create(:expense_transaction, expense_category_id: 1, amount: 10)
 
     visit 'statistics'
 
-    expect(page).to have_css 'balance_graphics'
+    expect(page).to have_image balance_image
   end
 
   scenario 'Show graphics for Investment/saving/expense' do
     FactoryGirl.create(:expense_category, name: 'food_and_drinks')
-    FactoryGirl.create(:expense_transaction, expense_type: :investment)
-    FactoryGirl.create(:expense_transaction, expense_type: :saving)
-    FactoryGirl.create(:expense_transaction, expense_type: :expense)
+    FactoryGirl.create(:expense_transaction, expense_category_id: 1, amount: 10, expense_type: :investment)
+    FactoryGirl.create(:expense_transaction, expense_category_id: 1, amount: 10, expense_type: :saving)
+    FactoryGirl.create(:expense_transaction, expense_category_id: 1, amount: 10, expense_type: :expense)
 
     visit 'statistics'
-
-    expect(page).to have_css 'balance_graphics'
+  
+    expect(page).to have_image expense_type
   end
 
   scenario 'Show graphics for Expense by day' do
     FactoryGirl.create(:expense_category, name: 'food_and_drinks')
-    FactoryGirl.create(:expense_transaction, date: '10.10.2014')
-    FactoryGirl.create(:expense_transaction, date: '11.10.2014')
+    FactoryGirl.create(:expense_transaction, date: '10.10.2014', expense_category_id: 1, amount: 10)
+    FactoryGirl.create(:expense_transaction, date: '11.10.2014', expense_category_id: 1, amount: 10)
   
     visit 'statistics'
 
-    expect(page).to have_css 'Expense by day'
+    expect(page).to have_image expense_by_day
   end
 
-  scenario 'Show info message when data for income category are inccorect' do
-    visit 'statistics'
+  # scenario 'Show info message when data for income category are inccorect' do
+  #   visit 'statistics'
 
-    expect(page).to have_content 'no income transactions avalaible'
-  end
+  #   expect(page).to have_content 'no income transactions avalaible'
+  # end
 
-  scenario 'Show info message when data for expense category are inccorect' do
-    visit 'statistics'
+  # scenario 'Show info message when data for expense category are inccorect' do
+  #   visit 'statistics'
 
-    expect(page).to have_content 'no expense transactions avalaible'
-  end
+  #   expect(page).to have_content 'no expense transactions avalaible'
+  # end
 
-  scenario 'Show info message when data for balance are inccorect' do
-    visit 'statistics'
+  # scenario 'Show info message when data for balance are inccorect' do
+  #   visit 'statistics'
 
-    expect(page).to have_content 'no data avalaible for balance'
-  end
+  #   expect(page).to have_content 'no data avalaible for balance'
+  # end
 
-  scenario 'Show info message when data for transaction type are inccorect' do
-    visit 'statistics'
+  # scenario 'Show info message when data for transaction type are inccorect' do
+  #   visit 'statistics'
 
-    expect(page).to have_content 'no data avalaible for transaction type'
-  end
+  #   expect(page).to have_content 'no data avalaible for transaction type'
+  # end
 
-  scenario 'Show info message when data for Expense by day are inccorect' do
-    visit 'statistics'
+  # scenario 'Show info message when data for Expense by day are inccorect' do
+  #   visit 'statistics'
 
-    expect(page).to have_content 'no data avalaible for expense by day'
-  end
+  #   expect(page).to have_content 'no data avalaible for expense by day'
+  # end
 
   private
 
   def income_category_graphics_image
-    'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,s,FFFFF&chd=s:G9&chdl=test|tetst|t|1|2|3|4|5|6|7|8&chtt=income_category&cht=p3&chs=400x200&chxr=0,10,90'
+    'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,ls,90,ffffff,0.2,ffffff,0.2&chd=s:9&chl=food_and_drinks&chtt=Income+Category&cht=p3&chs=400x200&chxr=0,1.0'
+  end
+
+  def expense_category_graphics_image
+    'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,ls,90,ffffff,0.2,ffffff,0.2&chd=s:9&chl=food_and_drinks&chtt=Expense+Category&cht=p3&chs=400x200&chxr=0,1.0'
+  end
+  
+  def balance_image
+    'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,ls,90,ffffff,0.2,ffffff,0.2&chd=s:99&chl=Income|Expense&chtt=Balance&cht=p3&chs=400x200&chxr=0,0.5,0.5'
+  end
+
+  def expense_type
+  'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,ls,90,ffffff,0.2,ffffff,0.2&chd=s:999&chl=Investment|Saving|Expense&chtt=Expense+by+type&cht=p3&chs=400x200&chxr=0,0.3333333333333333,0.3333333333333333,0.3333333333333333'
+  end
+  
+  def expense_by_day
+    'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,ls,90,ffffff,0.2,ffffff,0.2&chd=s:99&chl=2014-10-10+00%3A00%3A00+UTC|2014-10-11+00%3A00%3A00+UTC&chtt=Expense+by+day&cht=bvs&chs=800x200&chxr=0,10.0,10.0'
   end
 end
