@@ -3,6 +3,8 @@ class ExpenseTransaction < ActiveRecord::Base
   belongs_to :user
   validates :user_id, presence: true
 
+  scope :current_user, -> { where(published: true) }
+
 def self.calculate_data_by_type
   investment_amount = saving_amount = expense_amount = 0
     ExpenseTransaction.all.each do |transaction| 

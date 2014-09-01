@@ -52,8 +52,8 @@ feature 'Statistics' do
 
   scenario 'Show graphics for Expense by day' do
     FactoryGirl.create(:expense_category, name: 'food_and_drinks')
-    FactoryGirl.create(:expense_transaction, date: '10.10.2014', expense_category_id: 1, amount: 10)
-    FactoryGirl.create(:expense_transaction, date: '11.10.2014', expense_category_id: 1, amount: 10)
+    FactoryGirl.create(:expense_transaction, date: '10.09.2014', expense_category_id: 1, amount: 10)
+    FactoryGirl.create(:expense_transaction, date: '11.09.2014', expense_category_id: 1, amount: 10)
   
     visit 'statistics'
 
@@ -109,6 +109,6 @@ feature 'Statistics' do
   end
   
   def expense_by_day
-    'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,ls,90,ffffff,0.2,ffffff,0.2&chd=s:99&chl=2014-10-10+00%3A00%3A00+UTC|2014-10-11+00%3A00%3A00+UTC&chtt=Expense+by+day&cht=bvs&chs=800x200&chxr=0,10.0,10.0'
+    'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,ls,90,ffffff,0.2,ffffff,0.2&chd=s:99&chl=2014-09-10+00%3A00%3A00+UTC|2014-09-11+00%3A00%3A00+UTC&chtt=Expense+by+day&cht=bvs&chs=800x200&chxr=0,10.0,10.0'
   end
 end

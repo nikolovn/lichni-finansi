@@ -18,8 +18,8 @@ class StatisticsController < ApplicationController
     Gchart.pie_3d({
           :title => 'Income Category', 
           :size => '400x200',
-          :data => IncomeCategory.where(user_id: current_user.id).calculate_data_by_category, 
-          :labels => IncomeCategory.where(user_id: current_user.id).pluck(:name),
+          :data => income_category.calculate_data_by_category, 
+          :labels => income_category.pluck(:name),
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -31,8 +31,8 @@ class StatisticsController < ApplicationController
     Gchart.pie_3d({
           :title => 'Expense Category', 
           :size => '400x200',
-          :data => ExpenseCategory.where(user_id: current_user.id).calculate_data_by_category, 
-          :labels => ExpenseCategory.where(user_id: current_user.id).pluck(:name),
+          :data => expense_category.calculate_data_by_category, 
+          :labels => expense_category.pluck(:name),
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -57,7 +57,7 @@ class StatisticsController < ApplicationController
     Gchart.pie_3d({
           :title => 'Expense by type', 
           :size => '400x200',
-          :data => ExpenseTransaction.where(user_id: current_user.id).calculate_data_by_type, 
+          :data => expense_transaction.calculate_data_by_type, 
           :labels => ['Investment', 'Saving', 'Expense'],
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
@@ -70,8 +70,8 @@ class StatisticsController < ApplicationController
     Gchart.bar({
           :title => 'Expense by day', 
           :size => '800x200',
-          :data => ExpenseTransaction.where(user_id: current_user.id).expense_by_day_data, 
-          :labels => ExpenseTransaction.where(user_id: current_user.id).pluck(:date),
+          :data => expense_transaction.expense_by_day_data, 
+          :labels => expense_transaction.pluck(:date),
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -80,13 +80,33 @@ class StatisticsController < ApplicationController
   end
 
   def calculate_balance
-    expense_amount = ExpenseTransaction.where(user_id: current_user.id).sum(:amount).to_f
-    income_amount = IncomeTransaction.where(user_id: current_user.id).sum(:amount).to_f
+    expense_amount = expense_transaction.sum(:amount).to_f
+    income_amount = income_transaction.sum(:amount).to_f
     all_sum = expense_amount + income_amount
     if all_sum > 0
       [ income_amount/all_sum, expense_amount/all_sum ]
     else
       []
     end
+  end
+  
+  def expense_transaction
+    ExpenseTransaction.where(user_id: current_user.id, date: date_range)
+  end
+
+  def income_transaction
+    IncomeTransaction.where(user_id: current_user.id, date: date_range)
+  end
+
+  def expense_category
+    ExpenseCategory.where(user_id: current_user.id)
+  end
+
+  def income_category
+    IncomeCategory.where(user_id: current_user.id)
+  end
+
+  def date_range
+    Date.parse('2014-09-01')..Date.parse('2014-09-30')
   end
 end
