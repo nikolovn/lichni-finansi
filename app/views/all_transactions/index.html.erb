@@ -17,7 +17,7 @@
             <%= f.text_field :date_lteq %>  <br> 
             <%= f.hidden_field :tabs, value: 'income' %>
 
-            <%= f.submit %>
+            <%= f.submit id: 'all_transactions' %>
           <% end %>
         </div>
         <!-- end panel-body -->
@@ -37,7 +37,7 @@
               <%= f.label 'income category' %><br>
               <%= f.collection_select :income_category_id_eq, @income_categories, :id, :name, include_blank: true %>
               <%= f.hidden_field :tabs, value: 'income' %>
-              <%= f.submit %>
+              <%= f.submit id: 'income_transactions' %>
           <% end %>
         </div>
         <!-- end panel-body -->
@@ -59,7 +59,7 @@
               <%= f.label 'Income relation' %>
               <%= f.collection_select :income_relation_eq, @income_transactions, :id, :description, include_blank: true %> 
               <%= f.hidden_field :tabs, value: 'expense' %>
-              <%= f.submit %>
+              <%= f.submit id: 'expense_trasnactions' %>
           <% end %>
         </div>
         <!-- end panel-body -->

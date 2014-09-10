@@ -5,11 +5,9 @@ class AllTransactionsController < ApplicationController
     @q_income_transactions = current_user.income_transactions.search(params[:q])
     @income_transactions = @q_income_transactions.result(distinct: true)
     @income_transactions = @income_transactions.where(date: date_range)
-
     @q_expense_transactions = current_user.expense_transactions.search(params[:q])
     @expense_transactions = @q_expense_transactions.result(distinct: true).order('date ASC')
     @expense_transactions = @expense_transactions.where(date: date_range)
-
     @q_income_categories = current_user.income_category.search(params[:q])
     @income_categories = @q_income_categories.result(distinct: true)
 
@@ -42,11 +40,15 @@ class AllTransactionsController < ApplicationController
 
   def active_expense
     if params['q'] != nil && params['q']['tabs'] == 'expense' &&
-     @active_expense = 'active'
+     @active_expense == 'active'
     end
   end
 
   def date_range
-    Date.parse('2014-09-01')..Date.parse('2014-09-30')
+    if params[:q].present? && params[:q][:date_gteq].present? && params[:q][:date_lteq].present?
+      params[:q][:date_gteq]..params[:q][:date_lteq]
+    else
+      Date.parse('2014-09-01')..Date.parse('2014-09-30')
+    end
   end
 end
