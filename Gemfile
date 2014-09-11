@@ -49,6 +49,8 @@ gem 'turbolinks'
 
 gem 'best_in_place'
 
+gem 'awesome_nested_set'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 

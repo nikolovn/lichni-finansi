@@ -21,7 +21,10 @@
                   <a id = add_<%=category.name%>_transactions) href="#" onclick="document.getElementById('<%=category.name%>_transactions').style.display = ''">Add a transaction</a>
 
                   <a id = remove_<%=category.name%>_transactions) href="#" onclick="document.getElementById('<%=category.name%>_transactions').style.display = 'none'">Remove a transaction</a>
+                <%= link_to 'Edit', edit_expense_category_path(category) %>
+                <%= link_to 'Delete', expense_category_path(category.id), method: :delete, data: { confirm: 'Are you sure?' } %>
                 </p></td>
+
             </tr>
         <% end %>
       </tbody>
