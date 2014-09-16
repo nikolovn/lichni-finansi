@@ -12,7 +12,7 @@
   <% end %>
   <div class="field">
     <%= c.text_field :name %>
-    <%= c.select :parent_id, nested_set_options(IncomeCategory, @income_category) {|i| "#{'-' * i.level} #{i.name}" } %>
+    <%= c.select :parent_id, nested_set_options(IncomeCategory.where(user_id: current_user.id), @income_category) {|i| "#{'-' * i.level} #{i.name}" } %>
   </div>
   <div class="actions">
     <%= c.submit %>

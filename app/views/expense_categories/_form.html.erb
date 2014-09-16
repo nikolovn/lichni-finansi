@@ -12,7 +12,7 @@
   <% end %>
   <div class="field">
     <%= c.text_field :name %>
-    <%= c.select :parent_id, nested_set_options(ExpenseCategory, @expense_category) {|i| "#{'-' * i.level} #{i.name}" } %>
+    <%= c.select :parent_id, nested_set_options(ExpenseCategory.where(user_id: current_user.id), @expense_category) {|i| "#{'-' * i.level} #{i.name}" } %>
 
   </div>
   <div class="actions">

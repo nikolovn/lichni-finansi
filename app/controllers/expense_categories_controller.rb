@@ -32,8 +32,8 @@ class ExpenseCategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        format.html { redirect_to @category, notice: 'Category was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @category }
+        format.html { redirect_to @category, notice: 'Expense category was successfully created.' }
+        format.json { render action: 'show',  status: :created, location: @category }
       else
         format.html { render action: 'new' }
         format.json { render json: @category.errors, status: :unprocessable_entity }
@@ -45,12 +45,12 @@ class ExpenseCategoriesController < ApplicationController
   # PATCH/PUT /categories/1.json
   def update
     respond_to do |format|
-      if @category.update(expense_category_params)
-        format.html { redirect_to @category, notice: 'Category was successfully updated.' }
+      if @expense_category.update(expense_category_params)
+        format.html { redirect_to @expense_category, notice: 'Expense category was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
+        format.json { render json: @expense_category.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -58,9 +58,9 @@ class ExpenseCategoriesController < ApplicationController
   # DELETE /categories/1
   # DELETE /categories/1.json
   def destroy
-    @category.destroy
+    @expense_category.destroy
     respond_to do |format|
-      format.html { redirect_to categories_url }
+      format.html { redirect_to expense_categories_url }
       format.json { head :no_content }
     end
   end
