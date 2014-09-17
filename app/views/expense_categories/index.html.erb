@@ -8,10 +8,16 @@
             <th>Action</th>
           </tr>
         </thead>
+
+<button>Toggle</button>
+<p>Hello</p>
+<p style="display: none">Good Bye</p>
+ 
+ 
     <% @expense_categories.each do |category| %>
           
             <tr>
-              <td><%= category.name %> 
+              <td><%= "#{'-' * category.level} #{category.name}" %> 
                 
               </td>
               <td><div id="<%=category.name%>_transactions" style="display:none;" >
