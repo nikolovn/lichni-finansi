@@ -42,7 +42,7 @@ feature 'Enter Category' do
 
     click_on('Edit', match: :first)
     fill_in 'expense_category_name', with: 'expense_category_1'
-    page.select 'Food', from: 'expense_category_parent_id'
+    page.select 'Drinks', from: 'expense_category_parent_id'
 
     click_on 'Update Expense category'
     
@@ -57,7 +57,7 @@ feature 'Enter Category' do
 
     click_on('Delete', match: :first)
 
-    expect(page).to have_content 'Food'
-    expect(page).not_to have_content 'Drinks'
+    expect(page).to have_content 'Drinks'
+    expect(page).not_to have_content 'Food'
   end
 end
