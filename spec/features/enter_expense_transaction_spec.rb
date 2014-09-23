@@ -18,14 +18,17 @@ feature 'Enter expense transaction' do
     expect(page).to have_content 'Transport and comunications'
   end
 
-  scenario 'Add fields and Enter the new transaction', js:true , driver: :rack_test do
-    FactoryGirl.create(:expense_category, name: 'food_and_drinks')
+  scenario 'Add fields and Enter the new transaction' , js:true , driver: :rack_test  do
+    FactoryGirl.create(:expense_category, name: 'parent', id: 21)
+    FactoryGirl.create(:expense_category, name: 'food_and_drinks', parent_id: 21)
     FactoryGirl.create(:income_category, name: 'food_and_drinks')
     FactoryGirl.create(:income_transaction)
 
-    Capybara.ignore_hidden_elements = nil
-
+  #  Capybara.ignore_hidden_elements = nil
+    binding.pry
+  
     visit 'expense_categories'
+       click_on parent
        fill_in 'expense_transaction_description', with: 'fruits'
        fill_in 'expense_transaction_date', with: '10.10.2014'
        fill_in 'expense_transaction_amount', with: '5.00'

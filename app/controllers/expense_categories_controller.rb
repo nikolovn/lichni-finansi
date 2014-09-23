@@ -1,12 +1,14 @@
 class ExpenseCategoriesController < ApplicationController
   before_filter :authenticate_user!
+  respond_to :html, :js
   
-  before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :set_category, only: [:show_sub_category, :show, :edit, :update, :destroy]
 
   # GET /categories
   # GET /categories.json
   def index
     @expense_categories = ExpenseCategory.where(user_id: current_user.id).order(:lft).order(:lft)
+    @expense_parent_categories = ExpenseCategory.where(user_id: current_user.id).where(depth: 0).order(:lft).order(:lft)
     @income_transactions = IncomeTransaction.where(user_id: current_user.id)
     @expense_transaction = ExpenseTransaction.new
   end
@@ -14,6 +16,13 @@ class ExpenseCategoriesController < ApplicationController
   # GET /categories/1
   # GET /categories/1.json
   def show
+  end
+
+  def show_sub_category
+    @income_transactions = IncomeTransaction.where(user_id: current_user.id)
+
+    @expense_transaction = ExpenseTransaction.new
+    @expense_sub_categories = ExpenseCategory.where(user_id: current_user.id).where(parent_id: @expense_category.id).order(:lft).order(:lft)
   end
 
   # GET /categories/new

@@ -6,7 +6,11 @@ Finance::Application.routes.draw do
   resources :income_transactions
   resources :income_categories
   resources :expense_transactions
-  resources :expense_categories
+  resources :expense_categories do
+    collection do
+      get 'show_sub_category/:id', action: :show_sub_category, as: 'show_sub_category'
+    end
+  end
   resources :all_transactions
   resources :statistics
   resources :graphics

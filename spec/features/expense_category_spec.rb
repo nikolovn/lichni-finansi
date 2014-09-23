@@ -10,14 +10,32 @@ feature 'Enter Category' do
     login_as(user, :scope => :user)
   end
 
-  scenario 'Show expense categories' do
-    FactoryGirl.create(:expense_category, name: 'Food')
-    FactoryGirl.create(:expense_category, name: 'Drinks')
+  scenario 'List parent expense categories' do
+    FactoryGirl.create(:expense_category, id:21, name: 'Car')
+    FactoryGirl.create(:expense_category, name: 'Oil', parent_id:21)
+    FactoryGirl.create(:expense_category, name: 'Foot')
 
     visit 'expense_categories'
 
-    expect(page).to have_content 'Food'
-    expect(page).to have_content 'Drinks'
+    expect(page).to have_content 'Car'
+    expect(page).not_to have_content 'Oil'
+    expect(page).to have_content 'Foot'
+  end
+
+  scenario 'Click on parent category and list subcategories', js: true , driver: :rack_test do
+    FactoryGirl.create(:expense_category, id:21, name: 'Car')
+    FactoryGirl.create(:expense_category, name: 'Oil', parent_id:21)
+    FactoryGirl.create(:expense_category, name: 'Foot')
+    FactoryGirl.create(:expense_category, name: 'Insurance', parent_id:21)
+
+    visit 'expense_categories'
+
+    expect(page).to have_content 'Car'
+    expect(page).to have_content 'Foot'
+    
+    click_on 'Car'
+    binding.pry
+    expect(page).to have_content 'Oil'
   end
 
   scenario 'Add cetegory' do
