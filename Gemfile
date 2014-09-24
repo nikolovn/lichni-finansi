@@ -36,6 +36,7 @@ group :test do
   gem 'capybara', '~> 2.2.1'
   gem 'launchy', '~> 2.4.2'
   gem 'selenium-webdriver', '~> 2.41.0'
+  gem 'poltergeist', '~> 1.5.1'
 end
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes

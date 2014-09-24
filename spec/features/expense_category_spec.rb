@@ -22,19 +22,18 @@ feature 'Enter Category' do
     expect(page).to have_content 'Foot'
   end
 
-  scenario 'Click on parent category and list subcategories', js: true , driver: :rack_test do
+  scenario 'Click on parent category and list subcategories', js: true do
     FactoryGirl.create(:expense_category, id:21, name: 'Car')
     FactoryGirl.create(:expense_category, name: 'Oil', parent_id:21)
     FactoryGirl.create(:expense_category, name: 'Foot')
     FactoryGirl.create(:expense_category, name: 'Insurance', parent_id:21)
 
-    visit 'expense_categories'
-
+    visit expense_categories_path
+  
     expect(page).to have_content 'Car'
     expect(page).to have_content 'Foot'
     
     click_on 'Car'
-    binding.pry
     expect(page).to have_content 'Oil'
   end
 
