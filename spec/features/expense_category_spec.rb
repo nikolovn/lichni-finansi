@@ -38,10 +38,10 @@ feature 'Enter Category' do
   end
 
   scenario 'Click on parent category and hide subcategories', js: true do
-    FactoryGirl.create(:expense_category, id:21, name: 'Car')
+    FactoryGirl.create(:expense_category, name: 'Car', id: 21)
     FactoryGirl.create(:expense_category, name: 'Oil', parent_id:21)
-    FactoryGirl.create(:expense_category, name: 'Foot')
-    FactoryGirl.create(:expense_category, name: 'Insurance', parent_id:21)
+    FactoryGirl.create(:expense_category, name: 'Foot', id: 22 )
+    FactoryGirl.create(:expense_category, name: 'Soup', parent_id:22)
 
     visit expense_categories_path
   
@@ -51,8 +51,14 @@ feature 'Enter Category' do
     click_on 'Car'
     expect(page).to have_content 'Oil'
 
+    click_on 'Foot'
+    expect(page).to have_content 'Soup'
+
     click_on 'Car'
     expect(page).not_to have_content 'Oil'
+
+    click_on 'Foot'
+    expect(page).not_to have_content 'Soup'
   end
 
   scenario 'Add cetegory' do
