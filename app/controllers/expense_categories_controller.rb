@@ -25,6 +25,13 @@ class ExpenseCategoriesController < ApplicationController
     @expense_sub_categories = ExpenseCategory.where(user_id: current_user.id).where(parent_id: @expense_category.id).order(:lft).order(:lft)
   end
 
+  def hide_sub_category
+    @income_transactions = IncomeTransaction.where(user_id: current_user.id)
+
+    @expense_transaction = ExpenseTransaction.new
+    @expense_sub_categories = ExpenseCategory.where(user_id: current_user.id).where(parent_id: 1).order(:lft).order(:lft)
+  end
+
   # GET /categories/new
   def new
     @expense_category = ExpenseCategory.new
