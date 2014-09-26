@@ -13,8 +13,8 @@
     <% @expense_parent_categories.each do |category| %>
           
             <tr>
-              <td id = "sub_category_link_<%=category.id %>"">
-                  <%= link_to "#{'-' * category.level} #{category.name}",show_sub_category_expense_categories_path(category.id, category_name: category.name, category_level: category.level), remote: true %>
+              <td id = "sub_category_link_<%=category.id %>""><b>
+                  <%= link_to "#{'-' * category.level} #{category.name}",show_sub_category_expense_categories_path(category.id, category_name: category.name, category_level: category.level), remote: true %></b>
               </td>
               <td>
                 <%= link_to 'Edit', edit_expense_category_path(category) %>
