@@ -13,14 +13,14 @@ feature 'Show transactions' do
   scenario 'List expense transactions without select inpud date' do
     FactoryGirl.create(:expense_category, name: 'expense_category_name')
     FactoryGirl.create(:expense_transaction, description: 'expense_transaction',
-      amount: 10, date: 'EUR', user_id: '1', date: '2014-09-09' , expense_category_id: 1)
+      amount: 10, date: 'EUR', user_id: '1', date: Date.today , expense_category_id: 1)
   
     visit all_transactions_path
 
     expect(page).to have_text 'expense_category_name'
     expect(page).to have_text 'expense_transaction'
     expect(page).to have_text '10.0'
-    expect(page).to have_text '2014-09-09 00:00:00 UTC'
+    expect(page).to have_text "#{Date.today}"
   end
 
   scenario 'List expense transactions when select inpud date' do

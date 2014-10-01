@@ -4,6 +4,7 @@ class ExpenseTransaction < ActiveRecord::Base
   validates :user_id, presence: true
 
   scope :current_user, -> { where(published: true) }
+  scope :current_month, ->{ where(:date => date_range) }
 
 def self.calculate_data_by_type
   investment_amount = saving_amount = expense_amount = 0
@@ -30,5 +31,9 @@ def self.calculate_data_by_type
 
   def self.expense_by_day_data
     ExpenseTransaction.group('date').order('date ASC').sum(:amount).values
+  end
+
+  def self.date_range
+    DateTime.now.beginning_of_month..DateTime.now.at_end_of_month
   end
 end

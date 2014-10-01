@@ -8,7 +8,7 @@ end
 FactoryGirl.define do
   factory :income_transaction do
     sequence(:description) {|n| "name#{n}"}
-    date '10.09.2014'
+    date DateTime.now
     user_id 1
   end
 end
@@ -17,7 +17,7 @@ FactoryGirl.define do
   factory :expense_transaction do
     sequence(:description) {|n| "name#{n}"}
     user_id 1
-    date '10.09.2014'
+    date DateTime.now
   end
 end
 

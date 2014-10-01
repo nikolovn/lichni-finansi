@@ -91,11 +91,11 @@ class StatisticsController < ApplicationController
   end
   
   def expense_transaction
-    ExpenseTransaction.where(user_id: current_user.id, date: date_range)
+    ExpenseTransaction.current_month.where(user_id: current_user.id)
   end
 
   def income_transaction
-    IncomeTransaction.where(user_id: current_user.id, date: date_range)
+    IncomeTransaction.current_month.where(user_id: current_user.id)
   end
 
   def expense_category
@@ -104,9 +104,5 @@ class StatisticsController < ApplicationController
 
   def income_category
     IncomeCategory.where(user_id: current_user.id)
-  end
-
-  def date_range
-    Date.parse('2014-09-01')..Date.parse('2014-09-30')
   end
 end
