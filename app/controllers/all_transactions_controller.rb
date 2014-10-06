@@ -2,17 +2,13 @@ class AllTransactionsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    if params_present?
-      @q_income_transactions = current_user.income_transactions.search(params[:q])
-      @income_transactions = @q_income_transactions.result(distinct: true)
-      @q_expense_transactions = current_user.expense_transactions.search(params[:q])
-      @expense_transactions = @q_expense_transactions.result(distinct: true).order('date ASC')
-   else
-      @q_income_transactions = current_user.income_transactions.search(params[:q])
-      @income_transactions = current_user.income_transactions.current_month
-      @q_expense_transactions = current_user.expense_transactions.search(params[:q])
-      @expense_transactions = current_user.expense_transactions.current_month
-    end
+    start_date
+    end_date
+    
+    @q_income_transactions = current_user.income_transactions.search(params[:q])
+    @income_transactions = @q_income_transactions.result(distinct: true)
+    @q_expense_transactions = current_user.expense_transactions.search(params[:q])
+    @expense_transactions = @q_expense_transactions.result(distinct: true).order('date ASC')
 
     @q_income_categories = current_user.income_category.search(params[:q])
     @income_categories = @q_income_categories.result(distinct: true)
@@ -34,6 +30,22 @@ class AllTransactionsController < ApplicationController
 
   end
 
+  def start_date
+    if params['q'].present?
+      @start_date = params['q']['date_gteq']
+    else
+      @start_date = DateTime.now.beginning_of_month
+    end
+  end
+
+  def end_date
+    if params['q'].present?
+      @end_date = params['q']['date_lteq']
+    else
+      @end_date = DateTime.now.at_end_of_month
+    end
+  end
+
   def active_income
     if params['q'] != nil && params['q']['tabs'] == 'income'
       @active_income = 'active'
@@ -45,8 +57,8 @@ class AllTransactionsController < ApplicationController
   end
 
   def active_expense
-    if params['q'] != nil && params['q']['tabs'] == 'expense' &&
-     @active_expense == 'active'
+    if params['q'] != nil && params['q']['tabs'] == 'expense'
+     @active_expense = 'active'
     end
   end
 

@@ -29,11 +29,12 @@ feature 'Show transactions' do
       amount: 10, date: 'EUR', user_id: '1', date: '2014-08-09' , expense_category_id: 1)
   
     visit all_transactions_path
-
-    fill_in 'q_date_gteq', with: '2014-08-08'
-    fill_in 'q_date_lteq', with: '2014-08-10'
-
-    find_by_id('all_transactions').click
+    within("#expense_transaction_search") do
+      fill_in 'q_date_gteq', with: '2014-08-08'
+      fill_in 'q_date_lteq', with: '2014-08-10'
+      find_by_id('expense_trasnactions').click
+    end
+    
 
     expect(page).to have_text 'expense_category_name'
     expect(page).to have_text 'expense_transaction'
