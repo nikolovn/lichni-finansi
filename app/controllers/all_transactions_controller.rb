@@ -51,6 +51,6 @@ class AllTransactionsController < ApplicationController
   end
 
   def params_present?
-    params[:q].present? && params[:q][:date_gteq].present? && params[:q][:date_lteq].present?
+    params[:q].present?
   end
 end
