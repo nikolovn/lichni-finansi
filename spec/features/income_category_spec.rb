@@ -27,9 +27,6 @@ feature 'Enter Category' do
     
     click_on 'New category'
 
-    fill_in 'income_category_name', with: 'income_category_1'
-    page.select 'Salary1', from: 'income_category_parent_id'
-
     click_on 'Create Income category'
 
     expect(page).to have_content 'Income category was successfully created.'
@@ -42,8 +39,6 @@ feature 'Enter Category' do
     visit 'income_categories'
 
     click_on('Edit', match: :first)
-    fill_in 'income_category_name', with: 'income_category_1'
-    page.select 'Salary2', from: 'income_category_parent_id'
 
     click_on 'Update Income category'
 
@@ -58,7 +53,7 @@ feature 'Enter Category' do
 
     click_on('Delete', match: :first)
 
-    expect(page).to have_content 'Salary2'
-    expect(page).not_to have_content 'Salary1'
+    expect(page).to have_content 'Salary1'
+    expect(page).not_to have_content 'Salary2'
   end
 end

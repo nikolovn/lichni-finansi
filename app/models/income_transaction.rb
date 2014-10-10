@@ -1,6 +1,7 @@
 class IncomeTransaction < ActiveRecord::Base
   belongs_to :income_category
   belongs_to :user
+  has_many :expense_transactions
   validates :user_id, presence: true
   
   scope :current_month, -> { where(:date => date_range) }

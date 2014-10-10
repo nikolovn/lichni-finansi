@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20142907100223) do
     t.text     "type"
     t.string   "expense_type"
     t.integer  "user_id"
+    t.integer  "income_transaction_id"
   end
 
   add_index "expense_transactions", ["user_id"], name: "index_expense_transactions_on_user_id", using: :btree
@@ -64,10 +65,6 @@ ActiveRecord::Schema.define(version: 20142907100223) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.integer  "parent_id"
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.integer  "depth"
   end
 
   add_index "income_categories", ["user_id"], name: "index_income_categories_on_user_id", using: :btree

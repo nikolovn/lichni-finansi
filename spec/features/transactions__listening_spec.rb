@@ -27,12 +27,12 @@ feature 'Show transactions' do
     FactoryGirl.create(:expense_category, name: 'expense_category_name')
     FactoryGirl.create(:expense_transaction, description: 'expense_transaction',
       amount: 10, date: 'EUR', user_id: '1', date: '2014-08-09' , expense_category_id: 1)
-  
+
     visit all_transactions_path
     within("#expense_transaction_search") do
       fill_in 'q_date_gteq', with: '2014-08-08'
       fill_in 'q_date_lteq', with: '2014-08-10'
-      find_by_id('expense_trasnactions').click
+      click_on 'Search'
     end
     
 

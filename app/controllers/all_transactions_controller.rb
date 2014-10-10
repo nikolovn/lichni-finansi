@@ -6,7 +6,7 @@ class AllTransactionsController < ApplicationController
     end_date
     
     @q_income_transactions = current_user.income_transactions.search(params[:q])
-    @income_transactions = @q_income_transactions.result(distinct: true)
+    @income_transactions = @q_income_transactions.result(distinct: true).includes(:expense_transactions)
     @q_expense_transactions = current_user.expense_transactions.search(params[:q])
     @expense_transactions = @q_expense_transactions.result(distinct: true).order('date ASC')
 
@@ -19,7 +19,7 @@ class AllTransactionsController < ApplicationController
     @income_transactions_amount = 0
     @expense_transactions_amount = 0
     @income_transactions.each { |transaction| @income_transactions_amount+= transaction.amount }
-    @expense_transactions.each { |transaction| @expense_transactions_amount+= transaction.amount} 
+    #@expense_transactions.each { |transaction| @expense_transactions_amount+= transaction.amount} 
     @current_balance = @income_transactions_amount - @expense_transactions_amount
 
     @income_transactions_amount

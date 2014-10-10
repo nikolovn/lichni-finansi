@@ -1,5 +1,5 @@
 class IncomeCategory < ActiveRecord::Base
-  acts_as_nested_set
+  
   has_many :income_transactions
   belongs_to :user
   validates :user_id, presence: true

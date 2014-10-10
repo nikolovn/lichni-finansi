@@ -3,60 +3,40 @@
     <!--begin panel 1 -->
     <!--end col-md-4 -->
     <!-- begin panel 2 -->
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div style="text-align:center" class="panel panel-default">
         <div class="panel-heading">
-          <h1 class="panel-title">Filter income Transactions</h1>
+          <h1 class="panel-title">Filter Transactions</h1>
         </div>
         <!-- end panel-heading -->
         <div class="panel-body">
-          <%= search_form_for [@q_income_transactions], url: all_transactions_path, method: :get do |f| %>
-              <%= f.label 'income category' %><br>
-              <%= f.collection_select :income_category_id_eq, @income_categories, :id, :name, include_blank: true %>
-              <%= f.hidden_field :tabs, value: 'income' %><br>
-              <%= f.label :description_cont %><br>
-              <%= f.text_field :description_cont %> <br>
-              <%= f.label :date_from %><br>
-              <%= f.text_field :date_gteq, value: @start_date %> <br>
-              <%= f.label :date_to %><br>
-              <%= f.text_field :date_lteq, value: @end_date %>  <br> 
-              <%= f.submit id: 'income_transactions' %>
+          <%= search_form_for [@q_expense_transactions], url: all_transactions_path, method: :get do |f| %>
+           
+              <div class="col-md-4">
+                <%= f.label 'income transaction' %><br>
+                <%= f.collection_select :id_eq, @income_transactions, :id, :description, include_blank: true %><br>
+                <%= f.label 'expense transaction' %><br>
+                <%= f.collection_select :expense_category_id_eq, @expense_categories, :id, :name, include_blank: true %><br>
+              </div>
+              <div class="col-md-4">
+                <%= f.label :date_from %><br>
+                <%= f.text_field :date_gteq, value: @start_date %> <br>
+                <%= f.label :date_to %><br>
+                <%= f.text_field :date_lteq, value: @end_date %>  <br> 
+              </div>
+              <div class="col-md-4">
+                <%= f.label :description_cont %><br>
+                <%= f.text_field :description_cont %> <br>
+                <%= f.hidden_field :tabs, value: 'expense' %><br>
+                <%= f.submit id: 'expense_transactions' %>
+              </div>
           <% end %>
         </div>
         <!-- end panel-body -->
       </div>
       <!-- end panel-primary -->
     </div>
-    <!-- end col-md-4 -->
-    <!--begin panel 3 -->
-    <div class="col-md-6">
-      <div style="text-align:center" class="panel panel-default">
-        <div class="panel-heading">
-          <h1 class="panel-title">Filter expense transactions</h1>
-        </div>
-        <!-- end panel-heading -->
-        <div class="panel-body">
-          <%= search_form_for [@q_expense_transactions], url: all_transactions_path, method: :get do |f| %>
-              <%= f.label 'Expense category' %>
-              <%= f.collection_select :expense_category_id_eq, @expense_categories, :id, :name, include_blank: true %><br>
-              <%= f.label 'Income relation' %>
-
-              <%= f.collection_select :income_relation_eq, @income_transactions, :id, :description, include_blank: true %> 
-              <%= f.hidden_field :tabs, value: 'expense' %><br>
-              <%= f.label :description_cont %><br>
-              <%= f.text_field :description_cont %> <br>
-              <%= f.label :date_from %><br>
-              <%= f.text_field :date_gteq, value: @start_date %> <br>
-              <%= f.label :date_to %><br>
-              <%= f.text_field :date_lteq, value: @end_date %>  <br> 
-              <%= f.submit id: 'expense_trasnactions' %>
-          <% end %>
-        </div>
-        <!-- end panel-body -->
-      </div>
-      <!-- end  panel-primary -->
-    </div>
-    <!-- end col-md-4 -->
+    
   </div>
   <!-- end row -->
 
