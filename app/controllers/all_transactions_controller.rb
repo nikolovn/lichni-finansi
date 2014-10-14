@@ -4,12 +4,13 @@ class AllTransactionsController < ApplicationController
   def index
     start_date
     end_date
+    income_params = expense_params = nil
     if params[:income_id].present? && params[:q].present?
-      income_params = params[:q]
+      income_params = params.deep_dup
       income_params[:id_eq] = params[:income_id]
     end
     if params[:expense_id].present? && params[:q].present?
-      expense_params = params[:q]
+      expense_params = params.deep_dup
       expense_params[:id_eq] = params[:expense_id]
     end
     @q_income_transactions = current_user.income_transactions.search(income_params)
