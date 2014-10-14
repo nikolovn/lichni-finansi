@@ -10,13 +10,13 @@
         </div>
         <!-- end panel-heading -->
         <div class="panel-body">
-          <%= search_form_for [@q_expense_transactions], url: all_transactions_path, method: :get do |f| %>
+          <%= search_form_for [@q_income_transactions], url: all_transactions_path, method: :get do |f| %>
            
               <div class="col-md-4">
                 <%= f.label 'income transaction' %><br>
-                <%= f.collection_select :id_eq, @income_transactions, :id, :description, include_blank: true %><br>
+                <%= select_tag(:income_id, options_for_select(@income_transactions.map {|t| [t.description, t.id]})) %><br>
                 <%= f.label 'expense transaction' %><br>
-                <%= f.collection_select :expense_category_id_eq, @expense_categories, :id, :name, include_blank: true %><br>
+                <%= select_tag(:expense_id, options_for_select(@expense_transactions.map {|t| [t.description, t.id]})) %><br>
               </div>
               <div class="col-md-4">
                 <%= f.label :date_from %><br>
