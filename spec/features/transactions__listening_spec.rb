@@ -49,7 +49,7 @@ feature 'Show transactions' do
     within("#income_transaction_search") do
       fill_in 'q_date_gteq', with: '2014-08-08'
       fill_in 'q_date_lteq', with: '2014-08-10'
-      page.select 'income_transaction_2', :from => 'income_id'
+      page.select 'income_transaction_1', :from => 'income_id'
       page.select 'expense_transaction_1', :from => 'expense_id'
 
       
@@ -65,13 +65,13 @@ feature 'Show transactions' do
     expect(page).not_to have_text 'expense_category_name_2'
     expect(page).not_to have_text 'expense_transaction_2'
 
-    expect(page).to have_text 'income_category_name_2'
-    expect(page).to have_text 'income_transaction_2'
+    expect(page).to have_text 'income_category_name_1'
+    expect(page).to have_text 'income_transaction_1'
     expect(page).to have_text '10.0'
     expect(page).to have_text '2014-08-09 00:00:00 UTC'
 
-    expect(page).not_to have_text 'income_category_name_1'
-    expect(page).not_to have_text 'income_transaction_1'
+    expect(page).not_to have_text 'income_category_name_2'
+    expect(page).not_to have_text 'income_transaction_2'
     expect(page).not_to have_text 'income_transaction_3'
 
   end

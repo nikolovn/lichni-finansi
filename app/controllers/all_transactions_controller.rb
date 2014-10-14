@@ -12,6 +12,7 @@ class AllTransactionsController < ApplicationController
     if params[:expense_id].present? && params[:q].present?
       expense_params = params.deep_dup
       expense_params[:id_eq] = params[:expense_id]
+      expense_params[:income_transaction_id_eq] = income_params[:id_eq]
     end
     @q_income_transactions = current_user.income_transactions.search(income_params)
     @income_transactions = @q_income_transactions.result(distinct: true).includes(:expense_transactions)
