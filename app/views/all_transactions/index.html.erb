@@ -14,9 +14,9 @@
            
               <div class="col-md-4">
                 <%= f.label 'income transaction' %><br>
-                <%= select_tag(:income_id, options_for_select(@income_transactions_all.map{ |t| [t.description, t.id] }.insert(0, ""), selected: params[:income_id])) %><br>
+                <%= select_tag('[q][income_id]', options_for_select(@income_transactions_all.map{ |t| [t.description, t.id] }.insert(0, ""), selected: params[:q][:income_id])) %><br>
                 <%= f.label 'expense transaction' %><br>
-                <%= select_tag(:expense_category_id_eq, options_for_select(@expense_categories.map {|t| [t.name, t.id]}.insert(0, ""), selected: params[:expense_category_id_eq])) %><br>
+                <%= select_tag('[q][expense_category_id_eq]', options_for_select(@expense_categories.map {|t| [t.name, t.id]}.insert(0, ""), selected: params[:q][:expense_category_id_eq])) %><br>
               </div>
               <div class="col-md-4">
                 <%= f.label :date_from %><br>

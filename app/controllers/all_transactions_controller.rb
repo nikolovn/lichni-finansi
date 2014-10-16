@@ -5,15 +5,16 @@ class AllTransactionsController < ApplicationController
     start_date
     end_date
     @expense_categories = ExpenseCategory.all
-    
-    income_params = params.deep_dup
-    income_id = params[:income_id]
-    income_params[:id_eq] = params[:income_id]
 
-  
-    expense_params = params.deep_dup
-    expense_params[:expense_category_id_eq] = params[:expense_category_id_eq]
-    expense_params[:income_transaction_id_eq] = income_id 
+    if params[:q].present?
+      income_params = params[:q].deep_dup
+      income_params[:id_eq] = income_params[:income_id]
+
+      expense_params = params[:q].deep_dup
+      expense_params[:expense_category_id_eq] = income_params[:expense_category_id_eq]
+      expense_params[:income_transaction_id_eq] = income_params[:income_id] 
+    end
+
     @income_transactions_all = current_user.income_transactions
     @q_income_transactions = current_user.income_transactions.search(income_params)
     @income_transactions = @q_income_transactions.result(distinct: true)
@@ -27,6 +28,7 @@ class AllTransactionsController < ApplicationController
 
     active_income
     active_expense
+
   end
 
   def start_date

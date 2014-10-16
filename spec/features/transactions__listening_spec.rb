@@ -49,8 +49,8 @@ feature 'Show transactions' do
     within("#income_transaction_search") do
       fill_in 'q_date_gteq', with: '2014-08-  08'
       fill_in 'q_date_lteq', with: '2014-08-10' 
-      page.select 'income_transaction_1', :from => 'income_id'
-      page.select 'expense_category_name_1', :from => 'expense_category_id_eq'
+      page.select 'income_transaction_1', :from => '_q_income_id'
+      page.select 'expense_category_name_1', :from => '_q_expense_category_id_eq'
 
       
       click_on 'Search'
