@@ -9,9 +9,10 @@ class AllTransactionsController < ApplicationController
     if params[:q].present?
       income_params = params[:q].deep_dup
       income_params[:id_eq] = income_params[:income_id]
-
+      @income_params_id = income_params[:id_eq]
       expense_params = params[:q].deep_dup
       expense_params[:expense_category_id_eq] = income_params[:expense_category_id_eq]
+      @expense_category_id = expense_params[:expense_category_id_eq]
       expense_params[:income_transaction_id_eq] = income_params[:income_id] 
     end
 
@@ -28,7 +29,7 @@ class AllTransactionsController < ApplicationController
 
     active_income
     active_expense
-
+    
   end
 
   def start_date
