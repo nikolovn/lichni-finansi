@@ -35,7 +35,7 @@ class ExpenseTransactionsController < ApplicationController
     end
 
     def expense_transactions_params
-      params.require(:expense_transaction).permit(:expense_category_id, :income_relation, :description, :date, :amount, :expense_type)
+      params.require(:expense_transaction).permit(:expense_category_id, :income_transaction_id, :description, :date, :amount, :expense_type)
     end
 
   def destroy

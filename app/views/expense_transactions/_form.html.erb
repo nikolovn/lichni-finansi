@@ -20,8 +20,8 @@
       <%= f.text_field :date %><br>
       <%= f.label :amount %><br>
       <%= f.text_field :amount %><br>
-      <%= f.label :income_relation %><br>
-      <%= f.collection_select :income_relation, @income_transactions, :id, :description, include_blank: true %><br>
+      <%= f.label :income_transaction_id %><br>
+      <%= f.collection_select :income_transaction_id, @income_transactions, :id, :description, include_blank: true %><br>
       <%= f.label :TYPE %><br>
       <%= f.select :expense_type, options_for_select([['investment' ,'investment'], ['saving', 'saving'], ['expense', 'expense']]) %>
 

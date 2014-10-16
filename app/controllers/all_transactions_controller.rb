@@ -4,18 +4,19 @@ class AllTransactionsController < ApplicationController
   def index
     start_date
     end_date
-    income_params = expense_params = nil
-    if params[:income_id].present? && params[:q].present?
-      income_params = params.deep_dup
-      income_params[:id_eq] = params[:income_id]
-    end
-    if params[:expense_id].present? && params[:q].present?
-      expense_params = params.deep_dup
-      expense_params[:id_eq] = params[:expense_id]
-      expense_params[:income_transaction_id_eq] = income_params[:id_eq]
-    end
+    @expense_categories = ExpenseCategory.all
+    
+    income_params = params.deep_dup
+    income_id = params[:income_id]
+    income_params[:id_eq] = params[:income_id]
+
+  
+    expense_params = params.deep_dup
+    expense_params[:expense_category_id_eq] = params[:expense_category_id_eq]
+    expense_params[:income_transaction_id_eq] = income_id 
+    @income_transactions_all = current_user.income_transactions
     @q_income_transactions = current_user.income_transactions.search(income_params)
-    @income_transactions = @q_income_transactions.result(distinct: true).includes(:expense_transactions)
+    @income_transactions = @q_income_transactions.result(distinct: true)
     @q_expense_transactions = current_user.expense_transactions.search(expense_params)
     @expense_transactions = @q_expense_transactions.result(distinct: true).order('date ASC')
 

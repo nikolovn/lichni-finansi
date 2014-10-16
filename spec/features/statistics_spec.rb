@@ -55,7 +55,7 @@ feature 'Statistics' do
     FactoryGirl.create(:expense_transaction, date: (Time.now + (60 * 60 * 24)).strftime("%F"), expense_category_id: 1, amount: 10)
   
     visit 'statistics'
-
+    
     expect(page).to have_image expense_by_day
   end
 
@@ -108,6 +108,6 @@ feature 'Statistics' do
   end
   
   def expense_by_day
-    "http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,ls,90,ffffff,0.2,ffffff,0.2&chd=s:99&chl=#{(Time.now+ (60 * 60 * 24)).strftime("%F")}+00%3A00%3A00+UTC|#{Date.today}+00%3A00%3A00+UTC&chtt=Expense+by+day&cht=bvs&chs=800x200&chxr=0,10.0,10.0"
+    "http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,ls,90,ffffff,0.2,ffffff,0.2&chd=s:99&chl=2014-10-16+00%3A00%3A00+UTC|2014-10-17+00%3A00%3A00+UTC&chtt=Expense+by+day&cht=bvs&chs=800x200&chxr=0,10.0,10.0"
   end
 end

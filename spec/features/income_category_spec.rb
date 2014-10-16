@@ -47,13 +47,11 @@ feature 'Enter Category' do
 
   scenario 'Remove Category' do
     FactoryGirl.create(:income_category, name: 'Salary1')
-    FactoryGirl.create(:income_category, name: 'Salary2')
 
     visit 'income_categories'
 
-    click_on('Delete', match: :first)
+    click_on('Delete')
 
-    expect(page).to have_content 'Salary1'
-    expect(page).not_to have_content 'Salary2'
+    expect(page).not_to have_content 'Salary1'
   end
 end
