@@ -4,17 +4,10 @@
           <h1 class="panel-title text-center">Filter transactions</h1>
         </div>
         <!-- end panel-heading -->
-        <div class="panel-body">
-          <%= search_form_for [@q_income_transactions], url: all_transactions_path, method: :get do |f| %>
-            <%= f.label :date_from %>
-            <%= f.text_field :date_gteq %> 
-            <%= f.label :date_to %>
-            <%= f.text_field :date_lteq %>  
+          <%= render partial: 'shared/search', locals: { path: statistics_path } %>
 
-            <%= f.submit %>
-          <% end %>
         </div>
-      </div>
+      
  
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -56,4 +49,5 @@
       </div>
 </div>
   </div>
+</div>
 </div>

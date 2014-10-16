@@ -9,29 +9,8 @@
           <h1 class="panel-title">Filter Transactions</h1>
         </div>
         <!-- end panel-heading -->
-        <div class="panel-body">
-          <%= search_form_for [@q_income_transactions], url: all_transactions_path, method: :get do |f| %>
-           
-              <div class="col-md-4">
-                <%= f.label 'income transaction' %><br>
-                <%= select_tag('[q][income_id]', options_for_select(@income_transactions_all.map{ |t| [t.description, t.id] }.insert(0, ""), selected: @income_params_id)) %><br>
-                <%= f.label 'expense transaction' %><br>
-                <%= select_tag('[q][expense_category_id_eq]', options_for_select(@expense_categories.map {|t| ["#{'-' * t.level} #{t.name}", t.id]}.insert(0, ""), selected: @expense_category_id)) %><br>
-              </div>
-              <div class="col-md-4">
-                <%= f.label :date_from %><br>
-                <%= f.text_field :date_gteq, value: @start_date %> <br>
-                <%= f.label :date_to %><br>
-                <%= f.text_field :date_lteq, value: @end_date %>  <br> 
-              </div>
-              <div class="col-md-4">
-                <%= f.label :description_cont %><br>
-                <%= f.text_field :description_cont %> <br>
-                <%= f.hidden_field :tabs, value: 'expense' %><br>
-                <%= f.submit id: 'expense_transactions' %>
-              </div>
-          <% end %>
-        </div>
+        <%= render partial: 'shared/search', locals: { path: all_transactions_path } %>
+
         <!-- end panel-body -->
       </div>
       <!-- end panel-primary -->

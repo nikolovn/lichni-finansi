@@ -2,10 +2,30 @@ class StatisticsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    start_date
+    end_date
+    
+    @expense_categories = ExpenseCategory.where(user_id: current_user.id).order(:lft)
+
+    if params[:q].present?
+      income_params = params[:q].deep_dup
+      income_params[:id_eq] = income_params[:income_id]
+      @income_params_id = income_params[:id_eq]
+      expense_params = params[:q].deep_dup
+      expense_params[:expense_category_id_eq] = income_params[:expense_category_id_eq]
+      @expense_category_id = expense_params[:expense_category_id_eq]
+      expense_params[:income_transaction_id_eq] = income_params[:income_id] 
+    end
+
+    @income_transactions_all = current_user.income_transactions
+    @q_income_transactions = current_user.income_transactions.search(income_params)
+    @income_transactions = @q_income_transactions.result(distinct: true)
+    @q_expense_transactions = current_user.expense_transactions.search(expense_params)
+    @expense_transactions = @q_expense_transactions.result(distinct: true).order('date ASC')
 
     @q_income_transactions = current_user.income_transactions.search(params[:q])
 
-    @graphics_income_category = graphics_income_category
+    @graphics_income_category = graphics_income_transactions(@income_transactions)
     @graphics_expense_category = graphics_expense_category
     @graphics_balance_category = graphics_balance
     @graphics_investment_saving_expense_category = graphics_expense_type
@@ -14,12 +34,12 @@ class StatisticsController < ApplicationController
   
   private
 
-  def graphics_income_category
+  def graphics_income_transactions(income_transactions)
     Gchart.pie_3d({
           :title => 'Income Category', 
           :size => '400x200',
-          :data => income_category.calculate_data_by_category, 
-          :labels => income_category.pluck(:name),
+          :data => generate_income_percent_data(income_transactions),
+          :labels => income_transactions.pluck(:description),
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -79,6 +99,14 @@ class StatisticsController < ApplicationController
     })
   end
 
+  def generate_income_percent_data(transactions)
+    transactions.map { |transaction| transaction.amount/transactions.sum(:amount) }
+  end
+
+  def generate_expense_percent_data(transactions)
+    transactions.map { |transaction| transaction.group_by(:expense_category_id).amount/transactions.sum(:amount) }
+  end
+
   def calculate_balance
     expense_amount = expense_transaction.sum(:amount).to_f
     income_amount = income_transaction.sum(:amount).to_f
@@ -104,5 +132,21 @@ class StatisticsController < ApplicationController
 
   def income_category
     IncomeCategory.where(user_id: current_user.id)
+  end
+
+  def start_date
+    if params['q'].present?
+      @start_date = params['q']['date_gteq']
+    else
+      @start_date = DateTime.now.beginning_of_month
+    end
+  end
+
+  def end_date
+    if params['q'].present?
+      @end_date = params['q']['date_lteq']
+    else
+      @end_date = DateTime.now.at_end_of_month
+    end
   end
 end
