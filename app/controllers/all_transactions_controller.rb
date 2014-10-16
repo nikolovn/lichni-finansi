@@ -4,7 +4,7 @@ class AllTransactionsController < ApplicationController
   def index
     start_date
     end_date
-    @expense_categories = ExpenseCategory.all
+    @expense_categories = ExpenseCategory.where(user_id: current_user.id).order(:lft)
 
     if params[:q].present?
       income_params = params[:q].deep_dup
@@ -24,12 +24,8 @@ class AllTransactionsController < ApplicationController
  
     @current_balance = @income_transactions.sum(:amount) - @expense_transactions.sum(:amount)
 
-    @income_transactions_amount
-    @expense_transactions_amount
-
     active_income
     active_expense
-    
   end
 
   def start_date
