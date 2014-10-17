@@ -23,8 +23,7 @@ class AllTransactionsController < ApplicationController
     @expense_transactions = @q_expense_transactions.result(distinct: true).order('date ASC')
     @expense_transactions_amount = @expense_transactions.sum(:amount)
     @income_transactions_amount = @income_transactions.sum(:amount)
-    @current_balance = @expense_transactions_amount - @income_transactions_amount
-
+    @current_balance = @income_transactions_amount - @expense_transactions_amount
     active_income
     active_expense
   end
