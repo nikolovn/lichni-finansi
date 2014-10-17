@@ -21,8 +21,9 @@ class AllTransactionsController < ApplicationController
     @income_transactions = @q_income_transactions.result(distinct: true)
     @q_expense_transactions = current_user.expense_transactions.search(expense_params)
     @expense_transactions = @q_expense_transactions.result(distinct: true).order('date ASC')
- 
-    @current_balance = @income_transactions.sum(:amount) - @expense_transactions.sum(:amount)
+    @expense_transactions_amount = @expense_transactions.sum(:amount)
+    @income_transactions_amount = @income_transactions.sum(:amount)
+    @current_balance = @expense_transactions_amount - @income_transactions_amount
 
     active_income
     active_expense
