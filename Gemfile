@@ -24,6 +24,8 @@ gem 'haml', '~> 4.0.5'
 
 gem 'ransack', '~> 1.2.2'
 
+gem 'money-rails'
+
 group :development, :test do
   gem 'rspec-rails', '~> 2.13.1'
 end

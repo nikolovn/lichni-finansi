@@ -6,13 +6,13 @@ class ExpenseCategory < ActiveRecord::Base
 
   def self.calculate_data_by_category(current_user_id)
     ExpenseCategory.where(ancestry_depth: 0).where(user: current_user_id).map do |category| 
-      category.descendants.map do |descendant| 
+      Monetize.parse(category.descendants.map do |descendant| 
        descendant.expense_transactions.sum(:amount)
-      end.sum.to_f/expense_transactions_sum(current_user_id) * 100
+      end.sum.to_f/expense_transactions_sum(current_user_id) * 100).to_f
     end
   end 
 
   def self.expense_transactions_sum(current_user_id)
-    ExpenseTransaction.where(user: current_user_id).sum(:amount).to_f
+    ExpenseTransaction.where(user: current_user_id).sum(:amount)
   end
 end
