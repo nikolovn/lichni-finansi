@@ -8,7 +8,7 @@ class ExpenseCategoriesController < ApplicationController
   # GET /categories.json
   def index
     @expense_categories = ExpenseCategory.where(user_id: current_user.id).order(:lft).order(:lft)
-    @expense_parent_categories = ExpenseCategory.where(user_id: current_user.id).where(depth: 0).order(:lft).order(:lft)
+    @expense_parent_categories = ExpenseCategory.where(user_id: current_user.id).where(ancestry_depth: 0)
     @income_transactions = IncomeTransaction.where(user_id: current_user.id)
     @expense_transaction = ExpenseTransaction.new
   end
@@ -22,23 +22,25 @@ class ExpenseCategoriesController < ApplicationController
     @income_transactions = IncomeTransaction.where(user_id: current_user.id)
 
     @expense_transaction = ExpenseTransaction.new
-    @expense_sub_categories = ExpenseCategory.where(user_id: current_user.id).where(parent_id: @expense_category.id).order(:lft).order(:lft)
+    @expense_sub_categories = ExpenseCategory.find(params[:id]).descendants
   end
 
   def hide_sub_category
     @income_transactions = IncomeTransaction.where(user_id: current_user.id)
 
     @expense_transaction = ExpenseTransaction.new
-    @expense_sub_categories = ExpenseCategory.where(user_id: current_user.id).where(parent_id: 1).order(:lft).order(:lft)
+    @expense_sub_categories = ExpenseCategory.find(params[:id]).descendants
   end
 
   # GET /categories/new
   def new
+    @expense_parent_categories = ExpenseCategory.where(user_id: current_user.id).where(ancestry_depth: 0)
     @expense_category = ExpenseCategory.new
   end
 
   # GET /categories/1/edit
   def edit
+    @expense_parent_categories = ExpenseCategory.where(user_id: current_user.id).where(ancestry_depth: 0)
   end
 
   # POST /categories
@@ -60,11 +62,14 @@ class ExpenseCategoriesController < ApplicationController
   # PATCH/PUT /categories/1
   # PATCH/PUT /categories/1.json
   def update
+    @expense_parent_categories = ExpenseCategory.where(user_id: current_user.id).where(ancestry_depth: 0)
+
     respond_to do |format|
       if @expense_category.update(expense_category_params)
         format.html { redirect_to @expense_category, notice: 'Expense category was successfully updated.' }
         format.json { head :no_content }
       else
+        p 'not save'
         format.html { render action: 'edit' }
         format.json { render json: @expense_category.errors, status: :unprocessable_entity }
       end

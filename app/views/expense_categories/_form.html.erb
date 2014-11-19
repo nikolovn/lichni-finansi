@@ -12,7 +12,8 @@
   <% end %>
   <div class="field">
     <%= c.text_field :name %>
-    <%= c.select :parent_id, nested_set_options(ExpenseCategory.where(user_id: current_user.id), @expense_category) {|i| "#{'-' * i.level} #{i.name}" }, include_blank: true %>
+    <%= c.select('parent_id',  options_from_collection_for_select(@expense_parent_categories , 'id', 'name'), {include_blank: 'None'})
+%>
 
   </div>
   <div class="actions">

@@ -19,9 +19,9 @@ feature 'Enter expense transaction' do
   end
 
   scenario 'Add fields and Enter the new transaction' , js:true do
-    FactoryGirl.create(:expense_category, name: 'parent', id: 21)
-    FactoryGirl.create(:expense_transaction, description: 'parent', id: 21)
-    FactoryGirl.create(:expense_category, name: 'food_and_drinks', parent_id: 21)
+    parent = FactoryGirl.create(:expense_category, name: 'parent', id: 22)
+    FactoryGirl.create(:expense_transaction, description: 'parent', id: 22)
+    FactoryGirl.create(:expense_category, name: 'food_and_drinks', parent: parent)
     FactoryGirl.create(:income_category, name: 'food_and_drinks')
     FactoryGirl.create(:income_transaction)
   

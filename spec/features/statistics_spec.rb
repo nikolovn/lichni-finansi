@@ -11,8 +11,8 @@ feature 'Statistics' do
   #include DOMHelper
 
   scenario 'Show graphics for income category' do
-    FactoryGirl.create(:income_category, name: 'food_and_drinks')
-    FactoryGirl.create(:income_transaction, income_category_id: 1, amount: 10)
+    income_category = FactoryGirl.create(:income_category, name: 'food_and_drinks')
+    FactoryGirl.create(:income_transaction, income_category_id: income_category.id, amount: 10)
 
     visit 'statistics'
     expect(page).to have_image income_category_graphics_image
@@ -92,7 +92,7 @@ feature 'Statistics' do
   private
 
   def income_category_graphics_image
-    'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,ls,90,ffffff,0.2,ffffff,0.2&chd=s:9&chl=food_and_drinks&chtt=Income+Category&cht=p3&chs=400x200&chxr=0,1.0'
+    'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,ls,90,ffffff,0.2,ffffff,0.2&chd=s:9&chl=name1&chtt=Income+Category&cht=p3&chs=400x200&chxr=0,1.0'
   end
 
   def expense_category_graphics_image
@@ -108,6 +108,6 @@ feature 'Statistics' do
   end
   
   def expense_by_day
-    "http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,ls,90,ffffff,0.2,ffffff,0.2&chd=s:99&chl=2014-10-16+00%3A00%3A00+UTC|2014-10-17+00%3A00%3A00+UTC&chtt=Expense+by+day&cht=bvs&chs=800x200&chxr=0,10.0,10.0"
+    'http://chart.apis.google.com/chart?chco=ff0000,00ff00&chf=bg,ls,90,ffffff,0.2,ffffff,0.2&chd=s:99&chl=2014-11-20+00%3A00%3A00+UTC|2014-11-19+00%3A00%3A00+UTC&chtt=Expense+by+day&cht=bvs&chs=800x200&chxr=0,10.0,10.0'
   end
 end

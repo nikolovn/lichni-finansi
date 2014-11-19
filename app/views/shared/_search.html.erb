@@ -5,7 +5,7 @@
                 <%= f.label 'income transaction' %><br>
                 <%= select_tag('[q][income_id]', options_for_select(@income_transactions_all.map{ |t| [t.description, t.id] }.insert(0, ""), selected: @income_params_id)) %><br>
                 <%= f.label 'expense transaction' %><br>
-                <%= select_tag('[q][expense_category_id_eq]', options_for_select(@expense_categories.map {|t| ["#{'-' * t.level} #{t.name}", t.id]}.insert(0, ""), selected: @expense_category_id)) %><br>
+                <%= select_tag('[q][expense_category_id_eq]', options_for_select(@expense_categories.map {|t| ["#{'-' * t.ancestry_depth} #{t.name}", t.id]}.insert(0, ""), selected: @expense_category_id)) %><br>
               </div>
               <div class="col-md-4">
                 <%= f.label :date_from %><br>

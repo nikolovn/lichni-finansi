@@ -11,22 +11,20 @@ feature 'Enter Category' do
   end
 
   scenario 'List parent expense categories' do
-    FactoryGirl.create(:expense_category, id:21, name: 'Car')
-    FactoryGirl.create(:expense_category, name: 'Oil', parent_id:21)
-    FactoryGirl.create(:expense_category, name: 'Foot')
+    parent_category = FactoryGirl.create(:expense_category, name: 'Car')
+    FactoryGirl.create(:expense_category, name: 'Oil', parent: parent_category)
 
     visit 'expense_categories'
 
     expect(page).to have_content 'Car'
     expect(page).not_to have_content 'Oil'
-    expect(page).to have_content 'Foot'
   end
 
   scenario 'Click on parent category and list subcategories', js: true do
-    FactoryGirl.create(:expense_category, id:21, name: 'Car')
-    FactoryGirl.create(:expense_category, name: 'Oil', parent_id:21)
+    parent = FactoryGirl.create(:expense_category, name: 'Car')
+    FactoryGirl.create(:expense_category, name: 'Oil', parent: parent)
     FactoryGirl.create(:expense_category, name: 'Foot')
-    FactoryGirl.create(:expense_category, name: 'Insurance', parent_id:21)
+    FactoryGirl.create(:expense_category, name: 'Insurance', parent: parent)
 
     visit expense_categories_path
   
@@ -38,10 +36,10 @@ feature 'Enter Category' do
   end
 
   scenario 'Click on parent category and hide subcategories', js: true do
-    FactoryGirl.create(:expense_category, name: 'Car', id: 21)
-    FactoryGirl.create(:expense_category, name: 'Oil', parent_id:21)
-    FactoryGirl.create(:expense_category, name: 'Foot', id: 22 )
-    FactoryGirl.create(:expense_category, name: 'Soup', parent_id:22)
+    parent_1 = FactoryGirl.create(:expense_category, name: 'Car')
+    FactoryGirl.create(:expense_category, name: 'Oil', parent: parent_1)
+    parent_2 = FactoryGirl.create(:expense_category, name: 'Foot')
+    FactoryGirl.create(:expense_category, name: 'Soup', parent: parent_2)
 
     visit expense_categories_path
   
@@ -49,6 +47,7 @@ feature 'Enter Category' do
     expect(page).to have_content 'Foot'
     
     click_on 'Car'
+  
     expect(page).to have_content 'Oil'
 
     click_on 'Foot'
@@ -76,14 +75,15 @@ feature 'Enter Category' do
   end
   
   scenario 'Edit Category' do
-    FactoryGirl.create(:expense_category, name: 'Food')
-    FactoryGirl.create(:expense_category, name: 'Drinks')
+    parent = FactoryGirl.create(:expense_category, name: 'Food' )
+    FactoryGirl.create(:expense_category, name: 'Drinks', parent: parent)
+    parent2 = FactoryGirl.create(:expense_category, name: 'Food2' )
 
     visit 'expense_categories'
 
     click_on('Edit', match: :first)
     fill_in 'expense_category_name', with: 'expense_category_1'
-    page.select 'Drinks', from: 'expense_category_parent_id'
+    page.select 'Food2', from: 'expense_category_parent_id'
 
     click_on 'Update Expense category'
     
