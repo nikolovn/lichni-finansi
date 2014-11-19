@@ -8,7 +8,7 @@ class ExpenseCategoriesController < ApplicationController
   # GET /categories.json
   def index
     @expense_categories = ExpenseCategory.where(user_id: current_user.id).order(:lft).order(:lft)
-    @expense_parent_categories = ExpenseCategory.where(user_id: current_user.id).where(ancestry_depth: 0)
+    @expense_parent_categories = ExpenseCategory.where(user_id: current_user.id).where(ancestry_depth: 0).order('created_at ASC')
     @income_transactions = IncomeTransaction.where(user_id: current_user.id)
     @expense_transaction = ExpenseTransaction.new
   end
