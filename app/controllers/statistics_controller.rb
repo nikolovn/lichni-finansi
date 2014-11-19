@@ -5,7 +5,7 @@ class StatisticsController < ApplicationController
     start_date
     end_date
     
-    @expense_categories = ExpenseCategory.where(user_id: current_user.id).order(:lft)
+    @expense_categories = ExpenseCategory.where(user_id: current_user.id)
 
     if params[:q].present?
       income_params = params[:q].deep_dup
@@ -48,11 +48,10 @@ class StatisticsController < ApplicationController
   end
 
   def graphics_expense_category
-    @arr = expense_category.calculate_data_by_category(current_user)
     Gchart.pie_3d({
           :title => 'Expense Category', 
           :size => '400x200',
-          :data => expense_category.calculate_data_by_category(current_user), 
+          :data => calculate_data_by_category(expense_category), 
           :labels => expense_category.where(ancestry_depth: 0).where(user: current_user).pluck(:name),
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
@@ -117,6 +116,18 @@ class StatisticsController < ApplicationController
     else
       []
     end
+  end
+
+  def calculate_data_by_category(expense_category)
+    expense_category.where(ancestry_depth: 0).where(user: current_user).map do |category| 
+      Monetize.parse(category.descendants.map do |descendant| 
+       descendant.expense_transactions(expense_category).sum(:amount)
+      end.sum.to_f/expense_transactions_sum(current_user) * 100).to_f
+    end
+  end 
+
+  def expense_transactions_sum(expense_category)
+    ExpenseTransaction.where(user: current_user).sum(:amount)
   end
   
   def expense_transaction
