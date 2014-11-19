@@ -51,7 +51,7 @@ class StatisticsController < ApplicationController
     Gchart.pie_3d({
           :title => 'Expense Category', 
           :size => '400x200',
-          :data => expense_category.calculate_data_by_category, 
+          :data => expense_category.calculate_data_by_category(current_user), 
           :labels => expense_category.pluck(:name),
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
