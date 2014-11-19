@@ -48,6 +48,7 @@ class StatisticsController < ApplicationController
   end
 
   def graphics_expense_category
+    @arr = expense_category.calculate_data_by_category(current_user)
     Gchart.pie_3d({
           :title => 'Expense Category', 
           :size => '400x200',

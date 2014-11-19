@@ -8,11 +8,11 @@ class ExpenseCategory < ActiveRecord::Base
     ExpenseCategory.where(ancestry_depth: 0).where(user: current_user_id).map do |category| 
       category.descendants.map do |descendant| 
        descendant.expense_transactions.sum(:amount)
-      end.sum.to_f/expense_transactions_sum(current_user_id)
+      end.sum.to_f/expense_transactions_sum(current_user_id) * 100
     end
   end 
 
   def self.expense_transactions_sum(current_user_id)
-    ExpenseTransaction.where(user: current_user_id).sum(:amount).to_f * 100
+    ExpenseTransaction.where(user: current_user_id).sum(:amount).to_f
   end
 end
