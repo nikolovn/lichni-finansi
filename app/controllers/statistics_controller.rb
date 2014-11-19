@@ -53,7 +53,7 @@ class StatisticsController < ApplicationController
           :title => 'Expense Category', 
           :size => '400x200',
           :data => expense_category.calculate_data_by_category(current_user), 
-          :labels => expense_category.pluck(:name),
+          :labels => expense_category.where(ancestry_depth: 0).where(user: current_user).pluck(:name),
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
