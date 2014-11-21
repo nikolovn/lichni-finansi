@@ -42,8 +42,8 @@ class StatisticsController < ApplicationController
           :legend => income_transactions.pluck(:description),
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
-          :axis_with_labels => ['x', 'y'], 
-          :axis_range => [[0,100,20], [0,20,5]],
+          #:axis_with_labels => ['x', 'y'], 
+          #:axis_range => [[0,100,20], [0,20,5]],
     })
   end
 
@@ -134,7 +134,7 @@ class StatisticsController < ApplicationController
         q_expense_transactions = descendant.expense_transactions.search(expense_params)
         category.name if q_expense_transactions.result(distinct: true).present?
       end.first
-    end
+    end.compact
   end 
 
   def expense_transactions_sum(expense_category)
