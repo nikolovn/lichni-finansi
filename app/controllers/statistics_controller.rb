@@ -23,8 +23,6 @@ class StatisticsController < ApplicationController
     @q_expense_transactions = current_user.expense_transactions.search(expense_params)
     @expense_transactions = @q_expense_transactions.result(distinct: true).order('date ASC')
 
-    @q_income_transactions = current_user.income_transactions.search(params[:q])
-
     @graphics_income_category = graphics_income_transactions(@income_transactions)
     @graphics_expense_category = graphics_expense_category(expense_params)
     @graphics_balance_category = graphics_balance
