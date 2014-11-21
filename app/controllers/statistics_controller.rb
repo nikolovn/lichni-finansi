@@ -26,7 +26,7 @@ class StatisticsController < ApplicationController
     @q_income_transactions = current_user.income_transactions.search(params[:q])
 
     @graphics_income_category = graphics_income_transactions(@income_transactions)
-    @graphics_expense_category = graphics_expense_category
+    @graphics_expense_category = graphics_expense_category(expense_params)
     @graphics_balance_category = graphics_balance
     @graphics_investment_saving_expense_category = graphics_expense_type
     @graphics_expense_by_day_category = graphics_expense_by_day_data
@@ -47,12 +47,12 @@ class StatisticsController < ApplicationController
     })
   end
 
-  def graphics_expense_category
+  def graphics_expense_category(expense_params)
     Gchart.pie_3d({
           :title => 'Expense Category', 
           :size => '400x200',
-          :data => calculate_data_by_category(expense_category), 
-          :labels => expense_category.where(ancestry_depth: 0).where(user: current_user).pluck(:name),
+          :data => calculate_data_by_category(expense_category, expense_params), 
+          :labels => calculate_name_by_category(expense_category, expense_params),
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -118,11 +118,22 @@ class StatisticsController < ApplicationController
     end
   end
 
-  def calculate_data_by_category(expense_category)
+  def calculate_data_by_category(expense_category, expense_params)
     expense_category.where(ancestry_depth: 0).where(user: current_user).map do |category| 
       Monetize.parse(category.descendants.map do |descendant| 
-       descendant.expense_transactions(expense_category).sum(:amount)
+       q_expense_transactions = descendant.expense_transactions.search(expense_params)
+        q_expense_transactions.result(distinct: true).sum(:amount)
       end.sum.to_f/expense_transactions_sum(current_user) * 100).to_f
+    end
+  end 
+
+  def calculate_name_by_category(expense_category, expense_params)
+    expense_category.where(ancestry_depth: 0).where(user: current_user).map do |category| 
+      category.descendants.map do |descendant| 
+        
+        q_expense_transactions = descendant.expense_transactions.search(expense_params)
+        category.name if q_expense_transactions.result(distinct: true).present?
+      end.first
     end
   end 
 
