@@ -47,13 +47,12 @@ class StatisticsController < ApplicationController
 
   def graphics_expense_category(expense_params)
     @arr =  calculate_data_by_category(expense_category, expense_params)
-    @arr2 = calculate_name_by_category(expense_category, expense_params)
-    
+ 
     Gchart.pie_3d({
           :title => 'Expense Category', 
           :size => '400x200',
-          :data => calculate_data_by_category(expense_category, expense_params), 
-          :labels => calculate_name_by_category(expense_category, expense_params),
+          :data => calculate_data_by_category(expense_category, expense_params).values, 
+          :labels => calculate_data_by_category(expense_category, expense_params).keys,
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -73,7 +72,7 @@ class StatisticsController < ApplicationController
           #:axis_range => [[0,100,20], [0,20,5]],
     })
   end
-
+ 
   def graphics_expense_type
     Gchart.pie_3d({
           :title => 'Expense by type', 
@@ -120,22 +119,13 @@ class StatisticsController < ApplicationController
   end
 
   def calculate_data_by_category(expense_category, expense_params)
-    expense_category.where(ancestry_depth: 0).where(user: current_user).map do |category|
-      Monetize.parse(category.descendants.map do |descendant| 
-       q_expense_transactions = descendant.expense_transactions.search(expense_params)
-        q_expense_transactions.result(distinct: true).sum(:amount)
-      end.sum.to_f/expense_transactions_sum(current_user) * 100).to_f
-    end.delete_if {|x| x == 0 }
-  end 
-
-  def calculate_name_by_category(expense_category, expense_params)
-    expense_category.where(ancestry_depth: 0).where(user: current_user).map do |category|
-      category.descendants.map do |descendant| 
-        q_expense_transactions = descendant.expense_transactions.search(expense_params)
-        expense_transactions = q_expense_transactions.result(distinct: true)
-         category.name if expense_transactions.present?
-      end.first
-    end.compact
+    expense_category.where(ancestry_depth: 0).where(user: current_user).each_with_object({}) do |category, hash|
+      hash[category.name] = 
+        Monetize.parse(category.descendants.map do |descendant| 
+         q_expense_transactions = descendant.expense_transactions.search(expense_params)
+          q_expense_transactions.result(distinct: true).sum(:amount)
+        end.sum.to_f/expense_transactions_sum(current_user) * 100).to_f
+    end
   end 
 
   def expense_transactions_sum(expense_category)
