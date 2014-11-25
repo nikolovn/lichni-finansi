@@ -46,6 +46,9 @@ class StatisticsController < ApplicationController
   end
 
   def graphics_expense_category(expense_params)
+    @arr =  calculate_data_by_category(expense_category, expense_params)
+    @arr2 = calculate_name_by_category(expense_category, expense_params)
+    
     Gchart.pie_3d({
           :title => 'Expense Category', 
           :size => '400x200',
@@ -117,20 +120,20 @@ class StatisticsController < ApplicationController
   end
 
   def calculate_data_by_category(expense_category, expense_params)
-    expense_category.where(ancestry_depth: 0).where(user: current_user).map do |category| 
+    expense_category.where(ancestry_depth: 0).where(user: current_user).map do |category|
       Monetize.parse(category.descendants.map do |descendant| 
        q_expense_transactions = descendant.expense_transactions.search(expense_params)
         q_expense_transactions.result(distinct: true).sum(:amount)
       end.sum.to_f/expense_transactions_sum(current_user) * 100).to_f
-    end
+    end.delete_if {|x| x == 0 }
   end 
 
   def calculate_name_by_category(expense_category, expense_params)
-    expense_category.where(ancestry_depth: 0).where(user: current_user).map do |category| 
+    expense_category.where(ancestry_depth: 0).where(user: current_user).map do |category|
       category.descendants.map do |descendant| 
-        
         q_expense_transactions = descendant.expense_transactions.search(expense_params)
-        category.name if q_expense_transactions.result(distinct: true).present?
+        expense_transactions = q_expense_transactions.result(distinct: true)
+         category.name if expense_transactions.present?
       end.first
     end.compact
   end 
@@ -138,7 +141,7 @@ class StatisticsController < ApplicationController
   def expense_transactions_sum(expense_category)
     ExpenseTransaction.where(user: current_user).sum(:amount)
   end
-  
+
   def expense_transaction
     ExpenseTransaction.current_month.where(user_id: current_user.id)
   end
