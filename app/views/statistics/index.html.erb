@@ -23,10 +23,13 @@
           </div>
         </div>
   <div class="col-md-6"> 
-    <div> 
+    <div> <b>Разходи: </b><br>
       <%= @validate_data_expense_category %>
-      <%=  @arr %>
-      <%=  @arr2 %>
+      <%  @arr.each do |arr| %>
+       <b><%= "#{arr.first} - #{arr.second}"  %></b><br>
+      <% end %>
+        
+   
 
       <%= image_tag (@graphics_expense_category) %>
     </div>

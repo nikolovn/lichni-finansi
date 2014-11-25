@@ -46,7 +46,7 @@ class StatisticsController < ApplicationController
   end
 
   def graphics_expense_category(expense_params)
-    @arr =  calculate_data_by_category(expense_category, expense_params)
+    @arr =  calculate_data_by_category(expense_category, expense_params).sort_by{|v, k|  k}.reverse
  
     Gchart.pie_3d({
           :title => 'Expense Category', 
@@ -124,7 +124,7 @@ class StatisticsController < ApplicationController
         Monetize.parse(category.descendants.map do |descendant| 
          q_expense_transactions = descendant.expense_transactions.search(expense_params)
           q_expense_transactions.result(distinct: true).sum(:amount)
-        end.sum.to_f/expense_transactions_sum(current_user) * 100).to_f
+        end.sum).to_f
     end
   end 
 
