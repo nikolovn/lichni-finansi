@@ -23,7 +23,9 @@
           </div>
         </div>
   <div class="col-md-6"> 
-    <div> <b>Разходи: </b><br>
+    <div> 
+    <%= image_tag (@graphics_expense_category) %><br>
+    <b>Разходи: </b><br>
       <%= @validate_data_expense_category %>
       <table class='table table-bordered table-hover table-condensed table-striped table-responsive'>
       <%  @arr.each do |arr| %>
@@ -39,10 +41,6 @@
       <% end %>
     <% end %>
     </table>
-        
-   
-
-      <%= image_tag (@graphics_expense_category) %>
     </div>
   </div>
 <div class="row">
