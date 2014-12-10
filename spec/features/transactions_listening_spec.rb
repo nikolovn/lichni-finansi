@@ -40,7 +40,7 @@ feature 'Show transactions' do
     within("#income_transaction_search") do
       fill_in 'q_date_gteq', with: '2014-08-08'
       fill_in 'q_date_lteq', with: '2014-08-10' 
-      page.select 'Oil', :from => '_q_expense_category_id_eq'
+      page.select 'Oil', :from => '_q_expense_category_id_in'
 
       
       click_on 'Search'
@@ -49,6 +49,37 @@ feature 'Show transactions' do
     expect(page).to have_text 'Oil' 
     expect(page).to have_text 'expense_transaction_1'
     expect(page).to have_text '10.0'
+  end
+
+  scenario 'List expense transactions when select parent expense category' do
+    parent = FactoryGirl.create(:expense_category, name: 'Car')
+    child_category = FactoryGirl.create(:expense_category, name: 'Oil', parent: parent)
+
+    parent_2 = FactoryGirl.create(:expense_category, name: 'Car2')
+    child_category_2 = FactoryGirl.create(:expense_category, name: 'gasoline', parent: parent_2)
+
+    FactoryGirl.create(:expense_transaction, description: 'expense_transaction_1',
+      amount: 10, date: 'EUR', user_id: '1', date: '2014-08-09' , expense_category: child_category, 
+      income_transaction_id: 1)
+
+    FactoryGirl.create(:expense_transaction, description: 'expense_transaction_2',
+      amount: 20, date: 'EUR', user_id: '1', date: '2014-08-09' , expense_category: child_category_2, 
+      income_transaction_id: 1)
+
+    visit all_transactions_path
+    within("#income_transaction_search") do
+      fill_in 'q_date_gteq', with: '2014-08-08'
+      fill_in 'q_date_lteq', with: '2014-08-10' 
+      page.select 'Car', :from => '_q_expense_category_id_in'
+
+      
+      click_on 'Search'
+    end
+    expect(page).to have_text 'Oil' 
+    expect(page).to have_text 'expense_transaction_1'
+    expect(page).to have_text '10.0'
+    
+    expect(page).not_to have_text '20.0'
   end
   
   scenario 'Filter transactions by description' do
