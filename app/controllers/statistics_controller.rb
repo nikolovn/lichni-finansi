@@ -49,7 +49,7 @@ class StatisticsController < ApplicationController
 
   def graphics_expense_category(expense_params)
     @arr =  calculate_data_by_category(expense_category, expense_params)
-   
+
     Gchart.pie_3d({
           :title => 'Expense Category', 
           :size => '400x200',
@@ -127,7 +127,7 @@ class StatisticsController < ApplicationController
          q_expense_transactions = descendant.expense_transactions.search(expense_params)
           q_expense_transactions.result(distinct: true).sum(:amount)
         end.sum).to_f]
-    end
+    end.sort_by{|v, k| v[:amount]}.reverse
   end 
 
   def expense_transactions_sum(expense_category)
