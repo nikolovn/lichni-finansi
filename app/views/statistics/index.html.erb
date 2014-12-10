@@ -31,12 +31,12 @@
       <%  @arr.each do |arr| %>
       <tr><td>
       <% if params.present? && params[:q].present? %>
-          <% params[:q]['expense_category_id_in'] = ExpenseCategory.find(arr.first).id %>
+          <% params[:q]['expense_category_id_in'] = arr[:id] %>
           <% params[:q]['tabs'] = 'expense' %>
-          <b><%= link_to("#{ExpenseCategory.find(arr.first).name} - #{arr.second}", all_transactions_path(params))  %></b><br>
+          <b><%= link_to("#{arr[:name]} - #{arr[:amount]}", all_transactions_path(params))  %></b><br>
       <% else %>
-        <% params = {q: { tabs: 'expense', expense_category_id_in: ExpenseCategory.find(arr.first).id }} %>
-          <b><%= link_to("#{ExpenseCategory.find(arr.first).name} - #{arr.second}", all_transactions_path(params))  %></b><br>
+        <% params = {q: { tabs: 'expense', expense_category_id_in: arr[:id] }} %>
+          <b><%= link_to("#{arr[:name]} - #{arr[:amount]}", all_transactions_path(params))  %></b><br>
          </td></tr>
       <% end %>
     <% end %>

@@ -21,6 +21,9 @@ feature 'Statistics' do
   scenario 'Show graphics for expense category' do
     FactoryGirl.create(:expense_category, name: 'food_and_drinks')
     FactoryGirl.create(:expense_transaction, expense_category_id: 1, amount: 10)
+
+    FactoryGirl.create(:expense_category, name: 'cars')
+    FactoryGirl.create(:expense_transaction, expense_category_id: 2, amount: 10)
   
     visit 'statistics'
 

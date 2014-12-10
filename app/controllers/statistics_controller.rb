@@ -48,13 +48,13 @@ class StatisticsController < ApplicationController
   end
 
   def graphics_expense_category(expense_params)
-    @arr =  calculate_data_by_category(expense_category, expense_params).sort_by{|v, k|  k}.reverse
- 
+    @arr =  calculate_data_by_category(expense_category, expense_params)
+   
     Gchart.pie_3d({
           :title => 'Expense Category', 
           :size => '400x200',
-          :data => calculate_data_by_category(expense_category, expense_params).values.sort_by{|v, k|  k}, 
-          :legend => ExpenseCategory.find(calculate_data_by_category(expense_category, expense_params).keys).collect(&:name).sort_by{|v, k|  k},
+          :data => @arr.map {|arr| arr[:amount] }, 
+          :legend => @arr.map {|arr| arr[:name] },
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -121,12 +121,12 @@ class StatisticsController < ApplicationController
   end
 
   def calculate_data_by_category(expense_category, expense_params)
-    expense_category.where(ancestry_depth: 0).where(user: current_user).each_with_object({}) do |category, hash|
-      hash[category.id] = 
+    expense_category.where(ancestry_depth: 0).where(user: current_user).map do |category|
+      Hash[id: category.id, name: category.name, amount:
         Monetize.parse(category.descendants.map do |descendant| 
          q_expense_transactions = descendant.expense_transactions.search(expense_params)
           q_expense_transactions.result(distinct: true).sum(:amount)
-        end.sum).to_f
+        end.sum).to_f]
     end
   end 
 
