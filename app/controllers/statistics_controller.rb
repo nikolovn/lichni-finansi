@@ -37,7 +37,7 @@ class StatisticsController < ApplicationController
   def graphics_income_transactions(income_transactions)
     Gchart.pie_3d({
           :title => 'Income Category', 
-          :size => '400x300',
+          :size => '500x300',
           :data => generate_income_percent_data(income_transactions),
           :legend => income_transactions.pluck(:description),
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
