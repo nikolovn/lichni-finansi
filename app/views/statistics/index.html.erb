@@ -25,7 +25,9 @@
   <div class="col-md-6"> 
     <div> <b>Разходи: </b><br>
       <%= @validate_data_expense_category %>
+      <table class='table table-bordered table-hover table-condensed table-striped table-responsive'>
       <%  @arr.each do |arr| %>
+      <tr><td>
       <% if params.present? && params[:q].present? %>
           <% params[:q]['expense_category_id_in'] = ExpenseCategory.find(arr.first).id %>
           <% params[:q]['tabs'] = 'expense' %>
@@ -33,8 +35,10 @@
       <% else %>
         <% params = {q: { tabs: 'expense', expense_category_id_in: ExpenseCategory.find(arr.first).id }} %>
           <b><%= link_to("#{ExpenseCategory.find(arr.first).name} - #{arr.second}", all_transactions_path(params))  %></b><br>
+         </td></tr>
       <% end %>
     <% end %>
+    </table>
         
    
 
