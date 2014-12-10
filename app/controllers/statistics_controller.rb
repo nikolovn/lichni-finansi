@@ -12,10 +12,10 @@ class StatisticsController < ApplicationController
       income_params[:id_eq] = income_params[:income_id]
       @income_params_id = income_params[:id_eq]
       expense_params = params[:q].deep_dup
+      @expense_category_id = expense_params[:expense_category_id_in]
       if expense_params[:expense_category_id_in].present?
         expense_params[:expense_category_id_in] = ExpenseCategory.find(expense_params[:expense_category_id_in]).subtree_ids
       end
-      @expense_category_id = expense_params[:expense_category_id_in]
       expense_params[:income_transaction_id_eq] = income_params[:income_id] 
     end
 
