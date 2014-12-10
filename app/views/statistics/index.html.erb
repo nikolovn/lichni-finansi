@@ -26,7 +26,10 @@
     <div> <b>Разходи: </b><br>
       <%= @validate_data_expense_category %>
       <%  @arr.each do |arr| %>
-       <b><%= "#{arr.first} - #{arr.second}"  %></b><br>
+      <% params = {q: {expense_category_id_in: nil } } if params.blank? %>
+      <% params[:q]['expense_category_id_in'] = ExpenseCategory.find(arr.first).id %>
+      <% params[:q]['tabs'] = 'expense' %>
+      <b><%= link_to("#{ExpenseCategory.find(arr.first).name} - #{arr.second}", all_transactions_path(params))  %></b><br>
       <% end %>
         
    

@@ -54,7 +54,7 @@ class StatisticsController < ApplicationController
           :title => 'Expense Category', 
           :size => '400x200',
           :data => calculate_data_by_category(expense_category, expense_params).values, 
-          :labels => calculate_data_by_category(expense_category, expense_params).keys,
+          :labels => ExpenseCategory.find(calculate_data_by_category(expense_category, expense_params).keys).collect(&:name),
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -122,7 +122,7 @@ class StatisticsController < ApplicationController
 
   def calculate_data_by_category(expense_category, expense_params)
     expense_category.where(ancestry_depth: 0).where(user: current_user).each_with_object({}) do |category, hash|
-      hash[category.name] = 
+      hash[category.id] = 
         Monetize.parse(category.descendants.map do |descendant| 
          q_expense_transactions = descendant.expense_transactions.search(expense_params)
           q_expense_transactions.result(distinct: true).sum(:amount)
