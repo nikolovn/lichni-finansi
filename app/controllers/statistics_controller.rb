@@ -53,8 +53,8 @@ class StatisticsController < ApplicationController
     Gchart.pie_3d({
           :title => 'Expense Category', 
           :size => '400x200',
-          :data => calculate_data_by_category(expense_category, expense_params).values, 
-          :legend => ExpenseCategory.find(calculate_data_by_category(expense_category, expense_params).keys).collect(&:name).reverse,
+          :data => calculate_data_by_category(expense_category, expense_params).values.sort_by{|v, k|  k}, 
+          :legend => ExpenseCategory.find(calculate_data_by_category(expense_category, expense_params).keys).collect(&:name).sort_by{|v, k|  k},
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
