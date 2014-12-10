@@ -37,9 +37,9 @@ class StatisticsController < ApplicationController
   def graphics_income_transactions(income_transactions)
     Gchart.pie_3d({
           :title => 'Income Category', 
-          :size => '400x200',
+          :size => '400x300',
           :data => generate_income_percent_data(income_transactions),
-          :labels => income_transactions.pluck(:description),
+          :legend => income_transactions.pluck(:description),
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -52,7 +52,7 @@ class StatisticsController < ApplicationController
 
     Gchart.pie_3d({
           :title => 'Expense Category', 
-          :size => '400x200',
+          :size => '500x300',
           :data => @arr.map {|arr| arr[:amount] }, 
           :legend => @arr.map {|arr| arr[:name] },
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
@@ -67,7 +67,7 @@ class StatisticsController < ApplicationController
           :title => 'Balance', 
           :size => '400x200',
           :data => calculate_balance, 
-          :labels => ['Income', 'Expense'],
+          :legend => ['Income', 'Expense'],
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -80,7 +80,7 @@ class StatisticsController < ApplicationController
           :title => 'Expense by type', 
           :size => '400x200',
           :data => expense_transaction.calculate_data_by_type, 
-          :labels => ['Investment', 'Saving', 'Expense'],
+          :legend => ['Investment', 'Saving', 'Expense'],
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -93,7 +93,7 @@ class StatisticsController < ApplicationController
           :title => 'Expense by day', 
           :size => '800x200',
           :data => expense_transaction.expense_by_day_data, 
-          :labels => expense_transaction.pluck(:date).map {|date| date.day},
+          :legend => expense_transaction.pluck(:date).map {|date| date.day},
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
