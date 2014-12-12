@@ -19,25 +19,36 @@
         <div class="col-md-6">
 
           <%= @validate_data_income_category %>
-          <%= image_tag (@graphics_income_category) %>
+          <%= image_tag (@graphics_income_category) %><br>
+          <b>Income:</b>
+          <table class='table table-bordered table-hover table-condensed table-striped table-responsive'>
+            <% @income_categories_hash.each do |income| %>
+              <tr>
+                <td><%= income[:income_category]%></td>
+                <td><%= income[:amount] %></td>
+              </tr>
+            <% end %>
+          </table>
 
         </div>
   <div class="col-md-6"> 
    
-    <%= image_tag (@graphics_expense_category) %><br>
-    <b>Разходи: </b><br>
+    <%= image_tag (@graphics_expense_category) %>
+    <b>Expense:</b>
       <%= @validate_data_expense_category %>
       <table class='table table-bordered table-hover table-condensed table-striped table-responsive'>
-      <%  @arr.each do |arr| %>
-      <tr><td>
+      <%  @expense_categories_hash.each do |expense_category| %>
+      <tr>
       <% if params.present? && params[:q].present? %>
-          <% params[:q]['expense_category_id_in'] = arr[:id] %>
+          <% params[:q]['expense_category_id_in'] = expense_category[:id] %>
           <% params[:q]['tabs'] = 'expense' %>
-          <b><%= link_to("#{arr[:name]} - #{arr[:amount]}", all_transactions_path(params))  %></b><br>
+            <td><b><%= link_to("#{expense_category[:name]}", all_transactions_path(params))  %></b></td>
+            <td><%= "#{expense_category[:amount]}" %></td>
       <% else %>
-        <% params = {q: { tabs: 'expense', expense_category_id_in: arr[:id] }} %>
-          <b><%= link_to("#{arr[:name]} - #{arr[:amount]}", all_transactions_path(params))  %></b><br>
-         </td></tr>
+        <% params = {q: { tabs: 'expense', expense_category_id_in: expense_category[:id] }} %>
+          <b><td><%= link_to("#{expense_category[:name]}", all_transactions_path(params))  %></b></td>
+            <td><%= "#{expense_category[:amount]}" %></td></b>
+         </tr>
       <% end %>
     <% end %>
     </table>
@@ -46,12 +57,36 @@
 <div class="row">
         <div class="col-md-6">
          <p> <%= @validate_data_income_category %>
-        <%= image_tag (@graphics_investment_saving_expense_category) %>
+        <%= image_tag (@graphics_expense_type) %>
+        <table class='table table-bordered table-hover table-condensed table-striped table-responsive'>
+          <% @graphics_expense_type_hash.each do |type, amount| %>
+          <tr>
+            <td>
+              <%= type %>
+            </td>
+            <td>
+             <%= amount %>
+            </td>
+          </tr>
+          <% end %>
+        </table>
     </p>
       </div>
 <div class="col-md-6">         <p> 
         <%= @validate_data_income_category %>
-        <%= image_tag (@graphics_balance_category) %> 
+        <%= image_tag (@graphics_balance_category) %>
+        <table class='table table-bordered table-hover table-condensed table-striped table-responsive'>
+          <% @graphics_balance_category_hash.each do |key, amount| %>
+          <tr>
+            <td>
+              <%= key %>
+            </td>
+            <td>
+             <%= amount %>
+            </td>
+          </tr>
+          <% end %>
+        </table>
     </p>
       </div>
     </div>
@@ -59,7 +94,7 @@
         <div>
          <p> 
           <%= @validate_data_income_category %>
-          <%= image_tag (@graphics_expense_by_day_category) %> 
+          <%= image_tag (@expense_by_date) %> 
     </p>
       </div>
 </div>

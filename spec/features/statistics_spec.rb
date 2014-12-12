@@ -11,86 +11,89 @@ feature 'Statistics' do
   #include DOMHelper
 
   scenario 'Show graphics for income category' do
-    income_category = FactoryGirl.create(:income_category, name: 'food_and_drinks')
-    FactoryGirl.create(:income_transaction, income_category_id: income_category.id, amount: 10)
+    income_category = FactoryGirl.create(:income_category, name: 'salary')
+    FactoryGirl.create(:income_transaction, income_category_id: income_category.id, amount: 1700)
+    FactoryGirl.create(:income_transaction, income_category_id: income_category.id, amount: 1700)
+    income_category_2 = FactoryGirl.create(:income_category, name: 'income from projects')
+    FactoryGirl.create(:income_transaction, income_category_id: income_category_2.id, amount: 3000)
 
     visit 'statistics'
-    expect(page).to have_image income_category_graphics_image
+
+    expect(page).to have_content 'salary'
+    expect(page).to have_content '3400'
+    expect(page).to have_content 'income from projects'
+    expect(page).to have_content '3000'
    end
 
   scenario 'Show graphics for expense category' do
-    FactoryGirl.create(:expense_category, name: 'food_and_drinks')
-    FactoryGirl.create(:expense_transaction, expense_category_id: 1, amount: 10)
+    food = FactoryGirl.create(:expense_category, name: 'food')
+    child_food = FactoryGirl.create(:expense_category, name: 'broad', parent: food)
 
-    FactoryGirl.create(:expense_category, name: 'cars')
-    FactoryGirl.create(:expense_transaction, expense_category_id: 2, amount: 10)
+    car = FactoryGirl.create(:expense_category, name: 'car')
+    child_car = FactoryGirl.create(:expense_category, name: 'oil', parent: car)
+    
+    FactoryGirl.create(:expense_transaction, expense_category: child_food, amount: 10)
+    FactoryGirl.create(:expense_transaction, expense_category: child_food, amount: 20)
+    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 10)
   
     visit 'statistics'
 
-    expect(page).to have_image expense_category_graphics_image
+    expect(page).to have_content 'food'
+    expect(page).to have_content '30'
+    expect(page).to have_content 'car'
+    expect(page).to have_content '10'
   end
 
   scenario 'Show graphics for balance' do
-    FactoryGirl.create(:income_category, name: 'food_and_drinks')
-    FactoryGirl.create(:income_transaction, income_category_id: 1, amount: 10)
-    FactoryGirl.create(:expense_category, name: 'food_and_drinks')
-    FactoryGirl.create(:expense_transaction, expense_category_id: 1, amount: 10)
+    income_category = FactoryGirl.create(:income_category, name: 'salary')
+    FactoryGirl.create(:income_transaction, income_category_id: income_category.id, amount: 1720)
+    
+    car = FactoryGirl.create(:expense_category, name: 'car')
+    child_car = FactoryGirl.create(:expense_category, name: 'oil', parent: car)
+    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 45)
+  
 
     visit 'statistics'
 
-    expect(page).to have_image balance_image
+    expect(page).to have_content 'Income'
+    expect(page).to have_content '1720'
+    expect(page).to have_content 'Expense'
+    expect(page).to have_content '45'
   end
 
   scenario 'Show graphics for Investment/saving/expense' do
+    car = FactoryGirl.create(:expense_category, name: 'car')
+    child_car = FactoryGirl.create(:expense_category, name: 'oil', parent: car)
+
     FactoryGirl.create(:expense_category, name: 'food_and_drinks')
-    FactoryGirl.create(:expense_transaction, expense_category_id: 1, amount: 10, expense_type: :investment)
-    FactoryGirl.create(:expense_transaction, expense_category_id: 1, amount: 10, expense_type: :saving)
-    FactoryGirl.create(:expense_transaction, expense_category_id: 1, amount: 10, expense_type: :expense)
+    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 5, expense_type: :investment)
+    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 6, expense_type: :investment)
+    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 49, expense_type: :saving)
+    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 40, expense_type: :expense)
 
     visit 'statistics'
-  
-    expect(page).to have_image expense_type
+
+    expect(page).to have_content 'Investment'
+    expect(page).to have_content '11'
+    expect(page).to have_content 'Saving'
+    expect(page).to have_content '49'
+    expect(page).to have_content 'Expense'
+    expect(page).to have_content '40'
   end
 
   scenario 'Show graphics for Expense by day' do
-    FactoryGirl.create(:expense_category, name: 'food_and_drinks')
-    FactoryGirl.create(:expense_transaction, date:  Date.today, expense_category_id: 1, amount: 10)
-    FactoryGirl.create(:expense_transaction, date: (Time.now + (60 * 60 * 24)).strftime("%F"), expense_category_id: 1, amount: 10)
+    car = FactoryGirl.create(:expense_category, name: 'car')
+    child_car = FactoryGirl.create(:expense_category, name: 'oil', parent: car)
+
+
+    FactoryGirl.create(:expense_transaction, date:  Date.today, expense_category: child_car, amount: 10)
+    FactoryGirl.create(:expense_transaction, date:  Date.today, expense_category: child_car, amount: 20)
+    FactoryGirl.create(:expense_transaction, date:  Date.tomorrow, expense_category: child_car, amount: 20)
+
   
     visit 'statistics'
-    
-    expect(page).to have_image expense_by_day
   end
 
-  # scenario 'Show info message when data for income category are inccorect' do
-  #   visit 'statistics'
-
-  #   expect(page).to have_content 'no income transactions avalaible'
-  # end
-
-  # scenario 'Show info message when data for expense category are inccorect' do
-  #   visit 'statistics'
-
-  #   expect(page).to have_content 'no expense transactions avalaible'
-  # end
-
-  # scenario 'Show info message when data for balance are inccorect' do
-  #   visit 'statistics'
-
-  #   expect(page).to have_content 'no data avalaible for balance'
-  # end
-
-  # scenario 'Show info message when data for transaction type are inccorect' do
-  #   visit 'statistics'
-
-  #   expect(page).to have_content 'no data avalaible for transaction type'
-  # end
-
-  # scenario 'Show info message when data for Expense by day are inccorect' do
-  #   visit 'statistics'
-
-  #   expect(page).to have_content 'no data avalaible for expense by day'
-  # end
 
   private
 
