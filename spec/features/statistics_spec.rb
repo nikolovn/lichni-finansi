@@ -69,7 +69,6 @@ feature 'Statistics' do
     car = FactoryGirl.create(:expense_category, name: 'car')
     child_car = FactoryGirl.create(:expense_category, name: 'oil', parent: car)
     FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 45)
-  
 
     visit 'statistics'
 
@@ -91,11 +90,11 @@ feature 'Statistics' do
 
     visit 'statistics'
 
-    expect(page).to have_content 'Investment'
+    expect(page).to have_content 'investment'
     expect(page).to have_content '11'
-    expect(page).to have_content 'Saving'
+    expect(page).to have_content 'saving'
     expect(page).to have_content '49'
-    expect(page).to have_content 'Expense'
+    expect(page).to have_content 'expense'
     expect(page).to have_content '40'
   end
 

@@ -147,19 +147,6 @@ class StatisticsController < ApplicationController
     }
   end
 
-
-  def expense_transaction
-    ExpenseTransaction.current_month.where(user_id: current_user.id)
-  end
-
-  def income_transaction
-    IncomeTransaction.current_month.where(user_id: current_user.id)
-  end
-
-  def income_category
-    IncomeCategory.where(user_id: current_user.id)
-  end
-
   def start_date
     if params['q'].present?
       @start_date = params['q']['date_gteq']
