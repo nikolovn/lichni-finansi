@@ -11,9 +11,6 @@ class IncomeTransactionsController < ApplicationController
 
   def create
     @transaction = current_user.income_transactions.build(income_transactions_params)
-
-
-
     respond_to do |format|
 
       if @transaction.save
