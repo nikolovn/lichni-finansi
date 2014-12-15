@@ -114,7 +114,7 @@ class StatisticsController < ApplicationController
   def calculate_balance(income_transaction, expense_transaction)
     expense_amount = Monetize.parse(expense_transaction.sum(:amount)).to_f
     income_amount = Monetize.parse(income_transaction.sum(:amount)).to_f
-    balance = income_amount - expense_amount
+    balance = Monetize.parse(income_amount) - Monetize.parse(expense_amount)
     Hash[income: income_amount, expense: expense_amount, balance: balance]
   end
 
