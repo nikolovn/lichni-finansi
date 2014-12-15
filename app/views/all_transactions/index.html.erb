@@ -31,7 +31,7 @@
 <ul class="nav nav-tabs">
   <li class="<%=@active_income %>"><a href="#income" data-toggle="tab">Income transactions</a></li>
   <li class="<%=@active_expense %>"><a href="#expense" data-toggle="tab">Expense trasnasctions</a></li>
-  <li><a href="#balance" data-toggle="tab">Balance</a></li>
+  <li class="<%=@active_balance %>"><a href="#balance" data-toggle="tab">Balance</a></li>
 </ul>
 
 <!-- Tab panes -->
@@ -89,12 +89,12 @@
           <% end %>
           <tr>
             <td colspan = 3 ><b>sum</b></td>
-            <td colspan =2 ><b><%= @expense_transactions_amount %></b></td>
+            <td colspan =3 ><b><%= @expense_transactions_amount %></b></td>
           </tr>
       </tbody>
     </table>
   </div>
-  <div class="tab-pane" class="tab-pane" id="balance">
+  <div class="tab-pane <%=@active_balance %>" id="balance">
     <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
       <thead>
         <tr>

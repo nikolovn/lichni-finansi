@@ -28,6 +28,7 @@ class AllTransactionsController < ApplicationController
     @current_balance = @income_transactions_amount - @expense_transactions_amount
     active_income
     active_expense
+    active_balance
   end
 
   def start_date
@@ -49,7 +50,7 @@ class AllTransactionsController < ApplicationController
   def active_income
     if params['q'] != nil && params['q']['tabs'] == 'income'
       @active_income = 'active'
-    elsif params['q'] != nil && params['q']['tabs'] != 'expense'
+    elsif params['q'] != nil && params['q']['tabs'] != 'expense' && params['q']['tabs'] != 'balance'
       @active_income = 'active'
     elsif params['q'] == nil
       @active_income = 'active'
@@ -59,6 +60,12 @@ class AllTransactionsController < ApplicationController
   def active_expense
     if params['q'] != nil && params['q']['tabs'] == 'expense'
      @active_expense = 'active'
+    end
+  end
+
+  def active_balance
+    if params['q'] != nil && params['q']['tabs'] == 'balance'
+     @active_balance = 'active'
     end
   end
 

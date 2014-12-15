@@ -115,7 +115,7 @@ class StatisticsController < ApplicationController
     expense_amount = Monetize.parse(expense_transaction.sum(:amount)).to_f
     income_amount = Monetize.parse(income_transaction.sum(:amount)).to_f
     balance = income_amount - expense_amount
-    Hash[Income: income_amount, Expense: expense_amount, Balance: balance]
+    Hash[income: income_amount, expense: expense_amount, balance: balance]
   end
 
   def calculate_data_by_expense_category(expense_category, expense_params)
@@ -141,9 +141,9 @@ class StatisticsController < ApplicationController
 
   def calculate_graphics_expense_type(expense_transactions)
     {
-      Saving: expense_transactions.where(expense_type: 'saving').sum(:amount).to_f,
-      Investment: expense_transactions.where(expense_type: 'investment').sum(:amount).to_f,
-      Espense: expense_transactions.where(expense_type: 'expense').sum(:amount).to_f
+      saving: expense_transactions.where(expense_type: 'saving').sum(:amount).to_f,
+      investment: expense_transactions.where(expense_type: 'investment').sum(:amount).to_f,
+      expense: expense_transactions.where(expense_type: 'expense').sum(:amount).to_f
     }
   end
 

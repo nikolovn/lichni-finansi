@@ -10,19 +10,27 @@ feature 'Statistics' do
   #include AuthHelper
   #include DOMHelper
 
-  scenario 'Show graphics for income category' do
+  scenario 'Show graphics for income category'  do
     income_category = FactoryGirl.create(:income_category, name: 'salary')
-    FactoryGirl.create(:income_transaction, income_category_id: income_category.id, amount: 1700)
-    FactoryGirl.create(:income_transaction, income_category_id: income_category.id, amount: 1700)
+    FactoryGirl.create(:income_transaction, income_category_id: income_category.id, amount: 1700, description: 'salary1')
+    FactoryGirl.create(:income_transaction, income_category_id: income_category.id, amount: 2000, description: 'salary2')
     income_category_2 = FactoryGirl.create(:income_category, name: 'income from projects')
-    FactoryGirl.create(:income_transaction, income_category_id: income_category_2.id, amount: 3000)
+    FactoryGirl.create(:income_transaction, income_category_id: income_category_2.id, amount: 2700)
 
     visit 'statistics'
 
     expect(page).to have_content 'salary'
-    expect(page).to have_content '3400'
+    expect(page).to have_content '3700'
     expect(page).to have_content 'income from projects'
-    expect(page).to have_content '3000'
+    expect(page).to have_content '2700'
+
+    click_on 'salary'
+
+    expect(page).to have_content 'salary1'
+    expect(page).to have_content '1700'
+    expect(page).to have_content 'salary1'
+    expect(page).to have_content '2000'
+    expect(page).not_to have_content '2700'
    end
 
   scenario 'Show graphics for expense category' do
@@ -32,9 +40,9 @@ feature 'Statistics' do
     car = FactoryGirl.create(:expense_category, name: 'car')
     child_car = FactoryGirl.create(:expense_category, name: 'oil', parent: car)
     
-    FactoryGirl.create(:expense_transaction, expense_category: child_food, amount: 10)
-    FactoryGirl.create(:expense_transaction, expense_category: child_food, amount: 20)
-    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 10)
+    FactoryGirl.create(:expense_transaction, expense_category: child_food, amount: 10, description: 'food1')
+    FactoryGirl.create(:expense_transaction, expense_category: child_food, amount: 20, description: 'food2')
+    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 10, description: 'car')
   
     visit 'statistics'
 
@@ -42,6 +50,16 @@ feature 'Statistics' do
     expect(page).to have_content '30'
     expect(page).to have_content 'car'
     expect(page).to have_content '10'
+
+    click_on 'food'
+
+    expect(page).to have_content 'broad'
+    expect(page).to have_content 'food'
+    expect(page).to have_content 'food1'
+    expect(page).to have_content '10'
+    expect(page).to have_content 'food2'
+    expect(page).to have_content '20'
+    expect(page).not_to have_content 'food3'
   end
 
   scenario 'Show graphics for balance' do
