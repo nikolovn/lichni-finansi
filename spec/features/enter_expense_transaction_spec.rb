@@ -19,11 +19,10 @@ feature 'Enter expense transaction' do
   end
 
   scenario 'Add fields and Enter the new transaction' , js:true do
-    parent = FactoryGirl.create(:expense_category, name: 'parent', id: 22)
-    FactoryGirl.create(:expense_transaction, description: 'parent', id: 22)
+    parent = FactoryGirl.create(:expense_category, name: 'parent')
     FactoryGirl.create(:expense_category, name: 'food_and_drinks', parent: parent)
-    FactoryGirl.create(:income_category, name: 'food_and_drinks')
-    FactoryGirl.create(:income_transaction)
+    income_category = FactoryGirl.create(:income_category, name: 'food_and_drinks')
+    FactoryGirl.create(:income_transaction, description: 'income_name', amount: 10, income_category: income_category)
   
     visit expense_categories_path
        click_on 'parent'
@@ -32,12 +31,12 @@ feature 'Enter expense transaction' do
 
        fill_in 'expense_transaction_description', with: 'fruits'
        fill_in 'expense_transaction_date', with: '10.10.2014'
-       fill_in 'expense_transaction_amount', with: '5.00'
-       #find_field('expense_transaction_income_relation').find('option').text
+       fill_in 'expense_transaction_amount', with: 5
+       select 'income_name', :from => 'expense_transaction_income_transaction_id'
 
        click_on 'Create Expense transaction'
 
-       expect(page).to have_content 'Successfully added new transaction'
+       expect(page).to have_content 'Expense transaction was successfully created'
     # end
   end
   

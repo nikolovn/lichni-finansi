@@ -20,12 +20,12 @@ feature 'Enter Category' do
     expect(page).to have_content 'Salary2'
   end
 
-  scenario 'Add cetegory' do
-    FactoryGirl.create(:income_category, name: 'Salary1')
-
+  scenario 'Add category' do
     visit 'income_categories'
     
     click_on 'New category'
+
+    fill_in 'income_category_name', with: 'Salary1'
 
     click_on 'Create Income category'
 

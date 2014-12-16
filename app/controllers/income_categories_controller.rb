@@ -31,11 +31,12 @@ class IncomeCategoriesController < ApplicationController
 
     respond_to do |format|
       if @income_category.save
-        format.html { redirect_to @income_category, notice: 'Income category was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @income_category }
+        format.html { redirect_to income_categories_path, notice: 'Income category was successfully created.' }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @income_category.errors, status: :unprocessable_entity }
+        format.html { redirect_to action: 'new' }
+        @income_category.errors.full_messages.each do |msg|
+          flash[:error] = "Could not create income category. #{msg} "
+        end
       end
     end
   end
@@ -45,11 +46,12 @@ class IncomeCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @income_category.update(income_category_params)
-        format.html { redirect_to @income_category, notice: 'Income category was successfully updated.' }
-        format.json { head :no_content }
+        format.html { redirect_to income_categories_path, notice: 'Income category was successfully updated.' }
       else
-        format.html { render action: 'edit' }
-        format.json { render json: @income_category.errors, status: :unprocessable_entity }
+        format.html { redirect_to action: 'edit' }
+        @income_category.errors.full_messages.each do |msg|
+          flash[:error] = "Could not update income category. #{msg} "
+        end
       end
     end
   end

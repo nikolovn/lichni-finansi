@@ -2,6 +2,20 @@
   <div class="panel panel-default">
     <div class="panel-heading">Income transactions</div>
     <div class="panel-body">
+    <% flash.each do |name, msg| -%>
+      <% if name.to_s == 'error' %>
+        <div class="alert alert-danger" role="alert">
+        <%= content_tag :div, msg, class: name %>
+        </div>
+      <% end -%>
+    <% end -%>
+    <% flash.each do |name, msg| -%>
+      <% if name.to_s == 'notice' %>
+        <div class="alert alert-success" role="alert">
+        <%= content_tag :div, msg, class: name %>
+        </div>
+      <% end -%>
+    <% end -%>
 <table class="table table-bordered table-hover table-condensed table-striped table-responsive">        <thead>
           <tr>
             <th>Category</th>

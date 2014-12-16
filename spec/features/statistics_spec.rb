@@ -83,10 +83,10 @@ feature 'Statistics' do
     child_car = FactoryGirl.create(:expense_category, name: 'oil', parent: car)
 
     FactoryGirl.create(:expense_category, name: 'food_and_drinks')
-    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 5, expense_type: :investment)
-    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 6, expense_type: :investment)
-    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 49, expense_type: :saving)
-    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 40, expense_type: :expense)
+    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 5, expense_type: 'investment')
+    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 6, expense_type: 'investment')
+    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 49, expense_type: 'saving')
+    FactoryGirl.create(:expense_transaction, expense_category: child_car, amount: 40, expense_type: 'expense')
 
     visit 'statistics'
 

@@ -3,10 +3,7 @@ class ExpenseTransactionsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def new
-    @transaction = ExpenseTransaction.new
-  end
-
-  def index
+    @expense_transaction = ExpenseTransaction.new
   end
 
   def create
@@ -15,16 +12,15 @@ class ExpenseTransactionsController < ApplicationController
     respond_to do |format|
 
       if @transaction.save
-        flash[:notice] = 'Successfully added new transaction'
+        flash[:notice] = 'Expense transaction was successfully created.'
         format.html { redirect_to :controller => 'expense_categories', :action => 'index' }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
+        format.html { redirect_to expense_categories_path }
+        @transaction.errors.full_messages.each do |msg|
+          flash[:error] = "Could not create expense transaction. #{msg} "
+        end
       end
     end
-  end
-
-  def show
   end
 
   respond_to :html, :json

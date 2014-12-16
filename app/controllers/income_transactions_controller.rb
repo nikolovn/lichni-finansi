@@ -3,7 +3,7 @@ class IncomeTransactionsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def new
-    @transaction = IncomeTransaction.new
+    @income_transaction = IncomeTransaction.new
   end
 
   def index
@@ -11,15 +11,17 @@ class IncomeTransactionsController < ApplicationController
 
   def create
     @transaction = current_user.income_transactions.build(income_transactions_params)
+
     respond_to do |format|
 
       if @transaction.save
-        flash[:notice] = 'Successfully added new transaction'
+        flash[:notice] = 'Income transaction was successfully created.'
         format.html { redirect_to :controller => 'income_categories', :action => 'index' }
-        format.json { redirect_to :controller => 'income_categories', :action => 'index' }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
+        format.html { redirect_to income_categories_path }
+        @transaction.errors.full_messages.each do |msg|
+          flash[:error] = "Could not create income transaction. #{msg} "
+        end
       end
     end
   end

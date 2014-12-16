@@ -3,6 +3,10 @@ class IncomeTransaction < ActiveRecord::Base
   belongs_to :user
   has_many :expense_transactions
   validates :user_id, presence: true
+  validates :description, presence: true
+  validates :amount, numericality: true
+  validates :date, presence: true
+  validates :income_category_id, numericality: true
   
   scope :current_month, -> { where(:date => date_range) }
 

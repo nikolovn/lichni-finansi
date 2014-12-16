@@ -17,6 +17,8 @@ FactoryGirl.define do
   factory :expense_transaction do
     sequence(:description) {|n| "name#{n}"}
     user_id 1
+    expense_type 'expense'
+    income_transaction_id 1
     date DateTime.now
   end
 end

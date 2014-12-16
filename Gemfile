@@ -39,6 +39,7 @@ group :test do
   gem 'launchy', '~> 2.4.2'
   gem 'selenium-webdriver', '~> 2.41.0'
   gem 'poltergeist', '~> 1.5.1'
+  gem 'shoulda-matchers', '~> 2.4.0'
 end
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
