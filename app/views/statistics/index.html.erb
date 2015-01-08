@@ -24,8 +24,6 @@
           <table class='table table-bordered table-hover table-condensed table-striped table-responsive'>
             <% @income_categories_hash.each do |income| %>
               <tr>
-                  <% params = {q: { tabs: 'income', income_category_id_eq: income[:id] }} %>
-                  <% params.merge(params[:q])%>
                 <td><%= link_to("#{income[:income_category]}", all_transactions_path(params))  %></td>
                 <td><%= income[:amount] %></td>
               </tr>
@@ -40,9 +38,6 @@
       <table class='table table-bordered table-hover table-condensed table-striped table-responsive'>
       <%  @expense_categories_hash.each do |expense_category| %>
       <tr>
-      
-        <% params = {q: { tabs: 'expense', expense_category_id_in: expense_category[:id] }} %>
-        <% params.merge(params[:q])%>
           <b><td><%= link_to("#{expense_category[:name]}", all_transactions_path(params))  %></b></td>
             <td><%= "#{expense_category[:amount]}" %></td></b>
          </tr>
@@ -97,7 +92,8 @@
           <% @expense_by_date_hash.each do |hash| %>
           <tr>
                   <% params = {q: { date_gteq: hash[:date], date_lteq: hash[:date], tabs: 'expense'}} %>
-                  <% params.merge(params[:q])%>
+                  <% params = params.merge(params[:q])%>
+                  <%=params[:q]%>
                 <td><%= link_to("#{hash[:date]}", all_transactions_path(params))  %></td>
             </td>
             <td>
