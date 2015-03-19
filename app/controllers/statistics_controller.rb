@@ -48,7 +48,7 @@ class StatisticsController < ApplicationController
 
   def graphics_income_transactions
     Gchart.pie_3d({
-          :title => 'Income Category', 
+          :title => "#{t 'statistics.income' }", 
           :size => '500x300',
           :data => @income_categories_hash.map {|income_category| income_category[:amount] },
           :legend => @income_categories_hash.map {|income_category| income_category[:income_category] },
@@ -61,7 +61,7 @@ class StatisticsController < ApplicationController
 
   def graphics_expense_category
     Gchart.pie_3d({
-          :title => 'Expense Category', 
+          :title => "#{t 'statistics.expense' }", 
           :size => '500x300',
           :data => @expense_categories_hash.map {|expense_category| expense_category[:amount] }, 
           :legend => @expense_categories_hash.map {|expense_category| expense_category[:name] },
@@ -74,10 +74,10 @@ class StatisticsController < ApplicationController
 
   def graphics_balance
     Gchart.pie_3d({
-          :title => 'Balance', 
+          :title => "#{t 'statistics.balance' }", 
           :size => '400x200',
           :data => @graphics_balance_category_hash.values.shift(2), 
-          :legend => ['Income', 'Expense'],
+          :legend => ["#{t 'statistics.income' }", "#{t 'statistics.expense' }"],
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -87,10 +87,10 @@ class StatisticsController < ApplicationController
  
   def graphics_expense_type
     Gchart.pie_3d({
-          :title => 'Expense by type', 
+          :title => "#{t 'statistics.expense_by_type' }", 
           :size => '400x200',
           :data => @graphics_expense_type_hash.values, 
-          :legend => @graphics_expense_type_hash.keys,
+          :legend => @graphics_expense_type_hash.keys.map {|type| p type; "#{t %q(statistics.) + type.to_s }"},
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -100,7 +100,7 @@ class StatisticsController < ApplicationController
 
   def graphics_expense_by_date
     Gchart.line({
-          :title => 'Expense by date', 
+          :title => "#{t 'statistics.expense_by_date' }", 
           :size => '800x200',
           :data => @expense_by_date_hash.map {|hash| hash[:amount]}, 
           :labels => @expense_by_date_hash.map {|hash| hash[:date]},

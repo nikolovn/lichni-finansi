@@ -1,0 +1,57 @@
+bg:
+  menu:
+    personal_finance: 'Лични финанси'
+    enter_inome_transaction: 'Въведи приход'
+    enter_expense_transaction: 'Въведи разход'
+    all_transactions: 'Всички транзакции'
+    statistics: 'Статистика'
+    log_out: 'Изход'
+  income_categories:
+    income_transactions: 'Приходи'
+    category: 'Категория'
+    action: 'Действие'
+    new_category: 'Нова категория'
+  expense_categories:
+    expense_transactions: 'Разходи'
+    category: 'Категория'
+    action: 'Действие'
+    new_category: 'Нова категория'
+  all_transactions:
+    all_transactions: 'Всички транзакции'
+    filter_transactions: 'Филтър на транзакциите'
+    income_transactions: 'Приходи'
+    expense_transactions: 'Разходи'
+    balance: 'Баланс'
+    category: 'Категория'
+    description: 'Описание'
+    amount: 'Сума'
+    date: 'Дата'
+    action: 'Действие'
+    destroy: 'Изтриване'
+    are_you_sure: 'Сигурни ли сте?'
+    sum: 'Общо'
+    current_balance: 'Текущ баланс'
+  search_panel:
+    income_transactions: 'Приходи:'
+    expense_transactions: 'Разходи:' 
+    date_from: 'От дата:'
+    date_to: 'До дата:'
+    keys: 'Ключови думи:'
+    search: 'търси'
+    category: 'Категория'
+    description: 'Описание'
+  statistics: 
+    statistics: 'Статитика'
+    filter_transactions: 'Филтър на транзакциите'
+    income: 'Приходи'
+    expense: 'Разходи'
+    expense_by_type: 'Разходи разделени по тип'
+    saving: 'Спестявания'
+    investment: 'Инвестиции'
+    balance: 'Баланс'
+    expense_by_date: 'Разходи разделени по дата'
+    
+
+
+    
+  

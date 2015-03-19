@@ -1,6 +1,6 @@
 
   <div class="panel panel-default">
-    <div class="panel-heading">Income transactions</div>
+    <div class="panel-heading"><%= t 'expense_categories.expense_transactions' %></div>
     <div class="panel-body">
 <% flash.each do |name, msg| -%>
   <% if name.to_s == 'error' %>
@@ -18,8 +18,8 @@
 <% end -%>
 <table class="table table-bordered table-hover table-condensed table-striped table-responsive">        <thead>
           <tr>
-            <th>Category</th>
-            <th>Action</th>
+            <th><%= t 'expense_categories.category' %></th>
+            <th><%= t 'expense_categories.action' %></th>
           </tr>
         </thead>
  
@@ -47,7 +47,7 @@
 
     <br>
 
-    <%= link_to 'New category', new_expense_category_path %>
+    <%= link_to "#{t 'expense_categories.new_category'}", new_expense_category_path %>
 
 
 

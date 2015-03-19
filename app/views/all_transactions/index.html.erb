@@ -6,7 +6,7 @@
     <div class="col-md-12">
       <div style="text-align:center" class="panel panel-default">
         <div class="panel-heading">
-          <h1 class="panel-title">Filter Transactions</h1>
+          <h1 class="panel-title"><%= t 'all_transactions.filter_transactions' %></h1>
         </div>
         <!-- end panel-heading -->
         <%= render partial: 'shared/search', locals: { path: all_transactions_path } %>
@@ -24,14 +24,14 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">All transactions</h3>
+    <h3 class="panel-title"><%= t 'all_transactions.all_transactions' %></h3>
   </div>
   <div class="panel-body">
     
 <ul class="nav nav-tabs">
-  <li class="<%=@active_income %>"><a href="#income" data-toggle="tab">Income transactions</a></li>
-  <li class="<%=@active_expense %>"><a href="#expense" data-toggle="tab">Expense trasnasctions</a></li>
-  <li class="<%=@active_balance %>"><a href="#balance" data-toggle="tab">Balance</a></li>
+  <li class="<%=@active_income %>"><a href="#income" data-toggle="tab"><%= t 'all_transactions.income_transactions' %></a></li>
+  <li class="<%=@active_expense %>"><a href="#expense" data-toggle="tab"><%= t 'all_transactions.expense_transactions' %></a></li>
+  <li class="<%=@active_balance %>"><a href="#balance" data-toggle="tab"><%= t 'all_transactions.balance' %></a></li>
 </ul>
 
 <!-- Tab panes -->
@@ -40,11 +40,11 @@
     <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
       <thead>
         <tr>
-          <th>Category</th>
-          <th>Description</th>
-          <th>Amount</th>
-          <th>Date</th>
-          <th>Action</th>
+          <th><%= t 'all_transactions.category' %></th>
+          <th><%= t 'all_transactions.description' %></th>
+          <th><%= t 'all_transactions.amount' %></th>
+          <th><%= t 'all_transactions.date' %></th>
+          <th><%= t 'all_transactions.action' %></th>
         </tr>
       </thead>
       <tbody>
@@ -54,11 +54,11 @@
             <td width = 25%><%= best_in_place transaction, :description, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :amount, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :date, :type => :input %></td>
-            <td width = 5%><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td width = 5%><%= link_to "#{ t 'all_transactions.destroy' }", transaction, method: :delete, data: { confirm: "#{ t 'all_transactions.are_you_sure' }" } %></td>
           </tr>
         <% end %>
           <tr>
-            <td colspan = 3 ><b>sum</b></td>
+            <td colspan = 3 ><b><%= t 'all_transactions.sum' %></b></td>
             <td colspan =2 ><b><%= @income_transactions_amount %></b></td>
           </tr>
       </tbody>
@@ -84,11 +84,11 @@
             <td width = 25%><%= best_in_place transaction, :description, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :amount, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :date, :type => :input %></td>
-            <td width = 5%><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td width = 5%><%= link_to "#{ t 'all_transactions.destroy' }", transaction, method: :delete, data: { confirm: "#{ t 'all_transactions.are_you_sure' }" } %></td>
           </tr>
           <% end %>
           <tr>
-            <td colspan = 3 ><b>sum</b></td>
+            <td colspan = 3 ><b><%= t 'all_transactions.sum' %></b></td>
             <td colspan =3 ><b><%= @expense_transactions_amount %></b></td>
           </tr>
       </tbody>
@@ -98,7 +98,7 @@
     <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
       <thead>
         <tr>
-          <th>Current balance: <%=@current_balance %> лв.</th>
+          <th><%= t 'all_transactions.current_balance' %>: <%=@current_balance %> лв.</th>
         </tr>
       </thead>
       
