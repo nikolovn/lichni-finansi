@@ -20,4 +20,54 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  menu:
+    personal_finance: 'Personal finance'
+    enter_inome_transaction: 'Enter inome transaction'
+    enter_expense_transaction: 'Enter expense transaction'
+    all_transactions: 'All transactions'
+    statistics: 'Statistics'
+    log_out: 'log out'
+  income_categories:
+    income_transactions: 'income transactions'
+    category: 'category'
+    action: 'action'
+    new_category: 'New category'
+  expense_categories:
+    expense_transactions: 'expense transactions'
+    category: 'category'
+    action: 'action'
+    new_category: 'New category'
+  all_transactions:
+    all_transactions: 'All transactions'
+    filter_transactions: 'Filter transactions'
+    income_transactions: 'Income transactions'
+    expense_transactions: 'Expense transactions'
+    balance: 'balance'
+    category: 'category'
+    description: 'description'
+    amount: 'amount'
+    date: 'date'
+    action: 'action'
+    destroy: 'destroy'
+    are_you_sure: 'Are you sure'
+    sum: 'sum'
+    current_balance: 'Current balance'
+  search_panel:
+    income_transactions: 'Income transactions:'
+    expense_transactions: 'Expense transactions:' 
+    date_from: 'date_from:'
+    date_to: 'date_to:'
+    keys: 'keys:'
+    search: 'Search'
+    category: 'category'
+    description: 'description'
+  statistics: 
+    statistics: 'Statistics'
+    filter_transactions: 'Filter transactions'
+    income: 'income'
+    expense: 'expense'
+    expense_by_type: 'Expense by type'
+    saving: 'Saving'
+    investment: 'Investment'
+    balance: 'Balance'
+    expense_by_date: 'Expense by date'

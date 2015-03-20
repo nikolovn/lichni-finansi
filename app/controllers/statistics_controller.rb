@@ -90,7 +90,7 @@ class StatisticsController < ApplicationController
           :title => "#{t 'statistics.expense_by_type' }", 
           :size => '400x200',
           :data => @graphics_expense_type_hash.values, 
-          :legend => @graphics_expense_type_hash.keys.map {|type| p type; "#{t %q(statistics.) + type.to_s }"},
+          :legend => @graphics_expense_type_hash.keys.map {|type| "#{t %q(statistics.) + type.to_s }"},
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
