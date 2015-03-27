@@ -1,5 +1,5 @@
 Finance::Application.routes.draw do
-  root to: 'income_transactions#index'
+  root to: 'all_transactions#index'
 
   devise_for :users
   devise_for :models

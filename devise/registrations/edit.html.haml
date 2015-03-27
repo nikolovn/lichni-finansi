@@ -1,0 +1,35 @@
+.container
+  .form-signin
+    %h2
+      Edit
+      = resource_name.to_s.humanize      
+    = form_for(resource, :as => resource_name, :url => user_registration_path(resource_name), :html => { :method => :put }) do |f|
+      = devise_error_messages!
+      .panel.panel-default
+        .panel-heading
+          %h1.panel-title
+          .panel-body
+            - if devise_mapping.confirmable? && resource.pending_reconfirmation? 
+              %div
+                Currently waiting confirmation for:
+                = resource.unconfirmed_email
+
+            %lable{for: :current_password}
+              Current Password
+            = f.password_field :current_password, autocomplete: 'off'
+                
+            %lable{for: :password}
+              Password
+            = f.password_field :password, autocomplete: 'off'
+
+            %lable{for: :password_confirmation}
+              Password Confirmation
+            = f.password_field :password_confirmation, autocomplete: 'off'
+
+            .btn
+              %button.btn.btn-emp{ type: 'submit' }
+                Update
+
+              = link_to root_path, class: 'link-color' do
+                .btn.btn-emp
+                  Cancel
