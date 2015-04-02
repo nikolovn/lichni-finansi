@@ -26,11 +26,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><%= link_to "#{t 'menu.enter_inome_transaction'}", income_categories_path %></li>
-        <li><%= link_to "#{t 'menu.enter_expense_transaction'}", expense_categories_path %></li>
-        <li><%= link_to "#{t 'menu.all_transactions'}", all_transactions_path %></li>
-        <li><%= link_to "#{t 'menu.statistics'}", statistics_path %></li>
-        <li><%=link_to "#{t 'menu.log_out'}", destroy_user_session_path, :method => :delete  %></li>
+        <%- if user_signed_in? -%>
+        <li class="<%=active_class?(income_categories_path)%>"><%= link_to "#{t 'menu.enter_inome_transaction'}", income_categories_path %></li>
+        <li class="<%=active_class?(expense_categories_path)%>"><%= link_to "#{t 'menu.enter_expense_transaction'}", expense_categories_path, :class => active_class?(expense_categories_path) %></li>
+        <li class="<%=active_class?(all_transactions_path)%>"><%= link_to "#{t 'menu.all_transactions'}", all_transactions_path %></li>
+        <li class="<%=active_class?(statistics_path)%>"><%= link_to "#{t 'menu.statistics'}", statistics_path %></li>
+        <li class="<%=active_class?(destroy_user_session_path)%>"><%=link_to "#{t 'menu.log_out'}", destroy_user_session_path, :method => :delete  %></li>
+        <%- end -%>
 
 
 

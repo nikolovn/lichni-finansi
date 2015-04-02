@@ -4,17 +4,16 @@
       .panel.panel-default
         .panel-heading
           %h1.panel-title
-            Please Log In
+            = t 'index.please_log_in' 
           .panel-body
             = f.text_field :email, autofocus: true, class: 'form-control', placeholder: 'Username'
             = f.password_field :password, class: 'form-control', placeholder: 'Password'
 
             - if devise_mapping.rememberable?
               = f.check_box :remember_me
-              = f.label :remember_me
+              = f.label t 'index.remember'
 
-              %button.btn.btn-emp.btn-block{type: 'submit'}
-                Log In
+              = f.submit("#{t 'index.lоg_in'}", class: 'btn btn-emp btn-block')
 
           .panel-footer
             = render 'devise/shared/links'
