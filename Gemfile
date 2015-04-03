@@ -79,3 +79,5 @@ gem 'googlecharts', '~> 1.6.8'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 gem 'rails_12factor', group: :production
+
+gem 'google-analytics-rails'
