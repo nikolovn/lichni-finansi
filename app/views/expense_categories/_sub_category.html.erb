@@ -10,11 +10,11 @@
                   <%= render :partial => 'expense_transactions/form', :locals => {:expense_category_id => category.id} %>
                 </div>
                 <p>
-                  <a id = add_<%=category.name%>_transactions) href="#" onclick="document.getElementById('<%=category.name%>_transactions').style.display = ''">Add a transaction</a>
+                  <a id = add_<%=category.name%>_transactions) href="#" onclick="document.getElementById('<%=category.name%>_transactions').style.display = ''" class="glyphicon glyphicon-plus", title="<%=t 'expense_categories.enter_еxepense' %>"></a>
 
-                  <a id = remove_<%=category.name%>_transactions) href="#" onclick="document.getElementById('<%=category.name%>_transactions').style.display = 'none'">Remove a transaction</a>
-                <%= link_to 'Edit', edit_expense_category_path(category) %>
-                <%= link_to 'Delete', expense_category_path(category.id), method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <a id = remove_<%=category.name%>_transactions) href="#" onclick="document.getElementById('<%=category.name%>_transactions').style.display = 'none'" class="glyphicon glyphicon-minus", title="<%=t 'expense_categories.hide_form' %>"></a>
+                <%= link_to '', edit_expense_category_path(category), title: "#{t 'expense_categories.edit_category' }", class: "glyphicon glyphicon-list-alt" %>
+                <%= link_to '', expense_category_path(category.id), method: :delete, data: { confirm: 'Are you sure?' }, title: "#{t 'expense_categories.delete_category' }", class: "glyphicon glyphicon-remove" %>
                 </p></td>
 
             </tr>
