@@ -47,4 +47,5 @@
 <%= yield %>
   </div>
 </body>
+<%= render 'layouts/tyxo' if Rails.env.production?  %>
 </html>
