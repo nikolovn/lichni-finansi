@@ -40,7 +40,7 @@
 
                   <a id = remove_<%=category.name%>_transactions href="#" onclick="document.getElementById('<%=category.name%>_transactions').style.display = 'none'"><span class="glyphicon glyphicon-minus" title="<%= t 'income_categories.hide_form' %>"></span></a>
 
-                  <a href="<%= edit_income_category_path(category) %>" ><span class="glyphicon glyphicon-list-alt" title="<%= t 'income_categories.edit_category' %>"></span></a>
+                  <a title="<%= t 'income_categories.edit_category' %>" href="<%= edit_income_category_path(category) %>" ><span class="glyphicon glyphicon-list-alt" title="<%= t 'income_categories.edit_category' %>"></span></a>
           
                   <%= link_to '', income_category_path(category.id), title: "#{t 'income_categories.delete_category' }", method: :delete, data: { confirm: 'Are you sure?' } , class: "glyphicon glyphicon-remove" %>
                 </p></td>

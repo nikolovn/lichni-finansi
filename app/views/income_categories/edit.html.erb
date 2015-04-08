@@ -1,6 +1,5 @@
-<h1>Editing category</h1>
+<h5><%= t 'income_categories.edit.edit_category' %></h5>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @category %> |
-<%= link_to 'Back', income_category_path %>
+<%= link_to "#{t 'income_categories.back'}", income_categories_path %>

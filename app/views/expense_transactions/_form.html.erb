@@ -14,15 +14,15 @@
 
      <%= f.hidden_field :expense_category_id, :value => expense_category_id, :id => 'expense_category_id'  %>
     <div class="field">
-      <%= f.label :description %><br>
+      <%= f.label "#{t 'expense_transactions.description'}" %><br>
       <%= f.text_area :description %><br>
-      <%= f.label :date %><br>
+      <%= f.label "#{t 'expense_transactions.date'}" %><br>
       <%= f.text_field :date %><br>
-      <%= f.label :amount %><br>
+      <%= f.label "#{t 'expense_transactions.amount'}" %><br>
       <%= f.text_field :amount %><br>
-      <%= f.label :income_transaction_id %><br>
+      <%= f.label "#{t 'expense_transactions.income_transactions'}" %><br>
       <%= f.collection_select :income_transaction_id, @income_transactions, :id, :description, include_blank: true %><br>
-      <%= f.label :TYPE %><br>
+      <%= f.label "#{t 'expense_transactions.type'}" %><br>
       <%= f.select :expense_type, options_for_select([['investment' ,'investment'], ['saving', 'saving'], ['expense', 'expense']]) %>
 
 

@@ -20,8 +20,8 @@
     <%= link_to "#{t 'expense_categories.new_category'}",  new_expense_category_path %><table class="table table-bordered table-hover table-condensed table-striped table-responsive">    <br>
 <table class="table table-bordered table-hover table-condensed table-striped table-responsive">        <thead>
           <tr>
-            <th><%= t 'expense_categories.category' %></th>
-            <th><%= t 'expense_categories.action' %></th>
+            <th class='col-md-10'><%= t 'expense_categories.category' %></th>
+            <th class='col-md-2'><%= t 'expense_categories.action' %></th>
           </tr>
         </thead>
  
@@ -33,7 +33,7 @@
                   <%= link_to "#{category.name}",show_sub_category_expense_categories_path(category.id, category_name: category.name), remote: true %></b>
               </td>
               <td>
-                <%= link_to '', edit_expense_category_path(category), class: "glyphicon glyphicon-list-alt", title: "#{t 'expense_categories.edit_category' }" %>
+                <%= link_to '', edit_expense_category_path(category), class: "glyphicon glyphicon-list-alt", title: "#{t 'expense_categories.edit_category' }", name: "#{t 'expense_categories.edit_category' }" %>
                 <%= link_to '', expense_category_path(category.id),title: "#{t 'expense_categories.delete_category' }", method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-remove" %>
                 </p>
                 </td>

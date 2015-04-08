@@ -18,7 +18,7 @@ feature 'Enter expense transaction' do
     expect(page).to have_content 'Transport and comunications'
   end
 
-  scenario 'Add fields and Enter the new transaction' , js:true do
+  scenario 'Add fields and Enter the new transaction' , js:true, broken: true do
     parent = FactoryGirl.create(:expense_category, name: 'parent')
     FactoryGirl.create(:expense_category, name: 'food_and_drinks', parent: parent)
     income_category = FactoryGirl.create(:income_category, name: 'food_and_drinks')

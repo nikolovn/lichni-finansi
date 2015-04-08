@@ -77,7 +77,7 @@ describe ExpenseTransactionsController do
 
       delete :destroy, id: 1
 
-      expect(response).to redirect_to all_transactions_path({:q => {tabs: 'expense'}, commit: 'Search', utf8: '✓' })
+      expect(response).to redirect_to root_path({:q => {tabs: 'expense'}, commit: 'Search', utf8: '✓' })
     end
   end
 

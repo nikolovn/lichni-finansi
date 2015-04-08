@@ -64,13 +64,13 @@ feature 'Enter Category' do
     FactoryGirl.create(:expense_category, name: 'Food')
 
     visit 'expense_categories'
-    
-    click_on 'New category'
+
+    click_on('New expense category', match: :first)
 
     fill_in 'expense_category_name', with: 'expense_category_1'
     page.select 'Food', from: 'expense_category_parent_id'
 
-    click_on 'Create Expense category'
+    click_on 'Save'
     expect(page).to have_content 'Expense category was successfully created.'
   end
   
@@ -85,7 +85,7 @@ feature 'Enter Category' do
     fill_in 'expense_category_name', with: 'expense_category_1'
     page.select 'Food2', from: 'expense_category_parent_id'
 
-    click_on 'Update Expense category'
+    click_on 'Save'
     
     expect(page).to have_content 'Expense category was successfully updated.'
   end

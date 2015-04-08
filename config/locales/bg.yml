@@ -85,6 +85,12 @@ bg:
     edit_category: 'Промени категорията'
     delete_category: 'Изтрии категорията'
     new_category: 'Нова категория'
+    new:
+      new_category: 'Нова категория за приходи'
+      save: 'Запиши'
+    edit:
+      edit_category: 'Промени категорията за приходи'
+    back: 'Назад'
   expense_categories:
     expense_transactions: 'Разходи'
     category: 'Категория'
@@ -94,6 +100,22 @@ bg:
     delete_category: 'Изтрии категорията'
     enter_еxepense: 'Въведи разход'
     hide_form: 'Скрии формата'
+    new:
+      new_category: 'Нова категория за разходи'
+      save: 'Запиши'
+    edit:
+      edit_category: 'Промени категорията за разходи'
+    back: 'Назад'
+  expense_transactions:
+    description: 'Описание:'
+    date: 'Дата:'
+    amount: 'Сума:'
+    income_transactions: 'Връзка с приход:'
+    type: 'Тип:'
+  income_transactions:
+    description: 'Описание:'
+    date: 'Дата:'
+    amount: 'Сума:'
   all_transactions:
     all_transactions: 'Всички транзакции'
     filter_transactions: 'Филтър на транзакциите'
