@@ -20,6 +20,17 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  controller_message:
+    expense_categories:
+      create: 'Expense category was successfully created.'
+      update: 'Expense category was successfully updated.'
+    income_categories:
+      create: 'Income category was successfully created.'
+      update: 'Income category was successfully updated.'
+    expense_transactions:
+      create: 'Expense transaction was successfully created.'
+    income_transactions:
+      create: 'Income transaction was successfully created.'
   menu:
     personal_finance: 'Personal finance'
     enter_inome_transaction: 'Enter inome transaction'

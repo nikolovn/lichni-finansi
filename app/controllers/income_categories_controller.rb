@@ -31,11 +31,11 @@ class IncomeCategoriesController < ApplicationController
 
     respond_to do |format|
       if @income_category.save
-        format.html { redirect_to income_categories_path, notice: 'Income category was successfully created.' }
+        format.html { redirect_to income_categories_path, notice: "#{t 'controller_message.income_categories.create'}" }
       else
         format.html { redirect_to action: 'new' }
         @income_category.errors.full_messages.each do |msg|
-          flash[:error] = "Could not create income category. #{msg} "
+          flash[:error] = "#{msg}"
         end
       end
     end
@@ -46,11 +46,11 @@ class IncomeCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @income_category.update(income_category_params)
-        format.html { redirect_to income_categories_path, notice: 'Income category was successfully updated.' }
+        format.html { redirect_to income_categories_path, notice: "#{t 'controller_message.income_categories.update'}" }
       else
         format.html { redirect_to action: 'edit' }
         @income_category.errors.full_messages.each do |msg|
-          flash[:error] = "Could not update income category. #{msg} "
+          flash[:error] = "#{msg} "
         end
       end
     end

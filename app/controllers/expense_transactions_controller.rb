@@ -12,12 +12,12 @@ class ExpenseTransactionsController < ApplicationController
     respond_to do |format|
 
       if @transaction.save
-        flash[:notice] = 'Expense transaction was successfully created.'
+        flash[:notice] = "#{t 'controller_message.expense_transactions.create'}"
         format.html { redirect_to :controller => 'expense_categories', :action => 'index' }
       else
         format.html { redirect_to expense_categories_path }
         @transaction.errors.full_messages.each do |msg|
-          flash[:error] = "Could not create expense transaction. #{msg} "
+          flash[:error] = "#{msg}"
         end
       end
     end

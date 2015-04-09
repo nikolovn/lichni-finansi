@@ -58,7 +58,7 @@ describe IncomeTransactionsController do
       it 'flashes a error message' do 
         post :create, income_transaction: { name: '' }
 
-        expect(flash[:error]).to eq 'Could not create income transaction. Income category is not a number '
+        expect(flash[:error]).to eq 'Income category is not a number'
       end
     end
   end

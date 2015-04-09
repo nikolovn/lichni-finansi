@@ -1,20 +1,75 @@
 bg:
+  controller_message:
+    expense_categories:
+      create: 'Категория за разходи е създадена.'
+      update: 'Категория за разходи е прoменена.'
+    income_categories:
+      create: 'Категория за приходи е създадена.'
+      update: 'Категория за приходи е прoменена.'
+    expense_transactions:
+      create: 'Разхода е създаден.'
+    income_transactions:
+      create: 'Прихода е създаден.'
   activerecord:
     attributes:
       user:
         email: "Email"
         password: "Парола"
         password_confirmation: "Потвърждение на паролата"
+      income_category:
+        name:
+          'Името'
+      expense_category:
+        name:
+          'Името'
+      income_transaction:
+        date: 'Датата'
+        amount: 'Сумата'
+        description: 'Описанието'
+      expense_transaction:
+        date: 'Датата'
+        amount: 'Сумата'
+        description: 'Описанието'
+        income_transaction_id: 'Връзката с прихода'
+        type: 'Типа'
     errors:
       models:
         user: 
           attributes: 
             password_confirmation:
-              confirmation: 'e сгрешено'
+              confirmation: 'e сгрешено!'
             email:
-              taken: 'е зает'
+              taken: 'е зает!'
             password:
-              too_short: 'е прекалено къса'
+              too_short: 'е прекалено къса!'
+        income_category:
+          attributes: 
+            name:
+              blank: 'е празно!'
+        expense_category:
+          attributes: 
+            name:
+              blank: 'е празно!'
+        income_transaction:
+          attributes:
+            date: 
+              blank: 'е невалидна!'
+            amount:
+              not_a_number: 'не е валидна!'
+            description:
+              blank: 'e празно!'
+        expense_transaction:
+          attributes:
+            date: 
+              blank: 'е невалидна!'
+            amount:
+              not_a_number: 'не е валидна!'
+            description:
+              blank: 'e празно!'
+            income_transaction_id:
+              not_a_number: 'не е попълнена'
+            type:
+              blank: 'е празен'
   errors:
     messages:
       expired: "е изтекъл, моля заявете нов"

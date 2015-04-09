@@ -1,18 +1,4 @@
 <%= form_for(@income_transaction) do |f| %>
-
-  <% if @income_transaction.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@income_transaction.errors.count, "error") %> prohibited this income_transaction from being saved:</h2>
-      
-      <ul>
-      <% @income_transaction.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-
  <div class="form-group">
       <%= f.hidden_field :income_category_id, :value => income_category_id, :id => 'income_category_id'  %>
       <%= f.label "#{t 'expense_transactions.description'}" %><br>
@@ -23,10 +9,4 @@
       <%= f.text_field :date, class: "form-control" %>
   </div>
  <%= f.submit %>
-
- 
-
-    
- 
-  
 <% end %>

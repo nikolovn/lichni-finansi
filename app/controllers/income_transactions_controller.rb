@@ -15,12 +15,12 @@ class IncomeTransactionsController < ApplicationController
     respond_to do |format|
 
       if @transaction.save
-        flash[:notice] = 'Income transaction was successfully created.'
+        flash[:notice] = "#{t 'controller_message.income_transactions.create'}"
         format.html { redirect_to :controller => 'income_categories', :action => 'index' }
       else
         format.html { redirect_to income_categories_path }
         @transaction.errors.full_messages.each do |msg|
-          flash[:error] = "Could not create income transaction. #{msg} "
+          flash[:error] = "#{msg}"
         end
       end
     end

@@ -58,7 +58,7 @@ describe ExpenseTransactionsController do
       it 'flashes a error message' do 
         post :create, expense_transaction: { name: '' }
 
-        expect(flash[:error]).to eq 'Could not create expense transaction. Expense category is not a number '
+        expect(flash[:error]).to eq 'Expense category is not a number'
       end
     end
   end

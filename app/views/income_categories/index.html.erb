@@ -3,22 +3,6 @@
 <div class="panel panel-default">
     <div class="panel-heading"><%= t 'income_categories.income_transactions' %></div>
     <div class="panel-body">
-    <% flash.each do |name, msg| -%>
-      <% if name.to_s == 'error' %>
-        <div class="alert alert-danger" role="alert">
-        <%= content_tag :div, msg, class: name %>
-        </div>
-      <% end -%>
-    <% end -%>
-    <% flash.each do |name, msg| -%>
-      <% if name.to_s == 'notice' %>
-        <div class="alert alert-success" role="alert">
-        <%= content_tag :div, msg, class: name %>
-        </div>
-      <% end -%>
-    <% end -%>
- 
-
     <%= link_to '',  new_income_category_path, title: "#{t 'income_categories.new_category'}", class: 'glyphicon glyphicon-download-alt' %>
     <%= link_to "#{t 'income_categories.new_category'}",  new_income_category_path %><table class="table table-bordered table-hover table-condensed table-striped table-responsive">    <br><br>    <thead>
           <tr>

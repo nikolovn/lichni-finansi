@@ -91,7 +91,7 @@ describe IncomeCategoriesController do
       it 'flashes a error message' do 
         post :create, income_category: { name: '' }
 
-        expect(flash[:error]).to eq 'Could not create income category. Name can\'t be blank '
+        expect(flash[:error]).to eq 'Name can\'t be blank'
       end
     end
   end

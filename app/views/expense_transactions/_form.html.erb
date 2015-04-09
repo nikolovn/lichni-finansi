@@ -1,15 +1,5 @@
 <%= form_for(@expense_transaction) do |f| %>
-  <% if @expense_transaction.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@expense_transaction.errors.count, "error") %> prohibited this expense_transaction from being saved:</h2>
-      
-      <ul>
-      <% @expense_transaction.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  
   <div id = "income_transaction">
 
      <%= f.hidden_field :expense_category_id, :value => expense_category_id, :id => 'expense_category_id'  %>

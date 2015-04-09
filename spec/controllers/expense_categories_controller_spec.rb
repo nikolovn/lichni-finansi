@@ -98,7 +98,7 @@ describe ExpenseCategoriesController do
       it 'flashes a error message' do 
         post :create, expense_category: { name: '' }
 
-        expect(flash[:error]).to eq 'Could not create expense category. Name can\'t be blank '
+        expect(flash[:error]).to eq 'Name can\'t be blank'
       end
     end
   end

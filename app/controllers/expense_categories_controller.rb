@@ -47,11 +47,11 @@ class ExpenseCategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        format.html { redirect_to expense_categories_path, notice: 'Expense category was successfully created.' }
+        format.html { redirect_to expense_categories_path, notice: "#{t 'controller_message.expense_categories.create'}" }
       else
         format.html { redirect_to action: 'new' }
         @category.errors.full_messages.each do |msg|
-          flash[:error] = "Could not create expense category. #{msg} "
+          flash[:error] = "#{msg}"
         end
       end
     end
@@ -62,11 +62,11 @@ class ExpenseCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @expense_category.update(expense_category_params)
-        format.html { redirect_to expense_categories_path, notice: 'Expense category was successfully updated.' }
+        format.html { redirect_to expense_categories_path, notice: "#{t 'controller_message.expense_categories.update'}" }
       else
         format.html { redirect_to action: 'edit' }
         @expense_category.errors.full_messages.each do |msg|
-          flash[:error] = "Could not update expense category. #{msg} "
+          flash[:error] = "#{msg}"
         end
       end
     end
