@@ -1,18 +1,19 @@
-== MyBudGet
+h1. MyBudGet
 
 Using this APP you are able to control your finances. You can add new Expense categories, Income Categories, Income Tranactions, Expense Transactions. In a simple way you can plan a category by adding the future expenses. You can see detailed statistics of incomes and expenses, divided by category, days, and other criteria.
 
 The application has the following tabs:
 
-* Enter income transaction
-![income_transactions.png](../../documentations/raw/master/income_transactions.png)
+* Enter income transaction 
+
+!https://raw.githubusercontent.com/nikolovn/documentations/master/income_transactions.png(income_transactions.png)!
 
 * Enter expense transaction
-![income_transactions.png](../../documentations/raw/master/expense_transactions.png)
+!https://raw.githubusercontent.com/nikolovn/documentations/master/expense_transactions.png(expense_transactions.png)!
 
 * All transactions
-![all_transactions.png](../../documentations/raw/master/all_transactions.png)
+!https://raw.githubusercontent.com/nikolovn/documentations/master/all_transactions.png(all_transactions.png)!
 
 * Statistics
-![graphics.png](../../documentations/raw/master/graphics.png)
+!https://raw.githubusercontent.com/nikolovn/documentations/master/graphics.png(graphics.png)!
 
