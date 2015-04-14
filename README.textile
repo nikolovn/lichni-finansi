@@ -6,16 +6,16 @@ The application has the following tabs:
 
 * Enter income transaction 
 
-!../../documentations/master/income_transactions.png(income_transactions.png)!
+!https://raw.githubusercontent.com/nikolovn/documentations/master/income_transactions.png?token=AFwEaYgQPt1q_WgG0r5_BCgqKvjexBRxks5VNkAiwA%3D%3D(income_transactions.png)!
 
 
 
 * Enter expense transaction
-!https://raw.githubusercontent.com/nikolovn/documentations/master/expense_transactions.png(expense_transactions.png)!
+!https://raw.githubusercontent.com/nikolovn/documentations/master/expense_transactions.png?token=AFwEad-Vm3K_p4BR24v8YjewnMlypEQbks5VNkADwA%3D%3D(expense_transactions.png)!
 
 * All transactions
-!https://raw.githubusercontent.com/nikolovn/documentations/master/all_transactions.png(all_transactions.png)!
+!https://raw.githubusercontent.com/nikolovn/documentations/master/all_transactions.png?token=AFwEaUQHaaYRzY7W6M6V6RWz2-zKhMqoks5VNj_DwA%3D%3D(all_transactions.png)!
 
 * Statistics
-!https://raw.githubusercontent.com/nikolovn/documentations/master/graphics.png(graphics.png)!
+!https://raw.githubusercontent.com/nikolovn/documentations/master/graphics.png?token=AFwEaUn8gIZVKHEKp9JiBDPg1I-N5Ciyks5VNj_nwA%3D%3D(graphics.png)!
 
