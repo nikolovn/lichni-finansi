@@ -6,7 +6,9 @@ The application has the following tabs:
 
 * Enter income transaction 
 
-!https://raw.githubusercontent.com/nikolovn/documentations/master/income_transactions.png(income_transactions.png)!
+!../../documentations/master/income_transactions.png(income_transactions.png)!
+
+
 
 * Enter expense transaction
 !https://raw.githubusercontent.com/nikolovn/documentations/master/expense_transactions.png(expense_transactions.png)!
