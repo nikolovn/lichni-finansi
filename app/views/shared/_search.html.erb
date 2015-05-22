@@ -9,9 +9,9 @@
               </div>
               <div class="col-md-4">
                 <%= f.label "#{ t 'search_panel.date_from' }" %><br>
-                <%= f.text_field :date_gteq %> <br>
+                <%= f.text_field :date_gteq, 'data-provide' => 'datepicker' %> <br>
                 <%= f.label "#{ t 'search_panel.date_to' }" %><br>
-                <%= f.text_field :date_lteq %>  <br> 
+                <%= f.text_field :date_lteq ,'data-provide' => 'datepicker' %>  <br> 
               </div>
               <div class="col-md-4">
                 <%= f.label "#{ t 'search_panel.keys' }" %><br>

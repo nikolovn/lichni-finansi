@@ -81,3 +81,5 @@ gem 'googlecharts', '~> 1.6.8'
 gem 'rails_12factor', group: :production
 
 gem 'google-analytics-rails'
+
+gem 'bootstrap-datepicker-rails'

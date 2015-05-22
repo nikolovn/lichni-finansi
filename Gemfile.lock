@@ -32,6 +32,8 @@ GEM
     bcrypt (3.1.7)
     best_in_place (0.2.3)
       rails (>= 3.0.0)
+    bootstrap-datepicker-rails (1.4.0)
+      railties (>= 3.0)
     bootstrap-sass (3.1.1.0)
       sass (~> 3.2)
     builder (3.1.4)
@@ -255,6 +257,7 @@ PLATFORMS
 DEPENDENCIES
   ancestry (~> 2.1.0)
   best_in_place
+  bootstrap-datepicker-rails
   bootstrap-sass (~> 3.1.1)
   capybara (~> 2.2.1)
   coffee-rails (~> 4.0.0)
