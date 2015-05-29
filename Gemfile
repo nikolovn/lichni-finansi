@@ -28,6 +28,7 @@ gem 'money-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.13.1'
+  gem 'mysql', '>=0.3.0'
 end
 
 group :test do
