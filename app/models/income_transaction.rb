@@ -1,4 +1,6 @@
 class IncomeTransaction < ActiveRecord::Base
+  monetize :amount_cents
+
   belongs_to :income_category
   belongs_to :user
   has_many :expense_transactions
