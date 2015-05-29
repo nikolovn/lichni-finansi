@@ -112,8 +112,8 @@ class StatisticsController < ApplicationController
   end
 
   def calculate_balance(income_transaction, expense_transaction)
-    expense_amount = Monetize.parse(expense_transaction.sum(:amount)).to_f
-    income_amount = Monetize.parse(income_transaction.sum(:amount)).to_f
+    expense_amount = Monetize.parse(expense_transaction.collect(&:amount).sum)
+    income_amount = Monetize.parse(income_transaction.collect(&:amount).sum)
     balance = Monetize.parse(income_amount) - Monetize.parse(expense_amount)
     Hash[income: income_amount, expense: expense_amount, balance: balance]
   end
@@ -123,7 +123,7 @@ class StatisticsController < ApplicationController
       Hash[id: category.id, name: category.name, amount:
         Monetize.parse(category.descendants.map do |descendant| 
          q_expense_transactions = descendant.expense_transactions.search(expense_params)
-         q_expense_transactions.result(distinct: true).sum(:amount)
+         q_expense_transactions.result(distinct: true).collect(&:amount).sum
         end.sum).to_f]
     end.sort_by{|v, k| v[:amount]}.reverse
   end 
@@ -133,7 +133,7 @@ class StatisticsController < ApplicationController
       q_income_transactions = category.income_transactions.search(income_params)
       Hash[id: category.id, income_category: category.name, amount:
         Monetize.parse(
-          q_income_transactions.result(distinct: true).sum(:amount)
+          q_income_transactions.result(distinct: true).collect(&:amount).sum
         ).to_f
       ]
     end
@@ -141,9 +141,9 @@ class StatisticsController < ApplicationController
 
   def calculate_graphics_expense_type(expense_transactions)
     {
-      saving: expense_transactions.where(expense_type: 'saving').sum(:amount).to_f,
-      investment: expense_transactions.where(expense_type: 'investment').sum(:amount).to_f,
-      expense: expense_transactions.where(expense_type: 'expense').sum(:amount).to_f
+      saving: expense_transactions.where(expense_type: 'saving').collect(&:amount).sum,
+      investment: expense_transactions.where(expense_type: 'investment').collect(&:amount).sum,
+      expense: expense_transactions.where(expense_type: 'expense').collect(&:amount).sum
     }
   end
 
@@ -165,7 +165,7 @@ class StatisticsController < ApplicationController
 
   def expense_by_date(transactions)
     transactions.group_by(&:date).map do |date, transaction|
-      Hash[date: date.strftime('%F'), amount: transaction.map(&:amount).sum.to_f]
+      Hash[date: date.strftime('%F'), amount: transaction.collect(&:amount).sum]
     end
   end
 end

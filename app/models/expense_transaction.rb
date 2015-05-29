@@ -1,4 +1,6 @@
 class ExpenseTransaction < ActiveRecord::Base
+  monetize :amount_cents
+
   belongs_to :expense_category
   belongs_to :user
   validates :user_id, presence: true
