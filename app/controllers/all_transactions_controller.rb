@@ -2,8 +2,8 @@ class AllTransactionsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    start_date
-    end_date
+    # start_date
+    # end_date
     @expense_categories = ExpenseCategory.where(user_id: current_user.id).order(:lft)
 
     if params[:q].present?

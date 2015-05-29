@@ -9,9 +9,9 @@
               </div>
               <div class="col-md-4">
                 <%= f.label "#{ t 'search_panel.date_from' }" %><br>
-                <%= f.text_field :date_gteq, 'data-provide' => 'datepicker' %> <br>
+                <%= f.text_field :date_gteq, 'data-provide' => 'datepicker', 'data-date-language' => 'bg', 'data-date-week-start' => 1, 'data-date-days-of-week-highlighted' => '1,2', 'data-date-format' => 'dd/mm/yyyy', placeholder: 'DD/MM/YY', value: params[:q] ? params[:q][:date_gteq] : ''%> <br>
                 <%= f.label "#{ t 'search_panel.date_to' }" %><br>
-                <%= f.text_field :date_lteq ,'data-provide' => 'datepicker' %>  <br> 
+                <%= f.text_field :date_lteq ,'data-provide' => 'datepicker' ,'data-date-language' => 'bg','data-date-week-start' => 1, 'data-date-days-of-week-highlighted' => '0,6' ,'data-date-format' => 'dd/mm/yyyy', placeholder: 'DD/MM/YY', value: params[:q] ? params[:q][:date_lteq] : ''%>  <br> 
               </div>
               <div class="col-md-4">
                 <%= f.label "#{ t 'search_panel.keys' }" %><br>
