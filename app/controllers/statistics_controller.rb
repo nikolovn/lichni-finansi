@@ -102,7 +102,7 @@ class StatisticsController < ApplicationController
     Gchart.line({
           :title => "#{t 'statistics.expense_by_date' }", 
           :size => '800x200',
-          :data => @expense_by_date_hash.map {|hash| hash[:amount]}, 
+          :data => @expense_by_date_hash.map {|hash| hash[:amount].amount}, 
           :labels => @expense_by_date_hash.map {|hash| hash[:date]},
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
