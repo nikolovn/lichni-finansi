@@ -1,0 +1,2 @@
+class FuturePaymentsController < ApplicationController
+end

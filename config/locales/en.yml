@@ -36,6 +36,7 @@ en:
     enter_inome_transaction: 'Enter inome transaction'
     enter_expense_transaction: 'Enter expense transaction'
     all_transactions: 'All transactions'
+    future_payments: 'Future payments'
     statistics: 'Statistics'
     log_out: 'log out'
   income_categories:

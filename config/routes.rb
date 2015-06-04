@@ -5,6 +5,7 @@ Finance::Application.routes.draw do
   devise_for :models
   resources :income_transactions
   resources :income_categories
+  resources :future_payments
   resources :expense_transactions
   resources :expense_categories do
     collection do
