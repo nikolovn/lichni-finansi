@@ -31,6 +31,7 @@
         <li class="<%=active_class?(income_categories_path)%>"><%= link_to "#{t 'menu.enter_inome_transaction'}", income_categories_path %></li>
         <li class="<%=active_class?(expense_categories_path)%>"><%= link_to "#{t 'menu.enter_expense_transaction'}", expense_categories_path, :class => active_class?(expense_categories_path) %></li>
         <li class="<%=active_class?(all_transactions_path)%>"><%= link_to "#{t 'menu.all_transactions'}", all_transactions_path %></li>
+        <li class="<%=active_class?(future_payments_path)%>"><%= link_to "#{t 'menu.future_payments'}", future_payments_path %></li>
         <li class="<%=active_class?(statistics_path)%>"><%= link_to "#{t 'menu.statistics'}", statistics_path %></li>
         <li class="<%=active_class?(destroy_user_session_path)%>"><%=link_to "#{t 'menu.log_out'}", destroy_user_session_path, :method => :delete  %></li>
         <%- end -%>
