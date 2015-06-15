@@ -68,19 +68,19 @@
     <table class="table table-bordered table-hover table-condensed table-striped table-responsive">
       <thead>
         <tr>
-          <th>Category</th>
-          <th>Parent category</th>
-          <th>Description</th>
-          <th>Amount</th>
-          <th>Date</th>
-          <th>Action</th>
+          <th><%= t 'all_transactions.category' %></th>
+          <th nowrap><%= t 'all_transactions.sub_category' %></th>
+          <th><%= t 'all_transactions.description' %></th>
+          <th><%= t 'all_transactions.amount' %></th>
+          <th><%= t 'all_transactions.date' %></th>
+          <th><%= t 'all_transactions.action' %></th>
         </tr>
       </thead>
       <tbody>
         <% @expense_transactions.each do |transaction| %>
-          <tr>
-            <td><%= transaction.expense_category.name %></td>
+          <tr> 
             <td><%= transaction.expense_category.parent.name %></td>
+            <td><%= transaction.expense_category.name %></td>
             <td width = 25%><%= best_in_place transaction, :description, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :amount, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :date, :type => :date %></td>
