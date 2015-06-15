@@ -168,10 +168,15 @@ bg:
     amount: 'Сума:'
     income_transactions: 'Връзка с приход:'
     type: 'Тип:'
+    expense: 'Разход'
+    investment: 'Инвестиция'
+    saving: 'Спестяване'
+    create_expense: 'Създай разход'
   income_transactions:
     description: 'Описание:'
     date: 'Дата:'
     amount: 'Сума:'
+    create_income: 'Създай приход'
   all_transactions:
     all_transactions: 'Всички транзакции'
     filter_transactions: 'Филтър на транзакциите'
@@ -179,6 +184,7 @@ bg:
     expense_transactions: 'Разходи'
     balance: 'Баланс'
     category: 'Категория'
+    sub_category: 'Под категория'
     description: 'Описание'
     amount: 'Сума'
     date: 'Дата'

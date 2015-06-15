@@ -13,14 +13,14 @@
       <%= f.label "#{t 'expense_transactions.income_transactions'}" %><br>
       <%= f.collection_select :income_transaction_id, @income_transactions, :id, :description, include_blank: true %><br>
       <%= f.label "#{t 'expense_transactions.type'}" %><br>
-      <%= f.select :expense_type, options_for_select([['investment' ,'investment'], ['saving', 'saving'], ['expense', 'expense']]) %>
+      <%= f.select :expense_type, options_for_select([["#{t 'expense_transactions.investment'}", 'investment' ], ["#{t 'expense_transactions.saving'}", 'saving'], ["#{t 'expense_transactions.expense'}", 'expense']]) %>
 
 
 
     </div>
     </div>
     <div class="actions">
-      <%= f.submit %>
+      <%= f.submit "#{t 'expense_transactions.create_expense'}"%>
     </div>
   </div>
 <% end %>
