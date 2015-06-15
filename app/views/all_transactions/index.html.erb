@@ -53,7 +53,7 @@
             <td ><%= transaction.income_category.name %></td>
             <td width = 25%><%= best_in_place transaction, :description, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :amount, :type => :input %></td>
-            <td width = 25%><%= best_in_place transaction, :date, :type => :input %></td>
+            <td width = 25%><%= best_in_place transaction, :date, :type => :date %></td>
             <td width = 5%><%= link_to "#{ t 'all_transactions.destroy' }", transaction, method: :delete, data: { confirm: "#{ t 'all_transactions.are_you_sure' }" } %></td>
           </tr>
         <% end %>
@@ -83,7 +83,7 @@
             <td><%= transaction.expense_category.parent.name %></td>
             <td width = 25%><%= best_in_place transaction, :description, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :amount, :type => :input %></td>
-            <td width = 25%><%= best_in_place transaction, :date, :type => :input %></td>
+            <td width = 25%><%= best_in_place transaction, :date, :type => :date %></td>
             <td width = 5%><%= link_to "#{ t 'all_transactions.destroy' }", transaction, method: :delete, data: { confirm: "#{ t 'all_transactions.are_you_sure' }" } %></td>
           </tr>
           <% end %>
