@@ -110,6 +110,7 @@ en:
     search: 'Search'
     category: 'Category'
     description: 'Description'
+    chose_category: 'Chose category'
   statistics: 
     statistics: 'Statistics'
     filter_transactions: 'Filter transactions'
