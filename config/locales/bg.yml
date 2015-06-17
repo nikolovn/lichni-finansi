@@ -202,6 +202,7 @@ bg:
     search: 'търси'
     category: 'Категория'
     description: 'Описание'
+    chose_category: ' Избери категория'
   statistics: 
     statistics: 'Статитика'
     filter_transactions: 'Филтър на транзакциите'
