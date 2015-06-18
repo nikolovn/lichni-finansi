@@ -2,9 +2,6 @@ class StatisticsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    #search panel variable
-    start_date
-    end_date
     @expense_categories = ExpenseCategory.where(user_id: current_user.id)
     @income_categories = IncomeCategory.where(user_id: current_user.id)
 
@@ -38,8 +35,8 @@ class StatisticsController < ApplicationController
     @graphics_balance_category = graphics_balance
     
     @graphics_expense_type_hash = calculate_graphics_expense_type(expense_transactions)
-    @graphics_expense_type = graphics_expense_type
-  
+    @graphics_expense_type = graphics_expense_type      
+
     @expense_by_date_hash = expense_by_date(expense_transactions)
     @expense_by_date = graphics_expense_by_date
   end
@@ -76,7 +73,7 @@ class StatisticsController < ApplicationController
     Gchart.pie_3d({
           :title => "#{t 'statistics.balance' }", 
           :size => '400x200',
-          :data => @graphics_balance_category_hash.values.shift(2), 
+          :data => @graphics_balance_category_hash.values.shift(2).map {|balance| balance.amount}, 
           :legend => ["#{t 'statistics.income' }", "#{t 'statistics.expense' }"],
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
@@ -89,7 +86,7 @@ class StatisticsController < ApplicationController
     Gchart.pie_3d({
           :title => "#{t 'statistics.expense_by_type' }", 
           :size => '400x200',
-          :data => @graphics_expense_type_hash.values, 
+          :data => @graphics_expense_type_hash.values.map {|expense_type| expense_type.amount}, 
           :legend => @graphics_expense_type_hash.keys.map {|type| "#{t %q(statistics.) + type.to_s }"},
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
@@ -141,27 +138,12 @@ class StatisticsController < ApplicationController
 
   def calculate_graphics_expense_type(expense_transactions)
     {
-      saving: expense_transactions.where(expense_type: 'saving').collect(&:amount).sum,
-      investment: expense_transactions.where(expense_type: 'investment').collect(&:amount).sum,
-      expense: expense_transactions.where(expense_type: 'expense').collect(&:amount).sum
+      saving: Monetize.parse(expense_transactions.where(expense_type: 'saving').collect(&:amount).sum),
+      investment: Monetize.parse(expense_transactions.where(expense_type: 'investment').collect(&:amount).sum),
+      expense: Monetize.parse(expense_transactions.where(expense_type: 'expense').collect(&:amount).sum)
     }
   end
 
-  def start_date
-    if params['q'].present?
-      @start_date = params['q']['date_gteq']
-    else
-      @start_date = DateTime.now.beginning_of_month
-    end
-  end
-
-  def end_date
-    if params['q'].present?
-      @end_date = params['q']['date_lteq']
-    else
-      @end_date = DateTime.now.at_end_of_month
-    end
-  end
 
   def expense_by_date(transactions)
     transactions.group_by(&:date).map do |date, transaction|
