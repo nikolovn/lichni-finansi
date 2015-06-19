@@ -83,4 +83,4 @@ gem 'rails_12factor', group: :production
 
 gem 'google-analytics-rails'
 
-gem 'bootstrap-datepicker-rails'
+gem 'bootstrap-datepicker-rails', git: 'https://github.com/nikolovn/bootstrap-datepicker-rails'
