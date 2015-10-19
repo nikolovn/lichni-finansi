@@ -1,8 +1,7 @@
-<%= form_for(@expense_category) do |c| %>
+<%= render partial: 'message' %>
+<%= form_for @expense_category,  :remote => true do |c| %>
   <div class="field">
     <%= c.text_field :name %>
-    <%= c.select('parent_id',  options_from_collection_for_select(@expense_parent_categories , 'id', 'name'), {include_blank: 'None'})
-%>
   </div>
   <div class="actions">
     <%= c.submit  "#{t 'income_categories.new.save'}"%>

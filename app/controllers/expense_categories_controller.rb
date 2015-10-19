@@ -7,7 +7,8 @@ class ExpenseCategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @expense_parent_categories = expense_parent_category
+    @expense_categories = ExpenseCategory.all
+    @expense_category = ExpenseCategory.new
   end
 
   # GET /categories/1
@@ -29,6 +30,14 @@ class ExpenseCategoriesController < ApplicationController
     @expense_sub_categories = ExpenseCategory.find(params[:id]).descendants
   end
 
+  def add_sub_category
+    @income_transactions = IncomeTransaction.where(user_id: current_user.id)
+
+    @expense_transaction = ExpenseTransaction.new
+    @category = ExpenseCategory.find(params[:id])
+    @expense_category = ExpenseCategory.new
+  end
+
   # GET /categories/new
   def new
     @expense_parent_categories = expense_parent_category
@@ -43,16 +52,19 @@ class ExpenseCategoriesController < ApplicationController
   # POST /categories
   # POST /categories.json
   def create
-    @category = current_user.expense_category.build(expense_category_params)
+    @expense_parent_categories = expense_parent_category
+
+    @expense_category = current_user.expense_category.build(expense_category_params)
 
     respond_to do |format|
-      if @category.save
+      if @expense_category.save
         format.html { redirect_to expense_categories_path, notice: "#{t 'controller_message.expense_categories.create'}" }
+        flash.now[:notice] = "#{t 'controller_message.expense_categories.create'}"
+        format.js { render 'create' }
       else
         format.html { redirect_to action: 'new' }
-        @category.errors.full_messages.each do |msg|
-          flash[:error] = "#{msg}"
-        end
+        format.js { render 'new' }
+
       end
     end
   end

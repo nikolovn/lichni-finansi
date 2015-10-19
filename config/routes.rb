@@ -9,6 +9,7 @@ Finance::Application.routes.draw do
   resources :expense_transactions
   resources :expense_categories do
     collection do
+      get 'add_sub_category/:id', action: :add_sub_category, as: 'add_sub_category'
       get 'show_sub_category/:id', action: :show_sub_category, as: 'show_sub_category'
       get 'hide_sub_category/:id', action: :hide_sub_category, as: 'hide_sub_category'
     end

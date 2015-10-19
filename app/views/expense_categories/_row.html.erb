@@ -1,11 +1,4 @@
-
-  <div class="panel panel-default">
-    <div class="panel-heading"><%= t 'expense_categories.expense_transactions' %></div>
-    <div class="panel-body">
-    <%= link_to '',  new_expense_category_path, title: "#{t 'expense_categories.new_category'}", class: 'glyphicon glyphicon-download-alt' %>
-    <%= link_to "#{t 'expense_categories.new_category'}",  new_expense_category_path %><table class="table table-bordered table-hover table-condensed table-striped table-responsive">    <br>
-<table class="table table-bordered table-hover table-condensed table-striped table-responsive">        <thead>
-          <tr>
+<tr>
             <th class='col-md-10'><%= t 'expense_categories.category' %></th>
             <th class='col-md-2'><%= t 'expense_categories.action' %></th>
           </tr>
@@ -30,10 +23,3 @@
               </td>
             </tr>
         <% end %>
-      </tbody>
-    </table>
-
-    <%= link_to '',  new_expense_category_path, title: "#{t 'expense_categories.new_category'}", class: 'glyphicon glyphicon-download-alt' %>
-    <%= link_to "#{t 'expense_categories.new_category'}", new_expense_category_path %>
-    </div>
-  </div>

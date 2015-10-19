@@ -1,0 +1,30 @@
+#expense_category_message
+   
+%table#expense_rows.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
+  %thead
+    %tr
+      %td.col-md-1{'vertical-align' => 'top'}= t 'expense_categories.category' 
+      %td.col-md-5 
+        %span.glyphicon.glyphicon-filter
+          %a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapseTwo"}
+            = "#{t 'expense_categories.new_category'}"
+          #collapseTwo.panel-collapse.collapse{"aria-labelledby" => "headingTwo", :role => "tabpanel"}
+            .panel-body
+              = render partial: 'form'
+
+
+      %td.col-md-2{'vertical-align' => 'top'}= t 'expense_categories.action'
+  - @expense_categories.each do |category|
+    %tr
+      %td{:colspan => "2", :id => "sub_category_link_#{category.id}"}
+        %b
+        - if category.ancestry_depth == 0
+          %a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#collapse#{category.id}"}
+            = "#{category.name}"
+          #collapseTwo.panel-collapse.collapse{"aria-labelledby" => "headingTwo", :role => "tabpanel"}
+            .panel-body
+              = category.name if category.ancestry_depth > 0 
+      %td
+    %tr
+      %td{:colspan => "3"}
+        %div{:id => category.id}

@@ -1,0 +1,2 @@
+$("#expense_category_message").html("<%= escape_javascript(render('message')) %>");
+$("#expense_rows").html("<%= escape_javascript(render('row', locals: { category: @expense_category })) %>");

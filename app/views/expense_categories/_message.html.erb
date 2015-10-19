@@ -1,0 +1,14 @@
+<% if @expense_category.errors.any? %>
+  <% @expense_category.errors.full_messages.each do |msg| %>
+    <div class="alert alert-danger">
+      <button aria-hidden="true" class="close" data-dismiss="alert" type="button"></button>
+      <%= content_tag :div, msg.html_safe, id: 'flash_notice' %>
+    </div>
+  <% end %>
+<% end %>
+<% if flash[:notice].present? %>
+  <div class="alert alert-success">
+    <button aria-hidden="true" class="close" data-dismiss="alert" type="button"></button>
+    <%= content_tag :div, flash[:notice].html_safe, id: 'flash_notice' %>
+  </div>
+<% end %>
