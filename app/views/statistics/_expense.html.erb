@@ -1,0 +1,17 @@
+<%= image_tag (@graphics_expense_category) %>
+    <b><%=t 'statistics.expense' %>:</b>
+      <%= @validate_data_expense_category %>
+      <table class='table table-bordered table-hover table-condensed table-striped table-responsive'>
+      <%  @expense_categories_hash.each do |expense_category| %>
+      <tr>
+      
+        <% params[:q][:tabs] = 'expense' if params[:q].present? %>
+        <% params[:q][:expense_category_id_in] = expense_category[:id] if params[:q].present? %>
+          <b><td><%= link_to("#{expense_category[:name]}", all_transactions_path(params))  %></b></td>
+            <td><%= "#{expense_category[:amount]}" %></td></b>
+         </tr>
+    
+    <% end %>
+    </table>
+    </div>
+  </div>
