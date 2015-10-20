@@ -111,6 +111,49 @@ feature 'Statistics' do
     visit 'statistics'
   end
 
+  scenario 'Show graphics for income expense by month' do
+    salary_category = FactoryGirl.create(:income_category, name: 'Заплата Ники')
+    food_category = FactoryGirl.create(:expense_category, name: 'food')
+    home_category = FactoryGirl.create(:expense_category, name: 'home')
+
+    rent_category = FactoryGirl.create(:expense_category, name: 'rent', parent: home_category)
+    restaurant_category = FactoryGirl.create(:expense_category, name: 'restaurant', parent: food_category)
+    supermarket_food_category = FactoryGirl.create(:expense_category, name: 'supermarket', parent: food_category)
+
+    salary_1 = FactoryGirl.create(:income_transaction, income_category: salary_category, amount: 1800, date: '01-08-2015')
+    salary_2 = FactoryGirl.create(:income_transaction, income_category: salary_category, amount: 2300, date: '01-09-2015')
+
+    food1 = FactoryGirl.create(:expense_transaction, description: 'dinner in restaurant salary 1', expense_category: restaurant_category, amount: 50, income_transaction: salary_1)
+    food1 = FactoryGirl.create(:expense_transaction, description: 'fantastiko salary 1', expense_category: supermarket_food_category, amount: 60, income_transaction: salary_1)
+
+    food2 = FactoryGirl.create(:expense_transaction, description: 'dinner in restaurant salary 2', expense_category: restaurant_category, amount: 40, income_transaction: salary_2)
+    food2 = FactoryGirl.create(:expense_transaction, description: 'fantastiko salary 2', expense_category: supermarket_food_category, amount: 30, income_transaction: salary_2)
+
+    rent1 = FactoryGirl.create(:expense_transaction, description: 'rent salary 1', expense_category: rent_category, amount: 250, income_transaction: salary_1)
+    rent2 = FactoryGirl.create(:expense_transaction, description: 'rent salary 2', expense_category: rent_category, amount: 400, income_transaction: salary_2)
+
+    visit 'statistics'
+
+    # expect(page).to have_content 'date'
+    # expect(page).to have_content 'salary'
+    # expect(page).to have_content 'expense'
+    # expect(page).to have_content 'food'
+    # expect(page).to have_content 'home'
+
+    # expect(page).to have_content '01-08-2015'
+    # expect(page).to have_content '1800'
+    # expect(page).to have_content '360'
+    # expect(page).to have_content '110'
+    # expect(page).to have_content '250'
+
+    # expect(page).to have_content '01-09-2015'
+    # expect(page).to have_content '2300'
+    # expect(page).to have_content '470'
+    # expect(page).to have_content '70'
+    # expect(page).to have_content '400'
+
+   
+   end
 
   private
 
