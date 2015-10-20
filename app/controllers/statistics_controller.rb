@@ -202,7 +202,6 @@ class StatisticsController < ApplicationController
     data_array << expenses_by_root_category_name.uniq.flatten
     data_array = data_array.flatten(1)
 
-    binding.pry
     data_array
 
   end
