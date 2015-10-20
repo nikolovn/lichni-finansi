@@ -217,7 +217,7 @@ end
 
   def expense_by_month
     rows = []
-    current_user.income_category.where(name: 'Заплата Ники').first.income_transactions.each do |income_transaction|
+    current_user.income_category.where(name: 'Заплата Ники').first.income_transactions.order(:date).each do |income_transaction|
       row = {}
       row[:salary_date] = income_transaction.date
       row[:salary_amount] = income_transaction.amount
