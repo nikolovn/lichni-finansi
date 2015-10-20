@@ -40,7 +40,7 @@ class StatisticsController < ApplicationController
     @expense_by_date_hash = expense_by_date(expense_transactions)
     @expense_by_date = graphics_expense_by_date
 
-    @expense_by_month = graphics_expense_by_month if salary_exists?
+    @expense_by_month = "#{expense_by_month_labels + expense_by_month_legends + expense_by_month_data}" if salary_exists?
   end
   
   private
