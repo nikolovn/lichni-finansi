@@ -1,0 +1,30 @@
+<%= image_tag (@expense_by_category_month) %>
+      <%= @validate_data_expense_category %>
+      <table class='table table-bordered table-hover table-condensed table-striped table-responsive'>
+       <tr> 
+            <td></td>
+            <% if @expense_by_category_month_legend %>
+              <% @expense_by_category_month_legend.each do |legend| %>
+                <td ><%= legend %></td>
+              <% end %>
+            <% end %>
+
+          </tr>
+      <% if @expense_by_category_month_hash %>
+        <%  @expense_by_category_month_hash.each do |expense_category| %>
+           <tr>
+            <% expense_category.keys.map do |expense_category|%> 
+              <td>
+                <%= link_to("#{expense_category.name}", all_transactions_path({q: {tabs: 'expense', expense_category_id_in: expense_category.id }}))  %> 
+              </td>
+            <% end %>
+            <% expense_category.values.map {|category_amount| category_amount[:amount]}.flatten.each do |amount|%>
+                <td><%=amount %></td>
+            <% end %>
+           </tr>
+      
+      <% end %>
+    <% end %>
+    </table>
+    </div>
+  </div>
