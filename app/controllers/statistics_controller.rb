@@ -2,7 +2,7 @@ class StatisticsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @expense_categories = ExpenseCategory.where(user_id: current_user.id)
+    @expense_categories = ExpenseCategory.where(user_id: current_user.id).order(:lft)
     @income_categories = IncomeCategory.where(user_id: current_user.id)
 
     @income_transactions_all = current_user.income_transactions
@@ -40,7 +40,11 @@ class StatisticsController < ApplicationController
     @expense_by_date_hash = expense_by_date(expense_transactions)
     @expense_by_date = graphics_expense_by_date
 
-    @expense_by_month = "#{expense_by_month_labels + expense_by_month_legends + expense_by_month_data + expense_by_month}" if salary_exists?
+    @expense_by_month = graphics_expense_by_month if salary_exists?
+
+    @expense_by_category_month_hash = expense_by_category_by_month(expense_params) if salary_exists?
+    @expense_by_category_month = graphics_expense_by_category_by_month(expense_params) if salary_exists?
+    @expense_by_category_month_legend = expense_by_month_label if salary_exists?
   end
   
   private
@@ -116,11 +120,27 @@ class StatisticsController < ApplicationController
      Gchart.line({
           :title => "#{t 'statistics.expense_by_date' }", 
           :size => '800x200',
-          :data => expense_by_month_data, 
-          :legend => expense_by_month_legends,
-          :labels => expense_by_month_labels,
+          :data => income_expense_by_month_data, 
+          :legend => ["#{t 'statistics.income' }", "#{t 'statistics.expense' }"],
+          :labels => expense_by_month_label,
           #:bg => {:color => 'ffffff', :type => 'stripes'}, 
-          :bar_colors => colors = 4.times.map{"%06x" % (rand * 0x1000000)},
+          :bar_colors => '00ff00,ff0000',
+
+          #:axis_with_labels => [ 'y'], 
+          #:axis_range => [[0,100,20], [0,20,5]],
+     })
+  end
+
+  def graphics_expense_by_category_by_month(expense_params)
+     Gchart.line({
+          :title => "#{t 'statistics.expense_by_date' }", 
+          :size => '800x300',
+          :data => expense_by_category_by_month(expense_params).map {|category| category.values.map {|a| a[:amount]}.flatten }, 
+          :legend => expense_by_category_by_month(expense_params).map {|category| category.keys}.flatten.map {|category| category.name},
+          :labels => expense_by_month_label,
+          #:bg => {:color => 'ffffff', :type => 'stripes'}, 
+          :bar_colors => colors = 13.times.map{"%06x" % (rand * 0x100000)},
+
           #:axis_with_labels => [ 'y'], 
           #:axis_range => [[0,100,20], [0,20,5]],
      })
@@ -173,63 +193,47 @@ class StatisticsController < ApplicationController
     end
   end
 
-  def expense_by_month_data
-    data_array = []
-    data = expense_by_month
-    
-    salary_amount = data.map do |row| 
-      row[:salary_amount].to_f 
-    end
-    
-    expenses_by_root_category = data.map do |row| 
-       row[:expenses_by_root_category].map {|hash| hash[:amount]} 
-    end
-    
-    data_array << salary_amount
-    data_array << expenses_by_root_category.flatten(1)
-  
-    data_array
-  end
 
-  def expense_by_month_legends
-    data_array = ['salary']
-    data = expense_by_month
-    
-     expenses_by_root_category_name = data.map do |row| 
-      [ row[:expenses_by_root_category].map {|hash| hash[:name]} ]
-    end
-    
-    data_array << expenses_by_root_category_name.uniq.flatten
-    data_array = data_array.flatten(1)
+# ------ income_expense_by_month calculation ----#
+  def income_expense_by_month_data
 
-    data_array
-
-  end
-
-  def expense_by_month_labels
-    data_array = ['salary']
-    data = expense_by_month
-    
-    labels = data.map do |row| 
-       row[:salary_date].strftime('%m %Y')
-    end  
-    
-    labels
-end
-
-  def expense_by_month
-    rows = []
+    income = []
+    expense = []
     current_user.income_category.where(name: 'Заплата Ники').first.income_transactions.order(:date).each do |income_transaction|
-      row = {}
-      row[:salary_date] = income_transaction.date
-      row[:salary_amount] = income_transaction.amount
-      row[:sum_expense] = income_transaction.expense_transactions.collect(&:amount).sum
-      row[:expenses_by_root_category] = calculate_data_by_expense_category(ExpenseCategory.where(user_id: current_user.id), { income_transaction_id_eq: income_transaction.id})
-      rows << row
+      income << income_transaction.amount.to_f 
+      expense << income_transaction.expense_transactions.collect(&:amount).sum.to_f
+    end
+    [income, expense]
+  end
+
+ def expense_by_month_label
+    current_user.income_category.where(name: 'Заплата Ники').first.income_transactions.order(:date).map do |income_transaction|
+      income_transaction.date.strftime('%m-%y')
+    end
+  end
+# ------ income_expense_by_month calculation ----#
+
+# ------ expense_by_category_by_month calculation ----#
+
+  def expense_by_category_by_month(expense_params)
+    expense_category_hash = ExpenseCategory.where(user_id: current_user.id).where(ancestry_depth: 0).map do |category|
+      Hash[category, amount:
+        current_user.income_category.where(name: 'Заплата Ники').first.income_transactions.order(:date).map do |income_transaction|
+          Monetize.parse(category.descendants.map do |descendant| 
+            hash = { income_transaction_id_eq: income_transaction.id}
+            hash = hash.merge(expense_params) if expense_params.present?
+            q_expense_transactions = descendant.expense_transactions.search(hash)
+            q_expense_transactions.result(distinct: true).collect(&:amount).sum
+          end.sum).to_f
+      end]
     end
 
-    rows
+    
+     expense_category_hash.map do |expense_category_hash| 
+       expense_category_hash if expense_category_hash.values.map{|h| h[:amount].sum > 0}.first  
+     end.compact
   end
+# ------ expense_by_category_by_month calculation ----#
 
    # stop calculation methods
 
