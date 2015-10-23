@@ -5,7 +5,7 @@ class StatisticsController < ApplicationController
     @expense_categories = ExpenseCategory.where(user_id: current_user.id).order(:lft)
     @income_categories = IncomeCategory.where(user_id: current_user.id)
 
-    @income_transactions_all = current_user.income_transactions
+    @income_transactions_all = current_user.income_transactions.order(:date)
 
     if params[:q].present?
       income_params = params[:q].deep_dup
@@ -199,7 +199,7 @@ class StatisticsController < ApplicationController
 
     income = []
     expense = []
-    current_user.income_category.where(name: 'Заплата Ники').first.income_transactions.order(:date).each do |income_transaction|
+    select_income_transactions.order(:date).each do |income_transaction|
       income << income_transaction.amount.to_f 
       expense << income_transaction.expense_transactions.collect(&:amount).sum.to_f
     end
@@ -207,7 +207,7 @@ class StatisticsController < ApplicationController
   end
 
  def expense_by_month_label
-    current_user.income_category.where(name: 'Заплата Ники').first.income_transactions.order(:date).map do |income_transaction|
+    select_income_transactions.order(:date).map do |income_transaction|
       income_transaction.date.strftime('%m-%y')
     end
   end
@@ -218,7 +218,7 @@ class StatisticsController < ApplicationController
   def expense_by_category_by_month(expense_params)
     expense_category_hash = ExpenseCategory.where(user_id: current_user.id).where(ancestry_depth: 0).map do |category|
       Hash[category, amount:
-        current_user.income_category.where(name: 'Заплата Ники').first.income_transactions.order(:date).map do |income_transaction|
+        select_income_transactions.map do |income_transaction|
           Monetize.parse(category.descendants.map do |descendant| 
             hash = { income_transaction_id_eq: income_transaction.id}
             hash = hash.merge(expense_params) if expense_params.present?
@@ -237,7 +237,12 @@ class StatisticsController < ApplicationController
 
    # stop calculation methods
 
+  def select_income_transactions
+    current_user.income_category.where(id: params[:income_category_id]).first.income_transactions.order(:date) 
+  end
+
   def salary_exists?
-    current_user.income_category.where(name: 'Заплата Ники').present?
+    current_user.income_category.where(id: params[:income_category_id]).present? &&
+    current_user.income_category.where(id: params[:income_category_id]).first.income_transactions.present?
   end
 end

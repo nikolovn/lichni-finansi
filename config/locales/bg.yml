@@ -194,8 +194,9 @@ bg:
     sum: 'Общо'
     current_balance: 'Текущ баланс'
   search_panel:
-    income_transactions: 'Приходи:'
-    expense_transactions: 'Разходи:' 
+    income_transactions_category: 'Приходи категории:'
+    income_transactions: 'Приходи транзакции:'
+    expense_transactions: 'Разходи категории:' 
     date_from: 'От дата:'
     date_to: 'До дата:'
     keys: 'Ключови думи:'
