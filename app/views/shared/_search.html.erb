@@ -2,6 +2,8 @@
           <%= search_form_for [@q_income_transactions], url: path, method: :get do |f| %>
            
               <div class="col-md-4">
+                <%= f.label "#{ t 'search_panel.income_transactions_category' }" %><br>
+                <%= select_tag('[income_category_id]', options_for_select(@income_categories.map{ |t| [t.name, t.id] },  selected: params[:income_category_id]), {style: "width:300px", prompt: "#{t 'search_panel.chose_category' }"}) %><br>
                 <%= f.label "#{ t 'search_panel.income_transactions' }" %><br>
                 <%= select_tag('[q][income_id]', options_for_select(@income_transactions_all.map{ |t| [t.description, t.id] },  selected: @income_params_id), {prompt: "#{t 'search_panel.chose_category' }"}) %><br>
                 <%= f.label "#{ t 'search_panel.expense_transactions' }" %><br>
