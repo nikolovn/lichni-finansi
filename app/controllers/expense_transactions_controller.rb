@@ -32,7 +32,7 @@ class ExpenseTransactionsController < ApplicationController
 
     def expense_transactions_params
       if params[:expense_transaction][:income_transaction_id].present?
-        params[:expense_transaction][:income_category_id] = IncomeTransaction.find(params[:expense_transaction][:income_transaction_id]).id
+        params[:expense_transaction][:income_category_id] = IncomeTransaction.find(params[:expense_transaction][:income_transaction_id]).income_category.id
       end
 
       if params[:expense_transaction][:expense_category_id].present?
