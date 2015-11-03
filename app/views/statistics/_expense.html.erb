@@ -5,13 +5,14 @@
       <%  @expense_categories_hash.each do |expense_category| %>
       <tr>
       
-        <% params[:q][:tabs] = 'expense' if params[:q].present? %>
-        <% params[:q][:expense_category_id_in] = expense_category[:id] if params[:q].present? %>
+        <% params[:tabs] = 'expense' %>
+        <% params[:expense_category_id] = expense_category[:id] %>
           <b><td><%= link_to("#{expense_category[:name]}", all_transactions_path(params))  %></b></td>
             <td><%= "#{expense_category[:amount]}" %></td></b>
          </tr>
     
     <% end %>
+    <%  params[:expense_category_id]  = nil %>
     </table>
     </div>
   </div>

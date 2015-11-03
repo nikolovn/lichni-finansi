@@ -7,8 +7,8 @@
           <% @graphics_expense_type_hash.each do |type, amount| %>
           <tr>
             <tr>
-                  <% params = {q: { tabs: 'expense', expense_type_eq: type }} %>
-                  <% params.merge(params[:q])%>
+                  <% params[:tabs] = 'expense' %>
+                  <% params[:expense_type] = type %>
                 <td><%= link_to("#{t %q(statistics.) + type.to_s }", all_transactions_path(params))  %></td>
                 <td><%= amount %></td>
               </tr>
