@@ -38,9 +38,9 @@ feature 'Show transactions' do
 
     visit all_transactions_path
     within("#income_transaction_search") do
-      fill_in 'q_date_gteq', with: '2014-08-08'
-      fill_in 'q_date_lteq', with: '2014-08-10' 
-      page.select 'Oil', :from => '_q_expense_category_id_in'
+      fill_in 'from_date', with: '2014-08-08'
+      fill_in 'to_date', with: '2014-08-10' 
+      page.select 'Oil', :from => 'expense_category_id'
 
       
       click_on 'Search'
@@ -68,9 +68,9 @@ feature 'Show transactions' do
 
     visit all_transactions_path
     within("#income_transaction_search") do
-      fill_in 'q_date_gteq', with: '2014-08-08'
-      fill_in 'q_date_lteq', with: '2014-08-10' 
-      page.select 'Car', :from => '_q_expense_category_id_in'
+      fill_in 'from_date', with: '2014-08-08'
+      fill_in 'to_date', with: '2014-08-10' 
+      page.select 'Car', :from => 'expense_category_id'
 
       
       click_on 'Search'

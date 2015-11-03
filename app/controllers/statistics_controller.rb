@@ -7,56 +7,44 @@ class StatisticsController < ApplicationController
 
     @income_transactions_all = current_user.income_transactions.order(:date)
 
-    if params[:q].present?
-      income_params = params[:q].deep_dup
-      income_params[:id_eq] = income_params[:income_id]
-      @income_params_id = income_params[:id_eq]
-      expense_params = params[:q].deep_dup
-      @expense_category_id = expense_params[:expense_category_id_in]
-      if expense_params[:expense_category_id_in].present?
-        expense_params[:expense_category_id_in] = ExpenseCategory.find(expense_params[:expense_category_id_in]).subtree_ids
-      end
-      expense_params[:income_transaction_id_eq] = income_params[:income_id] 
-    end
-
-    @q_income_transactions = current_user.income_transactions.search(income_params)
-    income_transactions = @q_income_transactions.result(distinct: true)
+    @q_income_transactions = current_user.income_transactions.search(SharedParams.income_params(params))
+    @income_transactions = @q_income_transactions.result(distinct: true).order(:date)
     
-    @q_expense_transactions = current_user.expense_transactions.search(expense_params)
+    @q_expense_transactions = current_user.expense_transactions.search(SharedParams.expense_params(params))
     expense_transactions = @q_expense_transactions.result(distinct: true).order('date ASC')
 
-    @income_categories_hash = calculate_data_by_income_category(@income_categories, income_params)
-    @graphics_income_category = graphics_income_transactions
+    @income_categories_hash = calculate_data_by_income_category(@income_categories, SharedParams.income_params(params))
+    @graphics_income_category = graphics_income_transactions(@income_categories_hash)
 
-    @expense_categories_hash =  calculate_data_by_expense_category(@expense_categories, expense_params)
-    @graphics_expense_category = graphics_expense_category
+    @expense_categories_hash =  calculate_data_by_expense_category(@expense_categories, SharedParams.expense_params(params))
+    @graphics_expense_category = graphics_expense_category(@expense_categories_hash)
     
-    @graphics_balance_category_hash = calculate_balance(income_transactions, expense_transactions)
-    @graphics_balance_category = graphics_balance
+    @graphics_balance_category_hash = calculate_balance(@income_transactions, expense_transactions)
+    @graphics_balance_category = graphics_balance(@graphics_balance_category_hash)
     
     @graphics_expense_type_hash = calculate_graphics_expense_type(expense_transactions)
-    @graphics_expense_type = graphics_expense_type      
+    @graphics_expense_type = graphics_expense_type(@graphics_expense_type_hash)    
 
-    @expense_by_date_hash = expense_by_date(expense_transactions)
-    @expense_by_date = graphics_expense_by_date
-
-    @expense_by_month = graphics_expense_by_month if salary_exists?
-
-    @expense_by_category_month_hash = expense_by_category_by_month(expense_params) if salary_exists?
-    @expense_by_category_month = graphics_expense_by_category_by_month(expense_params) if salary_exists?
-    @expense_by_category_month_legend = expense_by_month_label if salary_exists?
+    if params[:income_category_id].present? && params[:income_transaction_id].blank?
+      @expense_by_month_hash = calculate_expense_by_month(expense_transactions, @income_transactions)
+      @expense_by_month = graphics_expense_by_month(@expense_by_month_hash)
+  
+      
+      @expense_by_category_by_month_hash = calculate_expense_by_category_by_month(@expense_categories, expense_transactions, @income_transactions)
+      @expense_by_category_month = graphics_expense_by_category_by_month(@expense_by_category_by_month_hash) 
+    end
   end
   
   private
 
  # start graphics methods
 
-  def graphics_income_transactions
+  def graphics_income_transactions(income_categories_hash)
     Gchart.pie_3d({
           :title => "#{t 'statistics.income' }", 
           :size => '500x300',
-          :data => @income_categories_hash.map {|income_category| income_category[:amount] },
-          :legend => @income_categories_hash.map {|income_category| income_category[:income_category] },
+          :data => income_categories_hash.map {|income_category| income_category[:amount] },
+          :legend => income_categories_hash.map {|income_category| income_category[:income_category] },
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -64,12 +52,12 @@ class StatisticsController < ApplicationController
     })
   end
 
-  def graphics_expense_category
+  def graphics_expense_category(expense_categories_hash)
     Gchart.pie_3d({
           :title => "#{t 'statistics.expense' }", 
           :size => '500x300',
-          :data => @expense_categories_hash.map {|expense_category| expense_category[:amount] }, 
-          :legend => @expense_categories_hash.map {|expense_category| expense_category[:name] },
+          :data => expense_categories_hash.map {|expense_category| expense_category[:amount] }, 
+          :legend => expense_categories_hash.map {|expense_category| expense_category[:name] },
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -77,11 +65,11 @@ class StatisticsController < ApplicationController
     })
   end
 
-  def graphics_balance
+  def graphics_balance(graphics_balance_category_hash)
     Gchart.pie_3d({
           :title => "#{t 'statistics.balance' }", 
           :size => '400x200',
-          :data => @graphics_balance_category_hash.values.shift(2).map {|balance| balance.amount}, 
+          :data => graphics_balance_category_hash.values.shift(2).map {|balance| balance.amount}, 
           :legend => ["#{t 'statistics.income' }", "#{t 'statistics.expense' }"],
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
@@ -90,12 +78,12 @@ class StatisticsController < ApplicationController
     })
   end
  
-  def graphics_expense_type
+  def graphics_expense_type(graphics_expense_type_hash)
     Gchart.pie_3d({
           :title => "#{t 'statistics.expense_by_type' }", 
           :size => '400x200',
-          :data => @graphics_expense_type_hash.values.map {|expense_type| expense_type.amount}, 
-          :legend => @graphics_expense_type_hash.keys.map {|type| "#{t %q(statistics.) + type.to_s }"},
+          :data => graphics_expense_type_hash.values.map {|expense_type| expense_type.amount}, 
+          :legend => graphics_expense_type_hash.keys.map {|type| "#{t %q(statistics.) + type.to_s }"},
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => ['x', 'y'], 
@@ -103,12 +91,12 @@ class StatisticsController < ApplicationController
     })
   end
 
-  def graphics_expense_by_date
+  def graphics_expense_by_date(expense_by_date_hash)
     Gchart.line({
           :title => "#{t 'statistics.expense_by_date' }", 
           :size => '800x200',
-          :data => @expense_by_date_hash.map {|hash| hash[:amount].amount}, 
-          :labels => @expense_by_date_hash.map {|hash| hash[:date]},
+          :data => expense_by_date_hash.map {|hash| hash[:amount].amount}, 
+          :labels => expense_by_date_hash.map {|hash| hash[:date]},
           :bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => 'ff0000,00ff00',
           #:axis_with_labels => [ 'y'], 
@@ -116,13 +104,13 @@ class StatisticsController < ApplicationController
     })
   end
 
-  def graphics_expense_by_month
+  def graphics_expense_by_month(expense_by_month_hash)
      Gchart.line({
           :title => "#{t 'statistics.expense_by_date' }", 
           :size => '800x200',
-          :data => income_expense_by_month_data, 
+          :data => [expense_by_month_hash[:income_amount], expense_by_month_hash[:expense_amount]], 
           :legend => ["#{t 'statistics.income' }", "#{t 'statistics.expense' }"],
-          :labels => expense_by_month_label,
+          :labels => expense_by_month_hash[:income_date],
           #:bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => '00ff00,ff0000',
 
@@ -131,13 +119,13 @@ class StatisticsController < ApplicationController
      })
   end
 
-  def graphics_expense_by_category_by_month(expense_params)
+  def graphics_expense_by_category_by_month(expense_by_category_by_month_hash)
      Gchart.line({
           :title => "#{t 'statistics.expense_by_date' }", 
           :size => '800x300',
-          :data => expense_by_category_by_month(expense_params).map {|category| category.values.map {|a| a[:amount]}.flatten }, 
-          :legend => expense_by_category_by_month(expense_params).map {|category| category.keys}.flatten.map {|category| category.name},
-          :labels => expense_by_month_label,
+          :data => expense_by_category_by_month_hash.map {|income| income[:expense].map {|expense| expense[:expense_category_amount]}}, 
+          :legend => expense_by_category_by_month_hash.map {|income| income[:parent_category_id]},
+          :labels => expense_by_category_by_month_hash.map {|income| income[:expense].map {|expense| expense[:income_transaction_date]}}.flatten.uniq,
           #:bg => {:color => 'ffffff', :type => 'stripes'}, 
           :bar_colors => colors = 13.times.map{"%06x" % (rand * 0x100000)},
 
@@ -187,62 +175,33 @@ class StatisticsController < ApplicationController
     }
   end
 
-  def expense_by_date(transactions)
-    transactions.group_by(&:date).map do |date, transaction|
-      Hash[date: date.strftime('%F'), amount: transaction.collect(&:amount).sum]
+  def calculate_expense_by_month(expense_transactions, income_transactions)
+    expense_transactions.group_by(&:income_category_id).map do |income_category_id, transaction|
+      if income_category_id.present?
+        Hash[ income_category_id: income_category_id, 
+              income_amount: map_income_transactions(income_category_id, income_transactions).map {|income_transaction| income_transaction.amount.to_f },
+              
+              income_date: map_income_transactions(income_category_id, income_transactions).map {|income_transaction| income_transaction.date.strftime('%m-%y') }, 
+              expense_amount: map_income_transactions(income_category_id, income_transactions).map {|income_transaction| income_transaction.expense_transactions.collect(&:amount).sum.to_f } 
+        ]
+      end
+    end.first
+  end
+
+  def calculate_expense_by_category_by_month(expense_categories, expense_transactions, income_transactions)
+   expense_categories.roots.map do |parent_expense_category|
+
+      Hash[ parent_category_id: parent_expense_category.name,
+                       
+                expense: income_transactions.map do |income_transaction|
+                    Hash[income_transaction_date: income_transaction.date.strftime('%m-%y'), 
+                    expense_category_amount: expense_transactions.where(parent_expense_category_id: parent_expense_category.id, income_transaction_id: income_transaction.id).collect(&:amount).sum.to_f ]
+                end 
+        ]
     end
   end
 
-
-# ------ income_expense_by_month calculation ----#
-  def income_expense_by_month_data
-
-    income = []
-    expense = []
-    select_income_transactions.order(:date).each do |income_transaction|
-      income << income_transaction.amount.to_f 
-      expense << income_transaction.expense_transactions.collect(&:amount).sum.to_f
-    end
-    [income, expense]
-  end
-
- def expense_by_month_label
-    select_income_transactions.order(:date).map do |income_transaction|
-      income_transaction.date.strftime('%m-%y')
-    end
-  end
-# ------ income_expense_by_month calculation ----#
-
-# ------ expense_by_category_by_month calculation ----#
-
-  def expense_by_category_by_month(expense_params)
-    expense_category_hash = ExpenseCategory.where(user_id: current_user.id).where(ancestry_depth: 0).map do |category|
-      Hash[category, amount:
-        select_income_transactions.map do |income_transaction|
-          Monetize.parse(category.descendants.map do |descendant| 
-            hash = { income_transaction_id_eq: income_transaction.id}
-            hash = hash.merge(expense_params) if expense_params.present?
-            q_expense_transactions = descendant.expense_transactions.search(hash)
-            q_expense_transactions.result(distinct: true).collect(&:amount).sum
-          end.sum).to_f
-      end]
-    end
-
-    
-     expense_category_hash.map do |expense_category_hash| 
-       expense_category_hash if expense_category_hash.values.map{|h| h[:amount].sum > 0}.first  
-     end.compact
-  end
-# ------ expense_by_category_by_month calculation ----#
-
-   # stop calculation methods
-
-  def select_income_transactions
-    current_user.income_category.where(id: params[:income_category_id]).first.income_transactions.order(:date) 
-  end
-
-  def salary_exists?
-    current_user.income_category.where(id: params[:income_category_id]).present? &&
-    current_user.income_category.where(id: params[:income_category_id]).first.income_transactions.present?
+  def map_income_transactions(income_category_id, income_transactions)
+    income_transactions.where(income_category_id: income_category_id)
   end
 end
