@@ -12,6 +12,7 @@ class ExpenseTransaction < ActiveRecord::Base
   validates :expense_category_id, numericality: true
 
   belongs_to :income_transaction
+  belongs_to :income_category
 
   scope :current_user, -> { where(published: true) }
   scope :current_month, ->{ where(:date => date_range) }
