@@ -27,7 +27,7 @@ class StatisticsController < ApplicationController
 
     if params[:income_category_id].present? && params[:income_transaction_id].blank?
       @expense_by_month_hash = calculate_expense_by_month(expense_transactions, @income_transactions)
-      @expense_by_month = graphics_expense_by_month(@expense_by_month_hash)
+      @expense_by_month = graphics_expense_by_month(@expense_by_month_hash) if @expense_by_month.present?
   
       
       @expense_by_category_by_month_hash = calculate_expense_by_category_by_month(@expense_categories, expense_transactions, @income_transactions)
