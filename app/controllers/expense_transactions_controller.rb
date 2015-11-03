@@ -31,7 +31,15 @@ class ExpenseTransactionsController < ApplicationController
     end
 
     def expense_transactions_params
-      params.require(:expense_transaction).permit(:expense_category_id, :income_transaction_id, :description, :date, :amount, :expense_type)
+      if params[:expense_transaction][:income_transaction_id].present?
+        params[:expense_transaction][:income_category_id] = IncomeTransaction.find(params[:expense_transaction][:income_transaction_id]).id
+      end
+
+      if params[:expense_transaction][:expense_category_id].present?
+        params[:expense_transaction][:parent_expense_category_id] = ExpenseCategory.find(params[:expense_transaction][:expense_category_id]).parent_id
+      end
+      params.require(:expense_transaction).permit(:expense_category_id, :parent_expense_category_id, :income_transaction_id, :income_category_id, :description, :date, :amount, :expense_type)
+      
     end
 
   def destroy
