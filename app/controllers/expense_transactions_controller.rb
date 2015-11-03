@@ -38,7 +38,7 @@ class ExpenseTransactionsController < ApplicationController
     ExpenseTransaction.destroy(params[:id])
 
     respond_to do |format|
-      format.html { redirect_to :controller => 'all_transactions', :action => 'index', :q => {tabs: 'expense'}, commit: 'Search', utf8: '✓' }
+      format.html { redirect_to :controller => 'all_transactions', :action => 'index', :params => params }
       format.json { head :no_content }
     end
   end

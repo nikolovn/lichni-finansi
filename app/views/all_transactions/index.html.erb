@@ -54,7 +54,7 @@
             <td width = 25%><%= best_in_place transaction, :description, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :amount, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :date, :type => :input %></td>
-            <td width = 5%><%= link_to "#{ t 'all_transactions.destroy' }", transaction, method: :delete, data: { confirm: "#{ t 'all_transactions.are_you_sure' }" } %></td>
+            <td width = 5%><%= link_to "#{ t 'all_transactions.destroy' }", income_transaction_path(id: transaction.id, params:params), method: :delete, data: { confirm: "#{ t 'all_transactions.are_you_sure' }" } %></td>
           </tr>
         <% end %>
           <tr>
@@ -84,7 +84,7 @@
             <td width = 25%><%= best_in_place transaction, :description, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :amount, :type => :input %></td>
             <td width = 25%><%= best_in_place transaction, :date, :type => :input %></td>
-            <td width = 5%><%= link_to "#{ t 'all_transactions.destroy' }", transaction, method: :delete, data: { confirm: "#{ t 'all_transactions.are_you_sure' }" } %></td>
+            <td width = 5%><%= link_to "#{ t 'all_transactions.destroy' }", expense_transaction_path(id: transaction.id, params:params), method: :delete, data: { confirm: "#{ t 'all_transactions.are_you_sure' }" } %></td>
           </tr>
           <% end %>
           <tr>
