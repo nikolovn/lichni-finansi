@@ -1,5 +1,5 @@
 .container
-  .panel.panel-default
+  .panel.panel-info
     .panel-heading
       %span.glyphicon.glyphicon-filter
       %table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
@@ -13,10 +13,11 @@
               %td
                 %a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "##{category.id}", class: 'show_sub_category', :id => "colapse_#{category.id}"}
                   %b
-                    = category.name
+                    = best_in_place category, :name, :activator => "#edit_#{category.id}", :inner_class => "css_class", :href => "##{category.id}"
                 = render partial: 'sub_category', locals: { category: category   }
-                
-      
-               
-              %td 
-                = link_to '', expense_category_path(category.id),title: "#{t 'expense_categories.delete_category' }", method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-remove"
+                = render partial: 'add_sub_category', locals: { category: category   }
+
+              %td
+                %a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#add_#{category.id}", class: 'glyphicon glyphicon-plus', :id => "colapse_#{category.id}"}
+                %a{:href => "#", :id => "edit_#{category.id}", class: 'glyphicon glyphicon-edit', title: "#{t 'expense_categories.edit_category' }"}
+                = link_to '', expense_category_path(category.id), title: "#{t 'expense_categories.delete_category' }", method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-remove"
