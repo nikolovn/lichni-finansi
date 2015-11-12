@@ -4,13 +4,15 @@
       - category.descendants.each do |descendant|
         %tr
           %td
-            %a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "##{descendant.id}", 'title' => "#{t 'expense_categories.enter_еxepense' }", 'name' => "#{t 'expense_categories.edit_category' }"}
-              = descendant.name
+            %a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "##{descendant.id}", 'title' => "#{t 'expense_categories.enter_еxepense' }", 'name' => "#{t 'expense_categories.edit_category' }", }
+              = best_in_place descendant, :name, :activator => "#edit_#{descendant.id}", :inner_class => "css_class", :href => "##{descendant.id}"
+             
             
             %td{:id => "#{descendant.id}", 'aria-labelledby' => "headingOne", :class => 'panel-collapse collapse', :role => "tabpanel"}
 
               = render partial: 'expense_transactions/form', locals: { expense_category_id: descendant.id }              
           %td
+            %a{:href => "#", :id => "edit_#{descendant.id}", class: 'glyphicon glyphicon-edit', title: "#{t 'expense_categories.edit_category' }"}
             = link_to '', expense_category_path(descendant.id), method: :delete, data: { confirm: 'Are you sure?' }, title: "#{t 'expense_categories.delete_category' }", class: "glyphicon glyphicon-remove"
             %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "##{descendant.id}" }
 / /.container

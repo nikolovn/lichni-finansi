@@ -1,6 +1,7 @@
 = form_for(@expense_category) do |c|
   .field
     = c.text_field :name
-    = c.select('parent_id',  options_from_collection_for_select(@expense_parent_categories , 'id', 'name'), {include_blank: 'None'})
+    - category_id ||= nil
+    = c.hidden_field :parent_id, :value => category_id
   .actions
     = c.submit  "#{t 'income_categories.new.save'}"
