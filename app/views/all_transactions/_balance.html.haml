@@ -1,0 +1,7 @@
+#balance{:class => "tab-pane #{@active_balance}"}
+  %table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
+    %thead
+      %tr
+        %th
+          = t 'all_transactions.current_balance'
+          \: #{@current_balance} лв.

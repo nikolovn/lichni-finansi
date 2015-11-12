@@ -1,0 +1,22 @@
+.container
+  .panel.panel-default
+    .panel-heading
+      %span.glyphicon.glyphicon-filter
+      %table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
+        %thead
+          %tr
+            %th.col-md-10= t 'expense_categories.category'
+            %th.col-md-2= t 'expense_categories.action'
+        %tbody
+          - @expense_parent_categories.each do |category|
+            %tr
+              %td
+                %a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "##{category.id}", class: 'show_sub_category', :id => "colapse_#{category.id}"}
+                  %b
+                    = category.name
+                = render partial: 'sub_category', locals: { category: category   }
+                
+      
+               
+              %td 
+                = link_to '', expense_category_path(category.id),title: "#{t 'expense_categories.delete_category' }", method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-remove"

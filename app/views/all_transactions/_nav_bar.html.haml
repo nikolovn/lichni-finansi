@@ -1,0 +1,7 @@
+%ul.nav.nav-tabs
+  %li{:class => @active_income}
+    %a{"data-toggle" => "tab", :href => "#income"}= t 'all_transactions.income_transactions'
+  %li{:class => @active_expense}
+    %a{"data-toggle" => "tab", :href => "#expense"}= t 'all_transactions.expense_transactions'
+  %li{:class => @active_balance}
+    %a{"data-toggle" => "tab", :href => "#balance"}= t 'all_transactions.balance'
