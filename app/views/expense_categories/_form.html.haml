@@ -1,0 +1,6 @@
+= form_for(@expense_category) do |c|
+  .field
+    = c.text_field :name
+    = c.select('parent_id',  options_from_collection_for_select(@expense_parent_categories , 'id', 'name'), {include_blank: 'None'})
+  .actions
+    = c.submit  "#{t 'income_categories.new.save'}"
