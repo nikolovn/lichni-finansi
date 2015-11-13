@@ -38,11 +38,11 @@ feature 'Enter Category' do
 
     visit 'income_categories'
 
-    click_on('Edit Category', match: :first)
-
+    click_on('Edit', match: :first)
+    fill_in 'income_category_name', with: 'income_category_1'
     click_on 'Save'
 
-    expect(page).to have_content 'Income category was successfully updated.'
+    expect(page).to have_content 'income_category_1'
   end
 
   scenario 'Remove Category' do

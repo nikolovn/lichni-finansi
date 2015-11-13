@@ -77,7 +77,7 @@ describe IncomeTransactionsController do
 
       delete :destroy, id: 1
 
-      expect(response).to redirect_to root_path({:q => {tabs: 'income'}, commit: 'Search', utf8: '✓' })
+      expect(response).to redirect_to "#{root_path}?action=destroy&controller=income_transactions&id=1"
     end
   end
 

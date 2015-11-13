@@ -19,7 +19,12 @@ describe ExpenseTransactionsController do
 
   describe 'POST #create' do 
     context 'with valid attributes' do
-      it 'creates a new expense transaction' do
+      before(:each) do  
+        IncomeTransaction.stub_chain(:find, :income_category, :id) {1}
+        ExpenseCategory.stub_chain(:find, :parent_id) {1}
+      end
+
+      it 'creates a new expense transaction'  do
         expense_transactions = double(:expense_transactions).as_null_object
         User.any_instance.should_receive(:expense_transactions) { expense_transactions }
         expense_transactions.should_receive(:build)
@@ -77,16 +82,18 @@ describe ExpenseTransactionsController do
 
       delete :destroy, id: 1
 
-      expect(response).to redirect_to root_path({:q => {tabs: 'expense'}, commit: 'Search', utf8: '✓' })
+      expect(response).to redirect_to "#{root_path}?action=destroy&controller=expense_transactions&id=1"
     end
-  end
+  end 
 
   private
 
   def expense_transactions_params
     {
       expense_category_id: '1',
+      parent_expense_category_id: 1,
       income_transaction_id: '1', 
+      income_category_id: 1,
       description: 'name',
       date: '10.10.2014', 
       amount: '10',

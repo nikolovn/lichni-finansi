@@ -11,7 +11,6 @@ class ExpenseCategoriesController < ApplicationController
     @expense_transaction = ExpenseTransaction.new
     @income_transactions = IncomeTransaction.where(user_id: current_user.id)
     @expense_category = ExpenseCategory.new
-
   end
 
   # GET /categories/1
@@ -66,7 +65,8 @@ class ExpenseCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @expense_category.update(expense_category_params)
-        format.html { redirect_to(@expense_category, :notice => 'User was successfully updated.') }
+
+        format.html { redirect_to(expense_categories_path, :notice => 'Expense category was successfully updated.') }
         format.json { render json: nil, status: :ok }
       else
         format.html { redirect_to action: 'edit' }
