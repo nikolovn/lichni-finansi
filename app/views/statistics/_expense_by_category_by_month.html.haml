@@ -1,0 +1,8 @@
+= image_tag (@expense_by_category_month)
+%table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
+  - if @expense_by_category_by_month_hash.present?
+    - @expense_by_category_by_month_hash.map  do |income|
+      %tr
+        %td= income[:parent_category_id]
+        - income[:expense].map do |expense|
+          %td= expense[:expense_category_amount]

@@ -1,0 +1,13 @@
+= image_tag (@graphics_expense_category)
+%b
+  = t 'statistics.expense'
+= @validate_data_expense_category
+%table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
+  - @expense_categories_hash.each do |expense_category|
+    %tr
+      - params[:tabs] = 'expense'
+      - params[:expense_category_id] = expense_category[:id]
+      %b
+        %td= link_to("#{expense_category[:name]}", all_transactions_path(params))
+      %td= "#{expense_category[:amount]}"
+  - params[:expense_category_id]  = nil

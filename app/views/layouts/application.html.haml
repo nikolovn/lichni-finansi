@@ -1,0 +1,40 @@
+!!!
+%html
+  %head
+    %title myBudget.bg
+    = stylesheet_link_tag  "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+    = analytics_init if Rails.env.production?
+  %body
+    %nav.navbar.navbar-inverse{:role => "navigation"}
+      .container-fluid
+        / Brand and toggle get grouped for better mobile display
+        .navbar-header
+          %button.navbar-toggle{"data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{:href => "#"}= t "menu.personal_finance"
+        / Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            - if user_signed_in?
+              %li{:class => active_class?(income_categories_path)}= link_to "#{t 'menu.enter_inome_transaction'}", income_categories_path
+              %li{:class => active_class?(expense_categories_path)}= link_to "#{t 'menu.enter_expense_transaction'}", expense_categories_path, :class => active_class?(expense_categories_path)
+              %li{:class => active_class?(all_transactions_path)}= link_to "#{t 'menu.all_transactions'}", all_transactions_path
+              %li{:class => active_class?(statistics_path)}= link_to "#{t 'menu.statistics'}", statistics_path
+              %li{:class => active_class?(destroy_user_session_path)}= link_to "#{t 'menu.log_out'}", destroy_user_session_path, :method => :delete
+      / /.container-fluid
+    .container
+      - flash.each do |name, msg|
+        - if name.to_s == 'error'
+          .alert.alert-danger{:role => "alert"}
+            = content_tag :div, msg, class: name
+      - flash.each do |name, msg|
+        - if name.to_s == 'notice'
+          .alert.alert-success{:role => "alert"}
+            = content_tag :div, msg, class: name
+      = yield
+  = render 'layouts/tyxo' if Rails.env.production?

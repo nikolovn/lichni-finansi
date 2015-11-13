@@ -1,0 +1,12 @@
+= @validate_data_income_category
+= image_tag (@graphics_expense_type)
+%br
+%b
+  = t 'statistics.expense_by_type'
+%table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
+  - @graphics_expense_type_hash.each do |type, amount|
+    %tr
+      - params[:tabs] = 'expense'
+      - params[:expense_type] = type
+      %td= link_to("#{t %q(statistics.) + type.to_s }", all_transactions_path(params))
+      %td= amount

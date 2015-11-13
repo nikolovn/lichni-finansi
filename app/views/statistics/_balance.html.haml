@@ -1,0 +1,13 @@
+= @validate_data_income_category
+= image_tag (@graphics_balance_category)
+%table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
+  %br
+  %b
+    = t 'statistics.balance'
+  - @graphics_balance_category_hash.each do |key, amount|
+    %tr
+      - params[:tabs] = key
+      - params.merge(params)
+      %td= link_to("#{t %q(statistics.) + key.to_s }", all_transactions_path(params))
+      %td
+        = amount

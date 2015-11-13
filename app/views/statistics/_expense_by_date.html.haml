@@ -1,0 +1,13 @@
+= @validate_data_income_category
+= image_tag (@expense_by_date)
+  %table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
+    %b
+    %br
+      = t 'statistics.expense_by_date'
+    - @expense_by_date_hash.each do |hash|
+      %tr
+        - params = {q: { date_gteq: hash[:date], date_lteq: hash[:date], tabs: 'expense'}}
+        - params.merge(params[:q])
+        %td= link_to("#{hash[:date]}", all_transactions_path(params))
+        %td
+          = hash[:amount]

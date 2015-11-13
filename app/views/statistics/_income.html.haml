@@ -1,0 +1,12 @@
+= @validate_data_income_category
+= image_tag (@graphics_income_category)
+%br
+%b
+  = t 'statistics.income'
+%table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
+  - @income_categories_hash.each do |income|
+    %tr
+      - params = {q: { tabs: 'income', income_category_id: income[:id] }}
+      - params = params[:q].merge(params) if params.present? &&  params[:q].present?
+      %td= link_to("#{income[:income_category]}", all_transactions_path(params))
+      %td= income[:amount]
