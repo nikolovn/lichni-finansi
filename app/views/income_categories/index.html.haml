@@ -1,7 +1,7 @@
 .container
   .panel.panel-info
     .panel-heading
-      = t 'expense_categories.expense_transactions' 
+      = t 'income_categories.income_transactions' 
     .panel-body
       %table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
         %thead
@@ -11,10 +11,10 @@
               = render partial: 'add_category'
             %th.col-md-2= t 'expense_categories.action'
         %tbody
-          - @expense_parent_categories.each do |category|
+          - @income_categories.each do |category|
             %tr
               %td
-                = render partial: 'show_category', locals: { category: category  }
-                = render partial: 'show_sub_category', locals: { category: category }
-                = render partial: 'add_sub_category', locals: { category: category }
+                %div.col-md-4
+                  = render partial: 'show_category', locals: { category: category  }
+                = render partial: 'add_transactions', locals: { category: category }
                 = render partial: 'action', locals: { category: category }

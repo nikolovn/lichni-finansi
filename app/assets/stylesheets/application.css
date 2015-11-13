@@ -61,6 +61,13 @@
   padding: 6px !important;
 }
 
+.css_class {
+  background:#C0C0C0;
+  pointer-events: none;
+  cursor: default;
+}
+
+
 
 
 

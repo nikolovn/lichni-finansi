@@ -1,0 +1,10 @@
+%a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#add_category", class: 'glyphicon glyphicon-plus', title: "#{t 'income_categories.new_category'}"}
+%div{:id => "add_category", 'aria-labelledby' => "headingOne", :class => 'panel-collapse collapse', :role => "tabpanel"}
+  .panel-body
+    %table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
+      %tr
+        %td
+          = render partial: 'form'
+/ /.container
+  
+

@@ -8,6 +8,7 @@ class IncomeCategoriesController < ApplicationController
   def index
     @income_categories = IncomeCategory.where(user_id: current_user.id)
     @income_transaction = IncomeTransaction.new
+    @income_category = IncomeCategory.new
   end
 
   # GET /categories/1
@@ -47,6 +48,7 @@ class IncomeCategoriesController < ApplicationController
     respond_to do |format|
       if @income_category.update(income_category_params)
         format.html { redirect_to income_categories_path, notice: "#{t 'controller_message.income_categories.update'}" }
+        format.json { render json: nil, status: :ok }
       else
         format.html { redirect_to action: 'edit' }
         @income_category.errors.full_messages.each do |msg|

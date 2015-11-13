@@ -1,0 +1,9 @@
+%div.col-md-8{:id => "add_sub_#{category.id}", 'aria-labelledby' => "headingOne", :class => 'panel-collapse collapse', :role => "tabpanel"}
+  .panel-body
+    %table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
+      %tr
+        %td
+          = render partial: 'income_transactions/form', locals: { income_category_id: category.id   }
+/ /.container
+  
+

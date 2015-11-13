@@ -1,11 +1,13 @@
 .row.equal
   .col-md-12
-    .panel.panel-default{:style => "text-align:center"}
+    .panel.panel-info{:style => "text-align:center"}
       .panel-heading
         %h1.panel-title= t 'all_transactions.filter_transactions'
       = render partial: 'shared/search', locals: { path: all_transactions_path }
-= render 'nav_bar'
-.tab-content
-  = render 'income_transactions'
-  = render 'expense_transactions'
-  = render 'balance'
+    .panel.panel-info
+      .panel-heading
+        = render 'nav_bar'
+        .tab-content
+          = render 'income_transactions'
+          = render 'expense_transactions'
+          = render 'balance'

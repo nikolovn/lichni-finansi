@@ -1,8 +1,5 @@
-<%= form_for(@income_category) do |c| %>
-  <div class="field">
-    <%= c.text_field :name %>
-  </div>
-  <div class="actions">
-    <%= c.submit  "#{t 'income_categories.new.save'}"%>
-  </div>
-<% end %>
+= form_for(@income_category) do |c|
+  .field
+    = c.text_field :name
+  .actions
+    = c.submit  "#{t 'income_categories.new.save'}"
