@@ -14,11 +14,13 @@ class ExpenseTransactionsController < ApplicationController
       if @transaction.save
         flash[:notice] = "#{t 'controller_message.expense_transactions.create'}"
         format.html { redirect_to :controller => 'expense_categories', :action => 'index' }
+        format.js { render :create }
       else
         format.html { redirect_to expense_categories_path }
         @transaction.errors.full_messages.each do |msg|
           flash[:error] = "#{msg}"
         end
+        format.js { render :create }
       end
     end
   end

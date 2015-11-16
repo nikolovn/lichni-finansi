@@ -24,6 +24,8 @@ en:
     expense_categories:
       create: 'Expense category was successfully created.'
       update: 'Expense category was successfully updated.'
+    expense_child_categories:
+      create: 'Expense sub category was successfully created.'
     income_categories:
       create: 'Income category was successfully created.'
       update: 'Income category was successfully updated.'

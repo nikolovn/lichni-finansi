@@ -50,12 +50,19 @@ class ExpenseCategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
+        if @category.root?
+          flash.now[:notice] = "#{t 'controller_message.expense_categories.create'}"
+        else
+          flash.now[:notice] = "#{t 'controller_message.expense_child_categories.create'}"
+        end
+        format.js { render :create }
         format.html { redirect_to expense_categories_path, notice: "#{t 'controller_message.expense_categories.create'}" }
       else
-        format.html { redirect_to action: 'new' }
         @category.errors.full_messages.each do |msg|
           flash[:error] = "#{msg}"
         end
+        format.html { redirect_to action: 'new' }
+        format.js { render :create }
       end
     end
   end

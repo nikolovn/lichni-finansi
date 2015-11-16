@@ -1,0 +1,8 @@
+
+<% if params[:expense_category][:parent_id].blank? %>
+  $("#add_category_message_").html("<%= escape_javascript(render partial: 'shared/message', locals: { model: @category  }) %>");
+<% else %>
+  $("#add_category_message_<%= @category.parent_id %>").html("<%= escape_javascript(render partial: 'shared/message', locals: { model: @category  }) %>");
+<% end %>
+
+                

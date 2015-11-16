@@ -1,0 +1,10 @@
+- if model.errors.any?
+  - model.errors.full_messages.each do |msg|
+    %div{ class: 'alert alert-danger' }
+      %button.close{ 'aria-hidden' => 'true', 'data-dismiss' => 'alert', type: 'button' }
+      = content_tag :div, msg.html_safe, id: 'flash_notice'
+
+- if flash[:notice].present?
+  %div{class: 'alert alert-success'}
+    %button.close{ 'aria-hidden' => 'true', 'data-dismiss' => 'alert', type: 'button' }
+    = content_tag :div, flash[:notice].html_safe, id: 'flash_notice'

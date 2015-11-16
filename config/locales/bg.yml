@@ -3,6 +3,8 @@ bg:
     expense_categories:
       create: 'Категория за разходи е създадена.'
       update: 'Категория за разходи е прoменена.'
+    expense_child_categories:
+      create: 'Подкатегорията за разходи е създадена.'
     income_categories:
       create: 'Категория за приходи е създадена.'
       update: 'Категория за приходи е прoменена.'
