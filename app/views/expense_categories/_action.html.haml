@@ -1,4 +1,4 @@
 %td
   %a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#add_sub_#{category.id}", class: 'glyphicon glyphicon-plus', :id => "colapse_#{category.id}", title: "#{t 'expense_categories.new_sub_category'}"}
-  %a{:href => "#", :id => "edit_#{category.id}", class: 'glyphicon glyphicon-edit', title: "#{t 'expense_categories.edit_category' }"}
+  %a{:href => "#", :id => "edit_#{category.id}", class: 'glyphicon glyphicon-pencil', title: "#{t 'expense_categories.edit_category' }"}
   = link_to '', expense_category_path(category.id), title: "#{t 'expense_categories.delete_category' }", method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-remove"
