@@ -32,12 +32,15 @@ class IncomeCategoriesController < ApplicationController
 
     respond_to do |format|
       if @income_category.save
+        flash.now[:notice] = "#{t 'controller_message.income_categories.create'}"
         format.html { redirect_to income_categories_path, notice: "#{t 'controller_message.income_categories.create'}" }
+        format.js { render :create }
       else
         format.html { redirect_to action: 'new' }
         @income_category.errors.full_messages.each do |msg|
           flash[:error] = "#{msg}"
         end
+        format.js { render :create }
       end
     end
   end

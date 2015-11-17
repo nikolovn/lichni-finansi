@@ -1,2 +1,3 @@
-%b
-  = best_in_place category, :name, :activator => "#edit_#{category.id}", :inner_class => "css_class", :href => "##{category.id}"
+%a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#add_sub_#{category.id}", :id => "colapse_#{category.id}", title: "#{t 'income_transactions.create_income'}"}
+  %b
+    = best_in_place category, :name, :activator => "#edit_#{category.id}", :inner_class => "css_class", :href => "##{category.id}"

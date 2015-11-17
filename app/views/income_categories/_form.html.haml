@@ -1,5 +1,6 @@
-= form_for(@income_category) do |c|
+= form_for(@income_category, remote: true) do |c|
   .field
     = c.text_field :name
   .actions
+    %div{:id => "add_category_message"}
     = c.submit  "#{t 'income_categories.new.save'}"

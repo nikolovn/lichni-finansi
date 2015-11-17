@@ -1,0 +1,16 @@
+= form_for(@income_transaction, remote: true) do |f|
+  .form-group
+    = f.hidden_field :income_category_id, :value => income_category_id, :id => 'income_category_id'
+    = f.label "#{t 'expense_transactions.description'}"
+    %br
+      = f.text_area :description, class: "form-control"
+      %br
+        = f.label "#{t 'expense_transactions.amount'}"
+        %br
+          = f.text_field :amount, class: "form-control"
+          = f.label "#{t 'expense_transactions.date'}"
+          %br
+            = f.text_field :date ,'data-provide' => 'datepicker' ,'data-date-language' => 'bg','data-date-week-start' => 1, 'data-date-days-of-week-highlighted' => '0,6' ,'data-date-format' => 'dd/mm/yyyy', placeholder: 'DD/MM/YYYY'
+          %br
+            %div{:id => "add_transaction_message_#{income_category_id}"}
+            = f.submit "#{t 'income_transactions.create_income'}"

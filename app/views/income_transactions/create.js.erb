@@ -1,0 +1,1 @@
+$("#add_transaction_message_<%= @transaction.income_category_id %>").html("<%= escape_javascript(render partial: 'shared/message', locals: { model: @transaction  }) %>");

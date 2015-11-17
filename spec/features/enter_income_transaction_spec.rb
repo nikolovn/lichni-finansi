@@ -18,18 +18,18 @@ feature 'Enter income transaction' do
     expect(page).to have_content 'Salary Kamelia'
   end
 
-  scenario 'Add fields and Enter the new transaction', js:true , driver: :rack_test do
+  scenario 'Add fields and Enter the new transaction' do
     FactoryGirl.create(:income_category, name: 'Salary Nikola')
-    Capybara.ignore_hidden_elements = nil
 
     visit 'income_categories'
       fill_in 'income_transaction_amount', with: '2300.00'
       fill_in 'income_transaction_description', with: 'June'
       fill_in 'income_transaction_date', with: '10.10.2014'
 
-      click_on 'Create Income transaction'
+      click_on 'Create Income transaction', match: :first
 
-      #expect(page).to have_content 'Successfully added new transaction'
+      pending('Need to rework');
+      expect(page).to have_content 'Successfully added new transaction'
     # end
   end
 

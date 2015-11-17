@@ -23,8 +23,6 @@ feature 'Enter Category' do
   scenario 'Add category' do
     visit 'income_categories'
     
-    click_on('New income category', match: :first)
-
     fill_in 'income_category_name', with: 'Salary1'
 
     click_on 'Save'
@@ -38,7 +36,7 @@ feature 'Enter Category' do
 
     visit 'income_categories'
 
-    click_on('Edit', match: :first)
+    click_on('Edit category', match: :first)
     fill_in 'income_category_name', with: 'income_category_1'
     click_on 'Save'
 
