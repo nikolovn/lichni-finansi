@@ -62,14 +62,25 @@
 }
 
 .css_class {
-  background:#C0C0C0;
+  background:#d9edf7;
   pointer-events: none;
   cursor: default;
 }
 
+.panel-collapse.collapse.in {
+  background-color:#d9edf7
 
+}
 
+.table-striped2>tbody>tr:nth-child(odd)>td, 
+.table-striped2>tbody>tr:nth-child(odd)>th {
+   background-color: #d9edf7;
+ }
 
+.panel_add_category{
+   background-color: #d9edf7;
+ }
+  
 
 
 

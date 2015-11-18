@@ -4,7 +4,7 @@
 
 %div{:id => "#{category.id}", 'aria-labelledby' => "headingOne", :class => colapse_class, :role => "tabpanel"}
   .panel-body
-    %table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
+    %table.table.table-bordered.table-hover.table-condensed.table-striped2.table-responsive
       - category.descendants.order(:name).each do |descendant|
         %tr
           %td
