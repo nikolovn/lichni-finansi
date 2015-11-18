@@ -17,3 +17,19 @@
 //= require best_in_place
 //= require_tree 
 //= require bootstrap-datepicker
+
+$(document).ready(function () {
+  $(".collapsed.glyphicon.glyphicon-plus").one("click", show_minus);
+});
+
+ function show_minus() {
+    var id = '#' + $(this).prop('id');
+    $(id).removeClass('glyphicon glyphicon-plus').addClass('glyphicon glyphicon-minus');
+    $(this).one("click", show_plus);
+  };
+
+function show_plus() {
+    var id = '#' + $(this).prop('id');
+    $(id).removeClass('glyphicon glyphicon-minus').addClass('glyphicon glyphicon-plus');
+    $(this).one("click", show_minus);
+  };

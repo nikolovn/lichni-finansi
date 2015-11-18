@@ -1,4 +1,4 @@
-%a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#add_category", class: 'glyphicon glyphicon-plus', title: "#{t 'income_categories.new_category'}"}
+%a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", id: 'gif_collapse', :href => "#add_category", class: 'glyphicon glyphicon-plus', title: "#{t 'income_categories.new_category'}"}
 %div{:id => "add_category", 'aria-labelledby' => "headingOne", :class => "panel-collapse collapse #{params['colapse_income_category']}", :role => "tabpanel"}
   .panel-body
     = render partial: 'form'
