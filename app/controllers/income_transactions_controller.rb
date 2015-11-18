@@ -15,13 +15,13 @@ class IncomeTransactionsController < ApplicationController
     respond_to do |format|
 
       if @transaction.save
-        flash[:notice] = "#{t 'controller_message.income_transactions.create'}"
+        flash.now[:notice] = "#{t 'controller_message.income_transactions.create'}"
         format.html { redirect_to :controller => 'income_categories', :action => 'index' }
         format.js { render :create }
       else
         format.html { redirect_to income_categories_path }
         @transaction.errors.full_messages.each do |msg|
-          flash[:error] = "#{msg}"
+          flash.now[:error] = "#{msg}"
         end
         format.js { render :create }
       end

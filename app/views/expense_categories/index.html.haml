@@ -1,20 +1,19 @@
-.container
-  .panel.panel-info
-    .panel-heading
-      = t 'expense_categories.expense_transactions' 
-    .panel-body
-      %table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
-        %thead
+.panel.panel-info
+  .panel-heading
+    = t 'expense_categories.expense_transactions' 
+  .panel-body
+    %table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
+      %thead
+        %tr
+          %th.col-md-10 
+            = t 'expense_categories.category'
+            = render partial: 'add_category'
+          %th.col-md-2= t 'expense_categories.action'
+      %tbody
+        - @expense_parent_categories.each do |category|
           %tr
-            %th.col-md-10 
-              = t 'expense_categories.category'
-              = render partial: 'add_category'
-            %th.col-md-2= t 'expense_categories.action'
-        %tbody
-          - @expense_parent_categories.each do |category|
-            %tr
-              %td
-                = render partial: 'show_category', locals: { category: category  }
-                = render partial: 'show_sub_category', locals: { category: category }
-                = render partial: 'add_sub_category', locals: { category: category }
-                = render partial: 'action', locals: { category: category }
+            %td
+              = render partial: 'show_category', locals: { category: category  }
+              = render partial: 'show_sub_category', locals: { category: category }
+              = render partial: 'add_sub_category', locals: { category: category }
+              = render partial: 'action', locals: { category: category }

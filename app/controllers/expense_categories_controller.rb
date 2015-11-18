@@ -2,14 +2,14 @@ class ExpenseCategoriesController < ApplicationController
   before_filter :authenticate_user!
   respond_to :html, :js
   
-  before_action :set_category, only: [:show_sub_category, :show, :edit, :update, :destroy]
+  before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   # GET /categories
   # GET /categories.json
   def index
     @expense_parent_categories = expense_parent_category
     @expense_transaction = ExpenseTransaction.new
-    @income_transactions = IncomeTransaction.where(user_id: current_user.id)
+    @income_transactions = current_user.income_transactions
     @expense_category = ExpenseCategory.new
   end
 
@@ -18,19 +18,6 @@ class ExpenseCategoriesController < ApplicationController
   def show
   end
 
-  def show_sub_category
-    @income_transactions = IncomeTransaction.where(user_id: current_user.id)
-
-    @expense_transaction = ExpenseTransaction.new
-    @expense_sub_categories = ExpenseCategory.find(params[:id]).descendants
-  end
-
-  def hide_sub_category
-    @income_transactions = IncomeTransaction.where(user_id: current_user.id)
-
-    @expense_transaction = ExpenseTransaction.new
-    @expense_sub_categories = ExpenseCategory.find(params[:id]).descendants
-  end
 
   # GET /categories/new
   def new
@@ -50,19 +37,17 @@ class ExpenseCategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        if @category.root?
-          flash.now[:notice] = "#{t 'controller_message.expense_categories.create'}"
-        else
-          flash.now[:notice] = "#{t 'controller_message.expense_child_categories.create'}"
-        end
-        format.js { render :create }
-        format.html { redirect_to expense_categories_path, notice: "#{t 'controller_message.expense_categories.create'}" }
+        sussess_message(@category)
+
+        format.html { redirect_to action: 'index', colapse_expanse_categories_id: @category.parent_id, notice: "#{t 'controller_message.expense_categories.create'}" }
       else
-        @category.errors.full_messages.each do |msg|
-          flash[:error] = "#{msg}"
+        error_message(@category)
+
+        if @category.root?
+          format.html { redirect_to action: 'index', colapse_expanse_form_id: -1 }
+        else
+          format.html { redirect_to action: 'index', colapse_expanse_form_id: params[:expense_category][:parent_id] }
         end
-        format.html { redirect_to action: 'new' }
-        format.js { render :create }
       end
     end
   end
@@ -96,8 +81,22 @@ class ExpenseCategoriesController < ApplicationController
 
   private
 
+    def sussess_message(category)
+      if category.root?
+        flash[:notice] = "#{t 'controller_message.expense_categories.create'}"
+      else
+        flash[:notice] = "#{t 'controller_message.expense_child_categories.create'}"
+      end
+    end
+
+    def error_message(category)
+      category.errors.full_messages.each do |msg|
+        flash[:error] = "#{msg}"
+      end
+    end
+
     def expense_parent_category
-      ExpenseCategory.where(user_id: current_user.id, ancestry_depth: 0).order('created_at ASC')
+      current_user.expense_category.roots.order(:name)
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_category

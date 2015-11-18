@@ -1,4 +1,9 @@
-%div{:id => "add_sub_#{category.id}", 'aria-labelledby' => "headingOne", :class => 'panel-collapse collapse', :role => "tabpanel"}
+
+- colapse_class = "panel-collapse collapse"
+- if params[:colapse_expanse_form_id].to_i == category.id
+  - colapse_class = "panel-collapse collapse in"
+
+%div{:id => "add_sub_#{category.id}", 'aria-labelledby' => "headingOne", :class => colapse_class, :role => "tabpanel"}
   .panel-body
     %table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
       %tr

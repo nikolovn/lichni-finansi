@@ -6,7 +6,7 @@ class IncomeCategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
   def index
-    @income_categories = IncomeCategory.where(user_id: current_user.id)
+    @income_categories = current_user.income_category.order(:name)
     @income_transaction = IncomeTransaction.new
     @income_category = IncomeCategory.new
   end
@@ -32,15 +32,11 @@ class IncomeCategoriesController < ApplicationController
 
     respond_to do |format|
       if @income_category.save
-        flash.now[:notice] = "#{t 'controller_message.income_categories.create'}"
-        format.html { redirect_to income_categories_path, notice: "#{t 'controller_message.income_categories.create'}" }
-        format.js { render :create }
+        flash[:notice] = "#{t 'controller_message.income_categories.create'}"
+        format.html { redirect_to action: 'index', notice: "#{t 'controller_message.income_categories.create'}" }
       else
-        format.html { redirect_to action: 'new' }
-        @income_category.errors.full_messages.each do |msg|
-          flash[:error] = "#{msg}"
-        end
-        format.js { render :create }
+        format.html { redirect_to action: 'index', colapse_income_category: 'in'  }
+        error_message(@income_category)
       end
     end
   end
@@ -58,6 +54,12 @@ class IncomeCategoriesController < ApplicationController
           flash[:error] = "#{msg} "
         end
       end
+    end
+  end
+
+  def error_message(category)
+    category.errors.full_messages.each do |msg|
+      flash[:error] = "#{msg}"
     end
   end
 
