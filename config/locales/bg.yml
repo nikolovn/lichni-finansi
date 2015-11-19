@@ -149,6 +149,7 @@ bg:
     edit:
       edit_category: 'Промени категорията за приходи'
     back: 'Назад'
+    delete_message: 'Ще изтриете категорията и всички транзакции в нея. Сигурни ли сте?'
   expense_categories:
     expense_transactions: 'Разходи'
     category: 'Категория'
@@ -166,6 +167,7 @@ bg:
     edit:
       edit_category: 'Промени категорията за разходи'
     back: 'Назад'
+    delete_message: 'Ще изтриете категорията и всички транзакции в нея. Сигурни ли сте?'
   expense_transactions:
     description: 'Описание:'
     date: 'Дата:'

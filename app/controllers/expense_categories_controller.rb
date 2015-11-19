@@ -72,6 +72,7 @@ class ExpenseCategoriesController < ApplicationController
   # DELETE /categories/1
   # DELETE /categories/1.json
   def destroy
+    current_user.expense_transactions.where(expense_category_id: @expense_category.subtree_ids).delete_all
     @expense_category.destroy
     respond_to do |format|
       format.html { redirect_to expense_categories_url }

@@ -66,6 +66,7 @@ class IncomeCategoriesController < ApplicationController
   # DELETE /categories/1
   # DELETE /categories/1.json
   def destroy
+    current_user.income_transactions.where(income_category_id: @income_category).delete_all
     @income_category.destroy
     respond_to do |format|
       format.html { redirect_to income_categories_url }

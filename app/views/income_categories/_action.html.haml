@@ -1,4 +1,4 @@
 %td.col-md-4
   %a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "#add_sub_#{category.id}", class: 'glyphicon glyphicon-plus', :id => "gif_colapse_#{category.id}", title: "#{t 'income_transactions.create_income'}"}
   %a{:href => "#", :id => "edit_#{category.id}", class: 'glyphicon glyphicon-pencil', title: "#{t 'expense_categories.edit_category' }"}
-  = link_to '', income_category_path(category.id), title: "#{t 'expense_categories.delete_category' }", method: :delete, data: { confirm: 'Are you sure?' }, class: "glyphicon glyphicon-remove"
+  = link_to '', income_category_path(category.id), title: "#{t 'expense_categories.delete_category' }", method: :delete, data: { confirm: "#{t 'expense_categories.delete_message' }" }, class: "glyphicon glyphicon-remove"
