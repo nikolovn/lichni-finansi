@@ -56,7 +56,6 @@ describe ExpenseCategoriesController do
     end
    end
 
-
   describe 'POST #create' do 
     context 'with valid attributes' do
       it 'creates a new expense category' do
@@ -72,7 +71,7 @@ describe ExpenseCategoriesController do
       it 'redirects to the index page when expense_category is created' do 
         post :create, expense_category: expense_category_params.symbolize_keys
 
-        expect(response).to redirect_to expense_categories_path
+        expect(response).to redirect_to expense_categories_path(params: { notice: 'Expense category was successfully created.' })
       end
 
       it 'flashes a success message' do 
@@ -89,10 +88,10 @@ describe ExpenseCategoriesController do
         }.to_not change(ExpenseCategory,:count)
       end
 
-      it 're-renders the new action' do 
+      it 're-renders the index action' do 
         post :create, expense_category: { name: '' }
 
-        expect(response).to redirect_to new_expense_category_path
+        expect(response).to redirect_to expense_categories_path(params: { colapse_expanse_form_id: -1 })
       end
 
       it 'flashes a error message' do 
@@ -154,14 +153,19 @@ describe ExpenseCategoriesController do
       expense_category = double(ExpenseCategory)
 
       ExpenseCategory.should_receive(:find).with('1') { expense_category }
+      expense_category.should_receive(:subtree_ids)
       expense_category.should_receive(:destroy)
 
       delete :destroy, id: 1
      end
 
     it 'redirects to #index' do
-      ExpenseCategory.stub_chain(:find, :destroy)
+      expense_category = double(ExpenseCategory)
 
+      ExpenseCategory.should_receive(:find).with('1') { expense_category }
+      expense_category.should_receive(:subtree_ids)
+      expense_category.should_receive(:destroy)
+      
       delete :destroy, id: 1
 
       expect(response).to redirect_to expense_categories_path
