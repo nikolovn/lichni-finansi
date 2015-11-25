@@ -1,1 +1,6 @@
 $("#add_transaction_message_<%= @transaction.expense_category_id %>").html("<%= escape_javascript(render partial: 'shared/message', locals: { model: @transaction  }) %>");
+
+
+setTimeout(function(){
+  $("#add_transaction_message_<%= @transaction.expense_category_id %>").html("");
+}, 5000);
