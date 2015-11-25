@@ -1,0 +1,30 @@
+.panel-body
+  = search_form_for [@q_income_transactions], url: path, method: :get do |f|
+    .col-md-4
+      = f.label "#{ t 'search_panel.income_transactions_category' }"
+      %div
+        = select_tag('income_category_id', options_for_select(@income_categories.map{ |t| [t.name, t.id] },  selected: params[:income_category_id]), {style: "width:300px", prompt: "#{t 'search_panel.chose_category' }"})
+        %div
+          = f.label "#{ t 'search_panel.income_transactions' }"
+          %div
+            = select_tag('income_transaction_id', options_for_select(@income_transactions_all.map{ |t| [t.description, t.id] },  selected: params[:income_transaction_id] ), {style: "width:300px", prompt: "#{t 'search_panel.chose_category' }"})
+            %div
+              = f.label "#{ t 'search_panel.expense_transactions' }"
+              %div
+                = select_tag('expense_category_id', options_for_select(options_for_expense_category(@expense_categories), selected: params[:expense_category_id] ), {prompt: "#{t 'search_panel.chose_category' }"})
+    .col-md-4
+      = f.label "#{ t 'search_panel.date_from' }"
+      %br
+        = text_field_tag 'from_date', value = params[:from_date], options = { 'data-provide' => 'datepicker', 'data-date-autoclose' => 'true', 'data-date-language' => 'bg', 'data-date-week-start' => 1, 'data-date-days-of-week-disabled' => '0,6', 'data-date-format' => 'dd/mm/yyyy', placeholder: 'DD/MM/YYYY'}
+        %br
+          = f.label "#{ t 'search_panel.date_to' }"
+          %br
+            = text_field_tag 'to_date', value = params[:to_date],options = { 'data-provide' => 'datepicker' ,'data-date-language' => 'bg','data-date-autoclose' => 'true','data-date-week-start' => 1, 'data-date-days-of-week-disabled' => '0,6' ,'data-date-format' => 'dd/mm/yyyy', placeholder: 'DD/MM/YYYY' }
+    .col-md-4
+      = f.label "#{ t 'search_panel.keys' }"
+      %br
+        = text_field_tag 'description'
+        %br
+          = hidden_field_tag :tabs, 'expense'
+          %br
+            = f.submit id: 'expense_transactions', value: "#{ t 'search_panel.search' }"

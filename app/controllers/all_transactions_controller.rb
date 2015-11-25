@@ -2,8 +2,10 @@ class AllTransactionsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @expense_categories = ExpenseCategory.where(user_id: current_user.id).order(:lft)
-    @income_categories = IncomeCategory.where(user_id: current_user.id)
+
+    @expense_categories = current_user.expense_category
+    @income_categories = current_user.income_category
+    @income_transactions_all = current_user.income_transactions.order(:date)
 
     @q_income_transactions = current_user.income_transactions.search(SharedParams.income_params(params))
     @income_transactions = @q_income_transactions.result(distinct: true).order(:date)
