@@ -15,6 +15,7 @@ Finance::Application.routes.draw do
   end
   resources :all_transactions
   resources :statistics
+  resources :expense_divide_by_month, only: [:index]
   resources :graphics
   
   devise_scope :user do
