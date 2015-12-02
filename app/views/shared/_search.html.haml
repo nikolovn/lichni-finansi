@@ -11,7 +11,7 @@
             %div
               = f.label "#{ t 'search_panel.expense_transactions' }"
               %div
-                = select_tag('expense_category_id', options_for_select(options_for_expense_category(@expense_categories), selected: params[:expense_category_id] ), {prompt: "#{t 'search_panel.chose_category' }"})
+                = select_tag('expense_category_id', options_for_select(options_for_expense_category(@expense_categories), selected: params[:expense_category_id] ), {style: 'width:300px', prompt: "#{t 'search_panel.chose_category' }"})
     .col-md-4
       = f.label "#{ t 'search_panel.date_from' }"
       %br
