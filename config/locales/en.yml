@@ -13,7 +13,7 @@ en:
     income_transactions:
       create: 'Income transaction was successfully created.'
   menu:
-    personal_finance: 'Personal finance v 2.0'
+    personal_finance: 'Personal finance'
     enter_inome_transaction: 'Enter inome transaction'
     enter_expense_transaction: 'Enter expense transaction'
     all_transactions: 'All transactions'

@@ -126,7 +126,7 @@ bg:
       unlock_instructions:
         subject: 'Инструкции за отключване'
   menu:
-    personal_finance: 'myBudget.bg v.2.0'
+    personal_finance: 'myBudget.bg'
     enter_inome_transaction: 'Въведи приход'
     enter_expense_transaction: 'Въведи разход'
     all_transactions: 'Всички транзакции'
