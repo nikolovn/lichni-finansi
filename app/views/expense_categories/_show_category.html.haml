@@ -1,3 +1,6 @@
-%a{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "show_##{category.id}", class: 'show_sub_category', :id => "colapse_#{category.id}", title: "#{t 'expense_categories.show_sub_category' }"}
-  %b
-    = best_in_place category, :name, :activator => "#edit_#{category.id}", :inner_class => "css_class", :href => "##{category.id}"
+%div.col-md-4
+  %a{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "show_##{category.id}", class: 'show_sub_category', :id => "colapse_#{category.id}", title: "#{t 'expense_categories.show_sub_category' }"}
+    %b
+      = best_in_place category, :name, :activator => "#edit_#{category.id}", :inner_class => "css_class", :href => "##{category.id}"
+
+
