@@ -11,9 +11,9 @@
       - @income_transactions.each do |transaction|
         %tr
           %td= transaction.income_category.name
-          %td{:width => "25%"}= best_in_place transaction, :description, :type => :input
-          %td{:width => "25%"}= best_in_place transaction, :amount, :type => :input
-          %td{:width => "25%"}= best_in_place transaction, :date, :type => :input
+          %td{:width => "25%"}= best_in_place transaction, :description, :as => :input
+          %td{:width => "25%"}= best_in_place transaction, :amount, :as => :input
+          %td{:width => "25%"}= best_in_place transaction, :date, :as => :input
           %td{:width => "5%"}= link_to "#{ t 'all_transactions.destroy' }", income_transaction_path(id: transaction.id, params:params), method: :delete, data: { confirm: "#{ t 'all_transactions.are_you_sure' }" }
       %tr
         %td{:colspan => "3"}

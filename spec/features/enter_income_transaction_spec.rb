@@ -18,39 +18,6 @@ feature 'Enter income transaction' do
     expect(page).to have_content 'Salary Kamelia'
   end
 
-  scenario 'Add fields and Enter the new transaction' do
-    FactoryGirl.create(:income_category, name: 'Salary Nikola')
-
-    visit 'income_categories'
-      fill_in 'income_transaction_amount', with: '2300.00'
-      fill_in 'income_transaction_description', with: 'June'
-      fill_in 'income_transaction_date', with: '10.10.2014'
-
-      click_on 'Create Income transaction', match: :first
-
-      pending('Need to rework');
-      expect(page).to have_content 'Successfully added new transaction'
-    # end
-  end
-
-  scenario 'Remove fields when do not want to enter a transaction in this directory'  do
-    FactoryGirl.create(:income_category, name: 'food_and_drinks')
-    Capybara.ignore_hidden_elements = nil
-    pending "be refactor hide and show fields for transactions"
-    visit 'income_categories'
-
-    click_on 'Add a transaction'
-
-    expect(page).to have_field 'income_transaction_amount'
-    expect(page).to have_field 'income_transaction_description'
-
-    binding.pry
-
-    expect(page.find('#income_transaction_amount')).to be_visible 
-    # expect(page).not_to have_css('food_and_drink')
-    
-  end
-
   def catagory_panel
     find('#food_and_drinks')
   end

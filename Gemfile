@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.1'
+gem 'rails', '4.1.9'
 
 # Use sqlite3 as the database for Active Record
 gem 'pg'
@@ -41,7 +41,9 @@ group :test do
   gem 'launchy', '~> 2.4.2'
   gem 'selenium-webdriver', '~> 2.41.0'
   gem 'poltergeist', '~> 1.5.1'
+  gem 'minitest'
   gem 'shoulda-matchers', '~> 2.4.0'
+  gem 'test-unit-rails', '~> 1.0', '>= 1.0.4'
 end
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -84,4 +86,4 @@ gem 'rails_12factor', group: :production
 
 gem 'google-analytics-rails'
 
-gem 'bootstrap-datepicker-rails', git: 'https://github.com/nikolovn/bootstrap-datepicker-rails'
+gem 'bootstrap-datepicker-rails'

@@ -7,14 +7,12 @@ feature 'Show transactions' do
     user = FactoryGirl.create(:user)
     login_as(user, :scope => :user)
   end
-  #include AuthHelper
-  #include DOMHelper
-  #ajax and select filed not refresh page
+
   scenario 'List expense transactions without select inpud date' do
     parent = FactoryGirl.create(:expense_category, name: 'Car')
     child_category = FactoryGirl.create(:expense_category, name: 'Oil', parent: parent)
     FactoryGirl.create(:expense_transaction, description: 'expense_transaction',
-      amount: 10, date: 'EUR', user_id: '1', date: Date.today , expense_category: child_category)
+      amount: 10, user_id: '1', date: Date.today , expense_category: child_category)
   
     visit all_transactions_path
 
@@ -29,11 +27,11 @@ feature 'Show transactions' do
     child_category = FactoryGirl.create(:expense_category, name: 'Oil', parent: parent)
 
     FactoryGirl.create(:expense_transaction, description: 'expense_transaction_1',
-      amount: 10, date: 'EUR', user_id: '1', date: '2014-08-09' , expense_category: child_category, 
+      amount: 10, user_id: '1', date: '2014-08-09' , expense_category: child_category, 
       income_transaction_id: 1)
 
     FactoryGirl.create(:expense_transaction, description: 'expense_transaction_1',
-      amount: 10, date: 'EUR', user_id: '1', date: '2014-09-09' , expense_category_id: child_category.id, 
+      amount: 10, user_id: '1', date: '2014-09-09' , expense_category_id: child_category.id, 
       income_transaction_id: 1)
 
     visit all_transactions_path
@@ -59,11 +57,11 @@ feature 'Show transactions' do
     child_category_2 = FactoryGirl.create(:expense_category, name: 'gasoline', parent: parent_2)
 
     FactoryGirl.create(:expense_transaction, description: 'expense_transaction_1',
-      amount: 10, date: 'EUR', user_id: '1', date: '2014-08-09' , expense_category: child_category, 
+      amount: 10, user_id: '1', date: '2014-08-09' , expense_category: child_category, 
       income_transaction_id: 1)
 
     FactoryGirl.create(:expense_transaction, description: 'expense_transaction_2',
-      amount: 20, date: 'EUR', user_id: '1', date: '2014-08-09' , expense_category: child_category_2, 
+      amount: 20, user_id: '1', date: '2014-08-09' , expense_category: child_category_2, 
       income_transaction_id: 1)
 
     visit all_transactions_path

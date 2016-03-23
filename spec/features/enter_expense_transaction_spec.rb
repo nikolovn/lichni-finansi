@@ -37,26 +37,6 @@ feature 'Enter expense transaction' do
        click_on 'Create Expense transaction'
 
        expect(page).to have_content 'Expense transaction was successfully created'
-    # end
-  end
-  
-  ## add check for dropdown
-  scenario 'Remove fields when do not want to enter a transaction in this directory'  do
-    FactoryGirl.create(:expense_category, name: 'food_and_drinks')
-    Capybara.ignore_hidden_elements = nil
-    pending "be refactor hide and show fields for transactions"
-    visit 'income_categories'
-
-    click_on 'Add a transaction'
-
-    expect(page).to have_field 'income_transaction_amount'
-    expect(page).to have_field 'income_transaction_description'
-
-    binding.pry
-
-    expect(page.find('#income_transaction_amount')).to be_visible 
-    # expect(page).not_to have_css('food_and_drink')
-    
   end
 
   def catagory_panel

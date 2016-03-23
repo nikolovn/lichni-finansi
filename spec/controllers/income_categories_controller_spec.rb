@@ -13,14 +13,6 @@ describe IncomeCategoriesController do
       expect(response).to be_success
       expect(response).to render_template :index
     end
-
-    it 'initializes the instance variables' do
-      pending('must be rework')
-
-      get :index
-
-      expect(assigns(:income_categories)).to eq(ActiveRecord::AssociationRelation.new(income_categories))
-    end
   end
 
   describe 'GET #new' do
@@ -134,31 +126,6 @@ describe IncomeCategoriesController do
 
 
       put :update, id: 1,  income_category: income_category_params
-
-      expect(response).to redirect_to income_categories_path
-    end
-  end
-
-  describe 'DELETE #destroy' do
-    it 'deletes the category' do
-      pending 'need to be rework spec or code'
-
-      income_category = double(IncomeCategory)
-
-      IncomeCategory.should_receive(:find).with('1') { income_category }
-      income_category.should_receive(:destroy)
-
-      delete :destroy, id: 1
-     end
-
-    it 'redirects to #index' do
-      pending 'need to be rework spec or code'
-      income_category = double(ExpenseCategory)
-
-      IncomeCategory.should_receive(:find).with('1') { income_category }
-      income_category.stub(:destroy)
-      
-      delete :destroy, id: 1
 
       expect(response).to redirect_to income_categories_path
     end

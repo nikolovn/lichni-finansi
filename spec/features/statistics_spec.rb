@@ -7,8 +7,6 @@ feature 'Statistics' do
     user = FactoryGirl.create(:user)
     login_as(user, :scope => :user)
   end
-  #include AuthHelper
-  #include DOMHelper
 
   scenario 'Show graphics for income category'  do
     income_category = FactoryGirl.create(:income_category, name: 'salary')

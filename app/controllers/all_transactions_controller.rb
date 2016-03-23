@@ -16,7 +16,7 @@ class AllTransactionsController < ApplicationController
     @expense_transactions_amount = @expense_transactions.collect(&:amount).sum
     @income_transactions_amount = @income_transactions.collect(&:amount).sum
 
-    @current_balance = @income_transactions_amount - @expense_transactions_amount
+    @current_balance = Monetize.parse(@income_transactions_amount) - Monetize.parse(@expense_transactions_amount)
     active_income
   end
 
