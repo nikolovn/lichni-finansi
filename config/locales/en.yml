@@ -76,7 +76,7 @@ en:
     filter_transactions: 'Filter transactions'
     income_transactions: 'Income transactions'
     expense_transactions: 'Expense transactions'
-    balance: 'balance'
+    balance: 'Balance'
     category: 'category'
     sub_category: 'Sub category'
     description: 'description'
