@@ -1,6 +1,8 @@
 MyBudGet
 ========
 
+## Purpose
+
 Using this APP you are able to control your finances. You can add new Expense categories, Income Categories, Income Tranactions, Expense Transactions. You can see detailed statistics of incomes and expenses, divided by category, days, and other criteria.
 
 The application has the following tabs:
