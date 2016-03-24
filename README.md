@@ -14,6 +14,6 @@ You can add new Expense categories, Income Categories, Income Transactions, Expe
 
 [MyBudget](http://finance-lmay.herokuapp.com/?locale=en "MyBudget")
 ```
-user: demo@mybudget.bg
+user: demo@demo.com
 password: demo
 ```
