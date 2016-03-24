@@ -11,10 +11,10 @@ module Statistics
     
     expense_category.where(ancestry_depth: 0).map do |category|
       Hash[id: category.id, name: category.name, amount:
-        Monetize.parse(category.descendants.map do |descendant| 
+        category.descendants.map do |descendant| 
          q_expense_transactions = descendant.expense_transactions.search(expense_params)
-         q_expense_transactions.result(distinct: true).collect(&:amount).sum
-        end.sum).to_f]
+         Monetize.parse(q_expense_transactions.result(distinct: true).collect(&:amount).sum)
+        end.sum.to_f]
     end.sort_by{|v, k| v[:amount]}.reverse
   end 
 
