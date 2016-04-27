@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/widernet/best_in_place.git
+  revision: 964f3f36fe24cd7cd304b44f4ffac2ee1de3cd1e
+  branch: rails-4
+  specs:
+    best_in_place (2.0.3)
+      jquery-rails
+      rails (~> 4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -32,9 +41,6 @@ GEM
       activerecord (>= 3.0.0)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.11)
-    best_in_place (3.1.0)
-      actionpack (>= 3.2)
-      railties (>= 3.2)
     bootstrap-datepicker-rails (1.6.0.1)
       railties (>= 3.0)
     bootstrap-sass (3.1.1.1)
@@ -279,7 +285,7 @@ PLATFORMS
 
 DEPENDENCIES
   ancestry (~> 2.1.0)
-  best_in_place
+  best_in_place!
   bootstrap-datepicker-rails
   bootstrap-sass (~> 3.1.1)
   capybara (~> 2.2.1)
