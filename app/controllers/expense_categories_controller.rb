@@ -9,7 +9,7 @@ class ExpenseCategoriesController < ApplicationController
   def index
     @expense_parent_categories = expense_parent_category
     @expense_transaction = ExpenseTransaction.new
-    @income_transactions = current_user.income_transactions
+    @income_transactions = current_user.income_transactions.order(:date)
     @expense_category = ExpenseCategory.new
   end
 
