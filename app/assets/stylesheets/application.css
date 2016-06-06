@@ -13,6 +13,9 @@
  *= require_tree .
  *= require bootstrap-datepicker
  */
+.btn.btn-warning.btn-sm {
+  color: #ffffff;
+}
 
 .form-signin {
   max-width: 330px;

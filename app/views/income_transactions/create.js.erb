@@ -2,4 +2,6 @@ $("#add_transaction_message_<%= @transaction.income_category_id %>").html("<%= e
 
 setTimeout(function(){
   $("#add_transaction_message_<%= @transaction.income_category_id %>").html("");
+  $("#add_sub_<%= @transaction.income_category_id %>").html("");
+
 }, 5000);

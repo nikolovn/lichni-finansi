@@ -5,10 +5,10 @@
     %table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
       %thead
         %tr
-          %th.col-md-10 
+          %th.col-md-7 
             = t 'expense_categories.category'
             = render partial: 'add_category'
-          %th.col-md-2= t 'expense_categories.action'
+          %th.col-md-5= t 'expense_categories.action'
       %tbody
         - @income_categories.each do |category|
           %tr
