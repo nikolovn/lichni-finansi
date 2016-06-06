@@ -10,7 +10,7 @@
           = f.text_field :amount, class: "form-control"
           = f.label "#{t 'expense_transactions.date'}"
           %br
-            = f.text_field :date ,'data-provide' => 'datepicker' ,'data-date-language' => 'bg','data-date-week-start' => 1, 'data-date-days-of-week-highlighted' => '0,6' ,'data-date-format' => 'dd/mm/yyyy', placeholder: 'DD/MM/YYYY'
+            = f.text_field :date ,'data-provide' => 'datepicker' ,'data-date-language' => 'bg','data-date-week-start' => 1,'data-date-autoclose' => 'true', 'data-date-days-of-week-highlighted' => '0,6' ,'data-date-format' => 'dd/mm/yyyy', placeholder: 'DD/MM/YYYY'
           %br
             %div{:id => "add_transaction_message_#{income_category_id}"}
             = f.submit "#{t 'income_transactions.save_income'}", class: 'btn btn-success btn-sm'
