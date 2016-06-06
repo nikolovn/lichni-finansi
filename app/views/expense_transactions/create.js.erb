@@ -3,4 +3,7 @@ $("#add_transaction_message_<%= @transaction.expense_category_id %>").html("<%= 
 
 setTimeout(function(){
   $("#add_transaction_message_<%= @transaction.expense_category_id %>").html("");
+<% if flash[:error].blank? %>
+  $("#<%= @transaction.expense_category_id %>").removeClass('panel-collapse collapse in').addClass("panel-collapse collapse");
+<% end %>
 }, 5000);

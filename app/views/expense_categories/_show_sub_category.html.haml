@@ -15,8 +15,8 @@
 
               = render partial: 'expense_transactions/form', locals: { expense_category_id: descendant.id }              
           %td
-            %a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "##{descendant.id}", 'title' => "#{t 'expense_categories.enter_еxepense' }", 'name' => "#{t 'expense_categories.edit_category' }", :id => "colapse_#{descendant.id}", class: 'glyphicon glyphicon-plus' }
-            %a{:href => "#", :id => "edit_#{descendant.id}", class: 'glyphicon glyphicon-pencil', title: "#{t 'expense_categories.edit_category' }"}
-            = link_to '', expense_category_path(descendant.id), method: :delete, data: { confirm: 'Are you sure?' }, title: "#{t 'expense_categories.delete_category' }", class: "glyphicon glyphicon-remove"
+            %a.collapsed{"aria-controls" => "collapseTwo", "aria-expanded" => "false", "data-parent" => "#accordion", "data-toggle" => "collapse", :href => "##{descendant.id}", 'title' => "#{t 'expense_categories.enter_еxepense' }", 'name' => "#{t 'expense_categories.edit_category' }", :id => "colapse_#{descendant.id}", class: 'btn btn-info btn-xs' } #{t 'expense_categories.enter_еxepense' }
+            %a{:href => "#", :id => "edit_#{descendant.id}", class: 'btn btn-warning btn-xs', title: "#{t 'expense_categories.edit_category' }"} #{t 'expense_categories.edit_sub_category' }
+            = link_to "#{t 'expense_categories.delete_sub_category' }", expense_category_path(descendant.id), method: :delete, data: { confirm: 'Are you sure?' }, title: "#{t 'expense_categories.delete_category' }", class: "btn btn-danger btn-xs"
             %a{"data-parent" => "#accordion", "data-toggle" => "collapse", :href => "##{descendant.id}" }  
 

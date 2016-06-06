@@ -23,4 +23,4 @@
                         = f.select :expense_type, options_for_select([["#{t 'expense_transactions.investment'}", 'investment' ], ["#{t 'expense_transactions.saving'}", 'saving'], ["#{t 'expense_transactions.expense'}", 'expense']])
                   .actions
                     %div{:id => "add_transaction_message_#{expense_category_id}"}
-                    = f.submit "#{t 'expense_transactions.create_expense'}"
+                    = f.submit "#{t 'expense_transactions.create_expense'}", class: 'btn btn-success btn-sm'

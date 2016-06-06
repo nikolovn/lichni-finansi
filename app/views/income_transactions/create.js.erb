@@ -2,6 +2,7 @@ $("#add_transaction_message_<%= @transaction.income_category_id %>").html("<%= e
 
 setTimeout(function(){
   $("#add_transaction_message_<%= @transaction.income_category_id %>").html("");
-  $("#add_sub_<%= @transaction.income_category_id %>").html("");
-
+<% if flash[:error].blank? %>
+  $("#add_sub_<%= @transaction.income_category_id %>").removeClass('col-md-8 panel-collapse collapse in').addClass("col-md-8 panel-collapse collapse");
+<% end %>
 }, 5000);
