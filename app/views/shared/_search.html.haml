@@ -23,7 +23,7 @@
     .col-md-4
       = f.label "#{ t 'search_panel.keys' }"
       %br
-        = text_field_tag 'description'
+        = text_field_tag 'description', nil, placeholder: "#{ t 'search_panel.search' }..."
         %br
           = hidden_field_tag :tabs, 'expense'
           %br
