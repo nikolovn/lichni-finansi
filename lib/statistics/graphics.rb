@@ -18,7 +18,6 @@ module Statistics
             :data => expense_categories_hash.map {|expense_category| expense_category[:amount] }, 
             :legend => expense_categories_hash.map {|expense_category| expense_category[:name] },
             :bg => {:color => 'ffffff', :type => 'stripes'}, 
-            :bar_colors => 'ff0000,00ff00',
       })
     end
 
