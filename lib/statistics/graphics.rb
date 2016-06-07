@@ -40,7 +40,7 @@ module Statistics
             :data => graphics_balance_category_hash.values.shift(2).map {|balance| balance.amount}, 
             :legend => [income_legend, expense_legend],
             :bg => {:color => 'ffffff', :type => 'stripes'}, 
-            :bar_colors => colors
+            :bar_colors => 'ff0000,00ff00',
       })
     end
    
@@ -54,7 +54,7 @@ module Statistics
             :data => graphics_expense_type_hash.values.map {|expense_type| expense_type.amount}, 
             :legend => legend,
             :bg => {:color => 'ffffff', :type => 'stripes'}, 
-            :bar_colors => colors
+            :bar_colors => 'ff0000,00ff00',
       })
     end
 
@@ -87,7 +87,7 @@ module Statistics
     end
 
     def graphics_expense_by_category_by_month(expense_by_category_by_month_hash, title)
-      generator = ColorGenerator.new saturation: 10, lightness: 0.6, seed: 12345
+      generator = ColorGenerator.new saturation: 1, lightness: 0.6, seed: 12345
       colors = expense_by_category_by_month_hash.map {|expense_category| generator.create_hex}
       
       Gchart.line({
