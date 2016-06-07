@@ -25,8 +25,8 @@ module SharedParams
 
   def self.date_params(params)
     {
-      date_gteq: params[:from_date] || Date.today,
-      date_lteq: params[:to_date] || Date.today - 1.year
+      date_gteq: (params[:from_date] || Date.today.strftime("%m/%d/%Y")),
+      date_lteq: (params[:to_date] || (Date.today - 1.year).strftime("%m/%d/%Y"))
     }
   end
 end
