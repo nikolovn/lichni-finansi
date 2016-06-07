@@ -222,7 +222,9 @@ bg:
     saving: 'Спестявания'
     investment: 'Инвестиции'
     balance: 'Баланс'
-    expense_by_date: 'Разходи разделени по дата'
+    categories_date: 'Категории/Дата'
+    expense_by_date_category: 'Разходи разделени по месец от годината и категория'
+    expense_by_date_balance: 'Баланс разделен по месеци от годината'
   index:
     please_log_in: 'Вход:'
     remember: 'Запомни ме'

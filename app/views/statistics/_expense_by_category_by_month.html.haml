@@ -2,9 +2,14 @@
 %table.table.table-bordered.table-hover.table-condensed.table-striped.table-responsive
   - if @expense_by_category_by_month_hash.present?
     %tr
-      %td
-    - params[:from_date]..params[:to_date].each do |day|
-      %td= day
+      %td=t 'statistics.categories_date'
+      - array = []
+      - @expense_by_category_by_month_hash.map do |income|
+        - income[:expense].map do |expense|
+          - array << expense[:income_transaction_date]
+          - array = array.uniq
+      - array.each do |date|
+        %td= date
     - @expense_by_category_by_month_hash.map  do |income|
       %tr
         %td= income[:parent_category_id]

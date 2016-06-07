@@ -26,10 +26,10 @@ class StatisticsController < ApplicationController
 
     if params[:income_category_id].present? && params[:income_transaction_id].blank? && expense_transactions.present?
       @expense_by_month_hash = Statistics::Calculation.calculate_expense_by_month(expense_transactions, @income_transactions)
-      @expense_by_month = Statistics::Graphics.graphics_expense_by_month(@expense_by_month_hash, "#{t 'statistics.expense_by_date' }", ["#{t 'statistics.income' }", "#{t 'statistics.expense' }"])
+      @expense_by_month = Statistics::Graphics.graphics_expense_by_month(@expense_by_month_hash, "#{t 'statistics.expense_by_date_balance' }", ["#{t 'statistics.income' }", "#{t 'statistics.expense' }"])
 
       @expense_by_category_by_month_hash = Statistics::Calculation.calculate_expense_by_category_by_month(@expense_categories, expense_transactions, @income_transactions)
-      @expense_by_category_month = Statistics::Graphics.graphics_expense_by_category_by_month(@expense_by_category_by_month_hash, "#{t 'statistics.expense_by_date' }") 
+      @expense_by_category_month = Statistics::Graphics.graphics_expense_by_category_by_month(@expense_by_category_by_month_hash, "#{t 'statistics.expense_by_date_category' }") 
     end
   end
 end
