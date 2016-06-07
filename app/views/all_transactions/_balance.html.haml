@@ -4,4 +4,5 @@
       %tr
         %th
           = t 'all_transactions.current_balance'
-          \: #{@current_balance} лв.
+          \: #{number_to_currency(@current_balance, unit: 'лв.', separator: ",", delimiter: "", format: "%n %u")}
+

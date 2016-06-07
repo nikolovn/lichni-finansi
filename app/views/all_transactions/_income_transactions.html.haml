@@ -12,11 +12,11 @@
         %tr
           %td= transaction.income_category.name
           %td{:width => "25%"}= best_in_place transaction, :description, :as => :input
-          %td{:width => "25%"}= best_in_place transaction, :amount, :as => :input
+          %td{:width => "25%"}= best_in_place transaction, :amount, :as => :input, :display_with => :number_to_currency, :helper_options => {unit: "лв.", separator: ",", delimiter: "", format: "%n %u"}
           %td{:width => "25%"}= best_in_place transaction, :date, :as => :input
           %td{:width => "5%"}= link_to "#{ t 'all_transactions.destroy' }", income_transaction_path(id: transaction.id, params:params), method: :delete, data: { confirm: "#{ t 'all_transactions.are_you_sure' }" }
       %tr
-        %td{:colspan => "3"}
+        %td{:colspan => "2"}
           %b= t 'all_transactions.sum'
         %td{:colspan => "2"}
-          %b= @income_transactions_amount
+          %b= number_to_currency(@income_transactions_amount, unit: 'лв.', separator: ",", delimiter: "", format: "%n %u")
