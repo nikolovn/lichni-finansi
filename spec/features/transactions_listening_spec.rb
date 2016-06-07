@@ -18,7 +18,7 @@ feature 'Show transactions' do
 
     expect(page).to have_text 'Oil'
     expect(page).to have_text 'expense_transaction'
-    expect(page).to have_text '10.0'
+    expect(page).to have_text '10,00 лв.'
     expect(page).to have_text "#{Date.today}"
   end
 
@@ -46,7 +46,7 @@ feature 'Show transactions' do
 
     expect(page).to have_text 'Oil' 
     expect(page).to have_text 'expense_transaction_1'
-    expect(page).to have_text '10.0'
+    expect(page).to have_text '10,00 лв.'
   end
 
   scenario 'List expense transactions when select parent expense category' do
@@ -75,9 +75,9 @@ feature 'Show transactions' do
     end
     expect(page).to have_text 'Oil' 
     expect(page).to have_text 'expense_transaction_1'
-    expect(page).to have_text '10.0'
+    expect(page).to have_text '10,00 лв.'
     
-    expect(page).not_to have_text '20.0'
+    expect(page).not_to have_text '20,00 лв.'
   end
   
   scenario 'Filter transactions by description' do
