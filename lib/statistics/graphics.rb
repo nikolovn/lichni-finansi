@@ -3,7 +3,7 @@ module Statistics
     require 'color-generator'
 
     def graphics_income_transactions(income_categories_hash, title)
-      generator = ColorGenerator.new saturation: 1, lightness: 0.75
+      generator = ColorGenerator.new saturation: 1, lightness: 0.6, seed: 12345
       colors = income_categories_hash.map {|expense_category| generator.create_hex}
       
       Gchart.pie_3d({
@@ -17,7 +17,7 @@ module Statistics
     end
 
     def graphics_expense_category(expense_categories_hash, title)
-      generator = ColorGenerator.new saturation: 1, lightness: 0.75
+      generator = ColorGenerator.new saturation: 1, lightness: 0.6, seed: 12345
       colors = expense_categories_hash.map {|expense_category| generator.create_hex}
 
       Gchart.pie_3d({
@@ -31,7 +31,7 @@ module Statistics
     end
 
     def graphics_balance(graphics_balance_category_hash, title, income_legend, expense_legend)
-      generator = ColorGenerator.new saturation: 1, lightness: 0.75
+      generator = ColorGenerator.new saturation: 1, lightness: 0.6, seed: 12345
       colors = graphics_balance_category_hash.map {|expense_category| generator.create_hex}
 
       Gchart.pie_3d({
@@ -45,7 +45,7 @@ module Statistics
     end
    
     def graphics_expense_type(graphics_expense_type_hash, title, legend)
-      generator = ColorGenerator.new saturation: 1, lightness: 0.75
+      generator = ColorGenerator.new saturation: 1, lightness: 0.6, seed: 12345
       colors = graphics_expense_type_hash.map {|expense_category| generator.create_hex}
 
       Gchart.pie_3d({
@@ -59,7 +59,7 @@ module Statistics
     end
 
     def graphics_expense_by_date(expense_by_date_hash, title)
-      generator = ColorGenerator.new saturation: 1, lightness: 0.75
+      generator = ColorGenerator.new saturation: 1, lightness: 0.6, seed: 12345
       colors = expense_by_date_hash.map {|expense_category| generator.create_hex}
 
       Gchart.line({
@@ -73,7 +73,7 @@ module Statistics
     end
 
     def graphics_expense_by_month(expense_by_month_hash, title, legend)
-      generator = ColorGenerator.new saturation: 1, lightness: 0.75
+      generator = ColorGenerator.new saturation: 1, lightness: 0.6, seed: 12345
       colors = expense_by_month_hash.map {|expense_category| generator.create_hex}
 
       Gchart.line({
@@ -87,7 +87,7 @@ module Statistics
     end
 
     def graphics_expense_by_category_by_month(expense_by_category_by_month_hash, title)
-      generator = ColorGenerator.new saturation: 1, lightness: 0.75
+      generator = ColorGenerator.new saturation: 10, lightness: 0.6, seed: 12345
       colors = expense_by_category_by_month_hash.map {|expense_category| generator.create_hex}
       
       Gchart.line({
@@ -99,7 +99,6 @@ module Statistics
             :bar_colors => colors
       })
     end
-
 
     module_function :graphics_income_transactions
     module_function :graphics_expense_category
