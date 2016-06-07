@@ -9,4 +9,4 @@
       - params[:tabs] = 'expense'
       - params[:expense_type] = type
       %td= link_to("#{t %q(statistics.) + type.to_s }", all_transactions_path(params))
-      %td= amount
+      %td= number_to_currency_bgn(amount)

@@ -9,5 +9,5 @@
       - params[:expense_category_id] = expense_category[:id]
       %b
         %td= link_to("#{expense_category[:name]}", all_transactions_path(params))
-      %td= "#{expense_category[:amount]}"
+      %td= number_to_currency_bgn(expense_category[:amount])
   - params[:expense_category_id]  = nil

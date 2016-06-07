@@ -10,4 +10,4 @@
         - params.merge(params[:q])
         %td= link_to("#{hash[:date]}", all_transactions_path(params))
         %td
-          = hash[:amount]
+          = number_to_currency_bgn(hash[:amount])
