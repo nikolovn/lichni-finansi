@@ -5,4 +5,4 @@
       %tr
         %td= income[:parent_category_id]
         - income[:expense].map do |expense|
-          %td= "#{number_to_currency_bgn(expense[:expense_category_amount])} / #{Date.parse(expense[:income_transaction_date])}"
+          %td{:nowrap => ""}= "#{number_to_currency_bgn(expense[:expense_category_amount])}  #{Date.parse(expense[:income_transaction_date])}"
