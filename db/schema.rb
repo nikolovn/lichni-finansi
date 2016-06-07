@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029105712) do
+ActiveRecord::Schema.define(version: 20160607082631) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -24,6 +27,7 @@ ActiveRecord::Schema.define(version: 20151029105712) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
     t.integer  "depth"
@@ -35,18 +39,18 @@ ActiveRecord::Schema.define(version: 20151029105712) do
   add_index "expense_categories", ["user_id"], name: "index_expense_categories_on_user_id", using: :btree
 
   create_table "expense_transactions", force: true do |t|
-    t.text     "description"
-    t.text     "place"
-    t.decimal  "amount_cents",               precision: 10, scale: 0
-    t.datetime "date"
-    t.integer  "expense_category_id"
-    t.text     "type"
-    t.string   "expense_type"
-    t.integer  "user_id"
-    t.integer  "income_transaction_id"
-    t.string   "amount_currency",                                     default: "USD", null: false
-    t.integer  "income_category_id"
-    t.integer  "parent_expense_category_id"
+    t.text    "description"
+    t.text    "place"
+    t.decimal "amount_cents"
+    t.date    "date"
+    t.integer "expense_category_id"
+    t.text    "type"
+    t.string  "expense_type"
+    t.integer "user_id"
+    t.integer "income_transaction_id"
+    t.string  "amount_currency",            default: "USD", null: false
+    t.integer "income_category_id"
+    t.integer "parent_expense_category_id"
   end
 
   add_index "expense_transactions", ["income_category_id"], name: "index_expense_transactions_on_income_category_id", using: :btree
@@ -55,7 +59,7 @@ ActiveRecord::Schema.define(version: 20151029105712) do
   create_table "finance_lmays", force: true do |t|
     t.string   "incomeexpense"
     t.text     "description"
-    t.decimal  "amount",             precision: 10, scale: 0
+    t.decimal  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "category_id"
@@ -72,12 +76,13 @@ ActiveRecord::Schema.define(version: 20151029105712) do
   add_index "income_categories", ["user_id"], name: "index_income_categories_on_user_id", using: :btree
 
   create_table "income_transactions", force: true do |t|
-    t.text     "description"
-    t.decimal  "amount_cents",       precision: 10, scale: 0
-    t.datetime "date"
-    t.integer  "income_category_id"
-    t.integer  "user_id"
-    t.string   "amount_currency",                             default: "USD", null: false
+    t.text    "description"
+    t.decimal "amount_cents"
+    t.date    "date"
+    t.integer "income_category_id"
+    t.integer "user_id"
+    t.string  "amount_currency",           default: "USD", null: false
+    t.integer "parent_income_category_id"
   end
 
   add_index "income_transactions", ["user_id"], name: "index_income_transactions_on_user_id", using: :btree
@@ -103,7 +108,7 @@ ActiveRecord::Schema.define(version: 20151029105712) do
   create_table "transactions", force: true do |t|
     t.string   "incomeexpense"
     t.text     "description"
-    t.decimal  "amount",        precision: 10, scale: 0
+    t.decimal  "amount"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "category_id"
