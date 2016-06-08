@@ -132,6 +132,7 @@ bg:
     all_transactions: 'Всички транзакции'
     future_payments: 'Предстоящи плащания'
     statistics: 'Статистика'
+    admin: 'Админ'
     log_out: 'Изход'
   income_categories:
     income_transactions: 'Приходи'

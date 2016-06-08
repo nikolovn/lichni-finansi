@@ -25,7 +25,11 @@
               %li{:class => active_class?(expense_categories_path)}= link_to "#{t 'menu.enter_expense_transaction'}", expense_categories_path, :class => active_class?(expense_categories_path)
               %li{:class => active_class?(all_transactions_path)}= link_to "#{t 'menu.all_transactions'}", all_transactions_path
               %li{:class => active_class?(statistics_path)}= link_to "#{t 'menu.statistics'}", statistics_path
+              %li{:class => active_class?(rails_admin_path)}= link_to "#{t 'menu.admin'}", rails_admin_path if can? :access, :rails_admin
               %li{:class => active_class?(destroy_user_session_path)}= link_to "#{t 'menu.log_out'}", destroy_user_session_path, :method => :delete
+              %li
+                = link_to edit_user_registration_path, class: "navbar-link" do
+                  = "#{current_user.email}"
       / /.container-fluid
     .container
       - flash.each do |name, msg|

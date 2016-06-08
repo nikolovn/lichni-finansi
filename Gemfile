@@ -26,6 +26,10 @@ gem 'ransack', '~> 1.2.2'
 
 gem 'money-rails'
 
+gem 'rails_admin'
+
+gem 'cancan'
+
 group :development, :test do
   gem 'rspec-rails', '~> 2.13.1'
   gem 'mysql2', '~> 0.3.13'

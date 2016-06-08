@@ -1,0 +1,16 @@
+# Bulgarian
+
+bg:
+  home:
+    name: "начало"
+  views:
+    pagination:
+      previous: "&laquo; Prev"
+      next: "Next &raquo;"
+      truncate: "…"
+  admin:
+    actions:
+      dashboard:
+        title: 'Администрация'
+        menu: 'Меню'
+        breadcrumb: 'Табло'
