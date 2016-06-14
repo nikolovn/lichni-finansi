@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title myBudget.bg
+    %title lichni-finansi.info
     = stylesheet_link_tag  "application", media: "all", "data-turbolinks-track" => true
     = javascript_include_tag 'application'
     = csrf_meta_tags
@@ -41,4 +41,4 @@
           .alert.alert-success{:role => "alert"}
             = content_tag :div, msg, class: name
       = yield
-  = render 'layouts/tyxo' if Rails.env.production?
+  = render 'layouts/google_analytics' if Rails.env.production?
