@@ -41,3 +41,4 @@
           .alert.alert-success{:role => "alert"}
             = content_tag :div, msg, class: name
       = yield
+      = render 'google_realizations' if user_signed_in?
