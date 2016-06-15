@@ -41,4 +41,3 @@
           .alert.alert-success{:role => "alert"}
             = content_tag :div, msg, class: name
       = yield
-  = render 'layouts/google_analytics' if Rails.env.production?

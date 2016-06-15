@@ -78,5 +78,5 @@ Finance::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  GA.tracker = 'UA-61498388-1'
+  GA.tracker = 'UA-79240264-1'
 end
