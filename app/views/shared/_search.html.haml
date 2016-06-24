@@ -15,11 +15,11 @@
     .col-md-4
       = f.label "#{ t 'search_panel.date_from' }"
       %br
-        = text_field_tag 'from_date', value = params[:from_date] || (Date.today-1.year).strftime("%d/%m/%Y"), options = { 'data-provide' => 'datepicker', 'data-date-autoclose' => 'true', 'data-date-language' => 'bg', 'data-date-week-start' => 1, 'data-date-days-of-week-disabled' => '0,6', 'data-date-format' => 'dd/mm/yyyy', placeholder: 'DD/MM/YYYY'}
+        = text_field_tag 'from_date', value = params[:from_date] || (Date.today-1.year).strftime("%d/%m/%Y"), options = { 'data-provide' => 'datepicker', 'data-date-autoclose' => 'true', 'data-date-language' => 'bg', 'data-date-week-start' => 1, 'data-date-days-of-week-highlighted' => '0,6', 'data-date-format' => 'dd/mm/yyyy', placeholder: 'DD/MM/YYYY'}
         %br
           = f.label "#{ t 'search_panel.date_to' }"
           %br
-            = text_field_tag 'to_date', value = params[:to_date] || Date.today.strftime("%d/%m/%Y"),options = { 'data-provide' => 'datepicker' ,'data-date-language' => 'bg','data-date-autoclose' => 'true','data-date-week-start' => 1, 'data-date-days-of-week-disabled' => '0,6' ,'data-date-format' => 'dd/mm/yyyy', placeholder: 'DD/MM/YYYY' }
+            = text_field_tag 'to_date', value = params[:to_date] || Date.today.strftime("%d/%m/%Y"),options = { 'data-provide' => 'datepicker' ,'data-date-language' => 'bg','data-date-autoclose' => 'true','data-date-week-start' => 1, 'data-date-days-of-week-highlighted' => '0,6' ,'data-date-format' => 'dd/mm/yyyy', placeholder: 'DD/MM/YYYY' }
     .col-md-4
       = f.label "#{ t 'search_panel.keys' }"
       %br
