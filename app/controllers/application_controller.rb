@@ -14,4 +14,15 @@ class ApplicationController < ActionController::Base
     flash[:error] = 'Access denied.'
     redirect_to main_app.root_url
   end
+
+
+  def user
+    user = current_user
+    
+    if current_user.admin? 
+      user = params['user_id'].present? ? User.find(params['user_id']) : current_user
+    end
+    
+    user 
+  end
 end

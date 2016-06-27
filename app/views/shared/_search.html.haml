@@ -24,6 +24,10 @@
       = f.label "#{ t 'search_panel.keys' }"
       %br
         = text_field_tag 'description', nil, placeholder: "#{ t 'search_panel.search' }..."
+        - if current_user.admin?
+          %br 
+          %br
+            = select_tag('user_id', options_for_select(User.all.map{ |t| [t.email, t.id] },  selected: params[:user_id] ), {style: "width:170px", prompt: "#{t 'search_panel.chose_user' }"})
         %br
           = hidden_field_tag :tabs, 'expense'
           %br

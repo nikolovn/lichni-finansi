@@ -214,6 +214,7 @@ bg:
     category: 'Категория'
     description: 'Описание'
     chose_category: ' Избери категория'
+    chose_user: ' Избери потребител'
   statistics: 
     statistics: 'Статитика'
     filter_transactions: 'Филтър на транзакциите'
