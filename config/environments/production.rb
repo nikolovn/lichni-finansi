@@ -83,8 +83,8 @@ Finance::Application.configure do
   config.action_mailer.smtp_settings = {
     :address => "mail.lichni-finansi.info",
     :port    => 26,
-    :domain  => 'lichni-finansi.info'
-    :authentication => :login
+    :domain  => 'lichni-finansi.info',
+    :authentication => :login,
     :user_name => "info@lichni-finansi.info",
     :password => "O@DykpH&7g5J"
   }
