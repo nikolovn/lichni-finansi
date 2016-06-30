@@ -80,6 +80,7 @@ Finance::Application.configure do
 
   GA.tracker = 'UA-79240264-1'
   config.action_mailer.default_url_options = { :host => 'mail.lichni-finansi.info' }
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :address => "mail.lichni-finansi.info",
     :port    => 26,
