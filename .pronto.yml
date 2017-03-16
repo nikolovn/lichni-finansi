@@ -1,0 +1,7 @@
+github:
+  slug: eMerchantPay/reconart
+  access_token: ENV['GITHUB_ACCESS_TOKEN']
+  api_endpoint: https://emp-sof-github01.emp.internal.com/api/v3/
+  web_endpoint: https://emp-sof-github01.emp.internal.com
+#max_warnings: 150
+verbose: false

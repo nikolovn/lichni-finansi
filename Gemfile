@@ -16,6 +16,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 gem "less-rails"
+
 gem 'therubyracer'
 
 gem 'bootstrap-sass', '~> 3.1.1'
@@ -34,6 +35,23 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.13.1'
   gem 'mysql2', '~> 0.3.13'
   gem 'pry', '~> 0.10.3'
+   # code analysis
+  gem 'pronto', '~> 0.6.0'
+  gem 'flay-js', '~> 0.0.3'
+  gem 'pronto-flay',                 '~> 0.6.2', require: false
+  gem 'pronto-brakeman',             '~> 0.6.0', require: false
+  gem 'pronto-fasterer',             '~> 0.6.1', require: false
+  gem 'pronto-eslint',               '~> 0.6.2', require: false
+  gem 'pronto-jshint',               '~> 0.6.0', require: false
+  # TODO - enable pronto-json with pronto 0.7+
+  # gem 'pronto-json',                 '~> 0.1.1', require: false
+  gem 'pronto-poper',                '~> 0.6.0', require: false
+  gem 'pronto-rails_best_practices', '~> 0.6.0', require: false
+  gem 'pronto-rails_schema',         '~> 0.6.0', require: false
+  gem 'pronto-reek',                 '~> 0.6.1', require: false
+  # TODO - enable this when sass is updated together with related libs like chosen, etc
+  # gem 'pronto-scss',                 '~> 0.6.0', require: false
+  gem 'pronto-rubocop',              '~> 0.6.2', require: false
 end
 
 group :test do
