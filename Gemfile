@@ -111,3 +111,4 @@ gem 'google-analytics-rails'
 gem 'bootstrap-datepicker-rails'
 
 gem 'color-generator'
+
