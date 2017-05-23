@@ -12,7 +12,7 @@ You can add new Expense categories, Income Categories, Income Transactions, Expe
   
 ## Demo
 
-[Lichni-finansi](http://lichni-finansi.info/users/sign_in "MyBudget")
+[Lichni-finansi](http://lichni-finansi.herokuapp.com/users/sign_in "MyBudget")
 ```
 user: demo@demo.com
 password: demo
