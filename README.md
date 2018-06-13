@@ -12,6 +12,7 @@ You can add new Expense categories, Income Categories, Income Transactions, Expe
 ## Usage
 ```
 ruby 2.2.4
+Rails 4.1.9
 ```
 ## Demo
 
