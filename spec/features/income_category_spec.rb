@@ -48,7 +48,7 @@ feature 'Enter Category' do
 
     visit 'income_categories'
 
-    click_on('Delete')
+    first(:link, 'Delete').click
 
     expect(page).not_to have_content 'Salary1'
   end
